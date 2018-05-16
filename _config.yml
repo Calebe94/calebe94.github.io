@@ -1,26 +1,26 @@
 # Site settings
-title: My Territory
-default_author: Shikher Verma
-description: "Online Territory of Shikher Verma"  # used in site head
+title: Calebe94
+default_author: Edimar Calebe Castanho
+description: "Online Territory of Calebe94"  # used in site head
 
 # register on google analytics and replace this token
-google_analytics: UA-75681059-1
+google_analytics: 
 # disque comments are broken if you send http:// along with url, this url is same as the one given on disqus
 # Deleting the value would remove it from footer.
-disqus_url: shikherverma.com
-disqus_id: shikherverma
+disqus_url: 
+disqus_id: 
 # register on feedburner and replace this url. Deleting the value will remove it from footer.
-feedburner_url: https://feedburner.google.com/fb/a/mailverify?uri=programmer-wannabe&amp;loc=en_US
+feedburner_url: 
 
 # footer details. Deleting the value would remove it from footer.
-github_username:  shikherverma
+github_username:  Calebe94
 facebook_username:
-email: root@shikherverma.com
-stackoverflow_username:
-twitter_username : shikherverma42
-linkedin_username : shikherverma42
+email: calebe94@disroot.org
+stackoverflow_username: Calebe94
+twitter_username : 
+linkedin_username : edimar-calebe-castanho
 keybase_username :
-copyright_name: Shikher Verma
+copyright_name: 
 rss : false
 
 # used for portfolio on home page
