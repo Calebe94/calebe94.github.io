@@ -1,4 +1,4 @@
----
+<!--
 layout:     post
 title:      "Yet Another Jekyll Blog"
 subtitle:   "The Birth of yet another jekyll blog, which would be soon lost in oblivion."
@@ -7,7 +7,7 @@ author:     "Shikher Verma"
 header-img: "img/posts/jekyll-bg.jpg"
 comments: true
 tags: [ CodeMonkey ]
----
+-->
 
 **Note : Click <a href="#customize">this</a> to skip to the part where I explain about customizing this theme for your use.**
 
