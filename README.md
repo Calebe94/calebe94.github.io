@@ -1,37 +1,28 @@
-## Welcome to GitHub Pages
+# Calebe94 webpage
 
-You can use the [editor on GitHub](https://github.com/Calebe94/calebe94.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+Hi, :blush: I'm **Calebe94**. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+A passionate embedded systems developer from Brazil.
 
-### Markdown
+**And this is my website.**
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Testing Locally
 
-```markdown
-Syntax highlighted code block
+To work with this project locally you have to follow the steps bellow:
 
-# Header 1
-## Header 2
-### Header 3
+1. Clone this repo;
+2. [Install](https://jekyllrb.com/docs/) **Jekyll**;
+3. Install the project dependencies with `bundle install`;
+4. Build the project and serve it locally with `bundle exec jekyll serve`;
+5. That's it!
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Developer
 
-**Bold** and _Italic_ and `Code` text
+| <img src="https://github.com/Calebe94.png?size=200" alt="Edimar Calebe Castanho"> | 
+|:---------------------------------------------------------------------------------:|
+| [Edimar Calebe Castanho (Calebe94)](https://github.com/Calebe94)                  |
 
-[Link](url) and ![Image](src)
-```
+## License
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Calebe94/calebe94.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+All software is covered under [MIT License](https://mit-license.org/).
