@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/static/css/retro.css">
+<link rel="stylesheet" href="/static/css/carousel.css">
+<link rel="stylesheet" href="/static/css/fontello.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<!-- HTML Meta Tags -->
+<title>Meu primeiro jogo em C &mdash; Meu primeiro jogo em C - Calebe94</title>
+<meta name="description" content="Esta é a página pessoal e blog de Calebe94.">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="calebe.dev.br">
+<meta itemprop="description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta itemprop="image" content="https://media.calebe.dev.br/images/calebe94_1200.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://calebe.dev.br/site">
+<meta property="og:type" content="website">
+<meta property="og:title" content="calebe.dev.br">
+<meta property="og:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta property="og:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="calebe.dev.br">
+<meta name="twitter:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta name="twitter:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Meta Content Security Policy -->
+<!-- <meta http-equiv="Content-Security-Policy"
+     content="default-src 'self';
+     script-src 'self' 'report-sample';
+     style-src 'self' 'report-sample';
+     base-uri 'self';
+     object-src 'none';
+     connect-src 'self';
+     font-src 'self';
+     frame-src 'self';
+     form-action 'self';
+     img-src 'self' data: https:;
+     manifest-src 'self';
+     media-src 'self';
+     worker-src 'none';
+     "> -->
+
+<link rel="icon" type="image/x-icon" href="https://blog.calebe.dev.br/static/favicon.ico">
+<style type="text/css" media="screen">
+@import “/static/css/fontello”;
+</style>
+
+<title>Meu primeiro jogo em C &mdash; Meu primeiro jogo em C - Calebe94</title>
+</head>
+<body>
+    <button onclick="topFunction()" id="top-button" title="Go to top">Top</button>
+    <header class="site-header">
+
+        <nav class="nav-top">
+            <h3>
+                <div class="whoami-animation">$ whoami</div>
+                <a class="result-animation" href="/">&#8203</a>
+            </h3>
+            <h5><a href="/posts"a>✉️ Posts </a></h5>
+            <h5><a href="/uses.html">⚒️ Uses </a></h5>
+            <h5><a href="/recommends/">☝️ Recomendações </a></h5>
+            <h5><a href="//links.calebe.dev.br">🔗 Links </a></h5>
+            <h5><a href="//git.calebe.dev.br">🚧 Projetos </a></h5>
+        </nav>
+    </header>
+    <main>
+    <hr>
+<nav class="site-header"><h5>$ pwd<br>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/pong.html">Meu primeiro jogo em C</a></h5></nav>
+<!--
+title: "Meu primeiro jogo em C"
+subtitle: "Pong em SDL2"
+date: "2022-05-19 21:19:33"
+tags: [pong, C, SDL2]
+
+-->
+<h1 id="meu-primeiro-jogo-em-c">Meu primeiro jogo em C</h1>
+<p>Como vimos no <a
+href="https://blog.calebe.dev.br/posts/Que-tal-criar-um-jogo.html">post
+anterior</a>, estou com planos de criar um jogo em <strong>C</strong> e
+utilizando a biblioteca <strong>SDL2</strong>.</p>
+<p>Então para “pegar as manha” de como criar um jogo com a
+<strong>SDL2</strong> eu segui um tutorial no YouTube chamado <a
+href="https://www.youtube.com/watch?v=B4BXpiQASpA">Game Programming in C
+using SDL</a>.</p>
+<p>O projeto pode ser encontrado no link abaixo:</p>
+<ul>
+<li><a href="https://git.calebe.dev.br/sdl2-pong/">sdl2-pong - Pong but
+written in C using SDL2.</a></li>
+</ul>
+<p>Eu não achei nada complicado construir o jogo. A
+<strong>SDL2</strong> tem uma abstração bem bacana para detectar
+colisões e não tive nenhum problema durante a construção do jogo.</p>
+<p>Futuramente eu pretendo adicionar efeitos sonoros e sprites no
+jogo.</p>
+<p>Também pretendo criar uma demo web do jogo, utilizando Web
+Assembly.</p>
+<p>Bom… por enquanto é isso.</p>
+<p>Até a próxima!</p>
+<hr>
+<footer>
+<p>
+<center>
+<h3>Contatos</h3>
+<br />
+<a style="text-decoration: none;" href="https://t.me/calebe94"><i class="icon-telegram"></i>Telegram</a>
+<a style="text-decoration: none;" href="mailto:contato@calebe.dev.br"><i class="icon-mail"></i>Email</a>
+<a style="text-decoration: none;" href="https://github.com/Calebe94"><i class="icon-github-circled"></i>Github</a>
+<a style="text-decoration: none;" href="https://gitlab.com/Calebe94"><i class="icon-gitlab"></i>Gitlab</a>
+<a style="text-decoration: none;" href="https://instagram.com/ocalebe94"><i class="icon-instagram"></i>Instagram</a>
+</center>
+</p>
+</footer>
+</main>
+<script>
+// Get the button
+let mybutton = document.getElementById("top-button");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,2000 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>Calebe94</title>
+	<link href="https://blog.calebe.dev.br" />
+	<link rel="self" href="https://blog.calebe.dev.br/feed.xml" />
+	<icon>static/favicon.ico</icon>
+	<updated>2023-06-06T23:22:19-03:00</updated>
+	<id>https://blog.calebe.dev.br</id>
+	<generator>sbs</generator>
+
+        <entry>
+            <title>Meu primeiro jogo em C</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/pong.html" />
+            <id>https://blog.calebe.dev.br/posts/pong.html</id>
+            <updated>2022-05-19T21:19:33-03:00</updated>
+            <content type="html"><![CDATA[
+                <p>–&gt;</p>
+<h1 id="meu-primeiro-jogo-em-c">Meu primeiro jogo em C</h1>
+<p>Como vimos no <a
+href="https://blog.calebe.dev.br/posts/Que-tal-criar-um-jogo.html">post
+anterior</a>, estou com planos de criar um jogo em <strong>C</strong> e
+utilizando a biblioteca <strong>SDL2</strong>.</p>
+<p>Então para “pegar as manha” de como criar um jogo com a
+<strong>SDL2</strong> eu segui um tutorial no YouTube chamado <a
+href="https://www.youtube.com/watch?v=B4BXpiQASpA">Game Programming in C
+using SDL</a>.</p>
+<p>O projeto pode ser encontrado no link abaixo:</p>
+<ul>
+<li><a href="https://git.calebe.dev.br/sdl2-pong/">sdl2-pong - Pong but
+written in C using SDL2.</a></li>
+</ul>
+<p>Eu não achei nada complicado construir o jogo. A
+<strong>SDL2</strong> tem uma abstração bem bacana para detectar
+colisões e não tive nenhum problema durante a construção do jogo.</p>
+<p>Futuramente eu pretendo adicionar efeitos sonoros e sprites no
+jogo.</p>
+<p>Também pretendo criar uma demo web do jogo, utilizando Web
+Assembly.</p>
+<p>Bom… por enquanto é isso.</p>
+<p>Até a próxima!</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Em busca de uma interface git self-hosted</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/em-busca-de-uma-interface-git.html" />
+            <id>https://blog.calebe.dev.br/posts/em-busca-de-uma-interface-git.html</id>
+            <updated>2022-02-28T00:02:23-03:00</updated>
+            <content type="html"><![CDATA[
+                <p>–&gt;</p>
+<h1 id="em-busca-de-uma-interface-git-self-hosted">Em busca de uma
+interface git self-hosted</h1>
+<p>Estive em busca de uma interface <code>git</code> para hospedar os
+meus projetos em meu próprio servidor, para de certa forma servir de meu
+portifólio.</p>
+<p>Eu já tinha conhecimento de que o <a
+href="https://gitlab.com/">gitlab</a> permite que os usuários criem a
+sua própria instância(self-host) em seus servidores, e eu mesmo já
+hospedei uma instância do <a href="https://gitlab.com/">gitlab</a> em
+minha VPS.</p>
+<p>Porém, achei a plataforma muito pesada, necessitando de muita memória
+RAM, e o “fresh install” do <a href="https://gitlab.com/">gitlab</a> já
+consumia <strong>8 GB</strong> de armazenamento.</p>
+<p>Então iniciei a minha pesquisa a procura de uma interface
+<code>git</code> que fosse, simples e leve.</p>
+<h2 id="início-das-pesquisas">Início das pesquisas</h2>
+<p>Primeiro me lembrei que o projeto <a
+href="https://suckless.org/">suckless</a> faz a hospedagem de seus
+próprios repositórios utilizando uma interface <code>git</code> bem
+simples.</p>
+<p>Pesquisando um pouco descobri que se trata do [stagit], uma
+ferramenta que gera páginas estáticas para os seus repositórios
+<code>git</code>.</p>
+<p>Gostei da proposta do [stagit], porém, esta ferramenta precisa ser
+rodada periódicamente para gerar as páginas dos repositórios(ou a cada
+alteração).</p>
+<p>Pesquisando mais um pouco, eu encontrei um post no blog <a
+href="https://www.paritybit.ca/blog/choosing-a-self-hosted-git-service">paritybit</a>
+citando algumas plataformas que ele encontrou em sua jornada em busca de
+um servidor git.</p>
+<p><a
+href="https://www.paritybit.ca/blog/choosing-a-self-hosted-git-service">Neste
+post</a> o autor cita vários servidores, mas um deles me chamou a
+atenção por ser escrito utilizando a linguagem <code>C</code>.</p>
+<p>Este software se chama <a
+href="https://git.zx2c4.com/cgit/">cgit</a>. O que me chamou a atenção a
+respeito do <a href="https://git.zx2c4.com/cgit/">cgit</a> é o fato de
+ele poder ser rodado via <a
+href="https://www.geeksforgeeks.org/common-gateway-interface-cgi/">CGI</a>,
+e também por poder rendererizar as páginas a todo a acesso do
+usuário(não necessáriamente a toda alteração do projeto). O <a
+href="https://git.zx2c4.com/cgit/">cgit</a> também atende aos meus
+requisitos de ser um software leve e simples e de quebra é um software
+que segue a filosofia <a href="https://suckless.org/">suckless</a>.</p>
+<p>Com estas informações em mãos eu decidi que o <a
+href="https://git.zx2c4.com/cgit/">cgit</a> será a minha interface
+<code>git</code>.</p>
+<h2 id="configurando-o-cgit">Configurando o <code>cgit</code></h2>
+<p>Para começar a configuração do <a
+href="https://git.zx2c4.com/cgit/">cgit</a> eu li o verbete do <a
+href="https://git.zx2c4.com/cgit/">cgit</a> na <a
+href="https://wiki.archlinux.org/title/Cgit">Arch Wiki</a>. Este verbete
+descreve com clareza os passos para instalar o <a
+href="https://git.zx2c4.com/cgit/">cgit</a> na sua
+<strong>VPS</strong>.</p>
+<p>Após seguir as etapas de instalação descritas na <a
+href="https://wiki.archlinux.org/title/Cgit">Arch Wiki</a> eu apliquei
+um <code>css</code> com <a
+href="https://gist.github.com/Yoplitein/f4b671a2ec70c9e743fa">tema
+<code>dark</code></a> que encontrei na internet.</p>
+<p>O meu arquivo de <code>css</code> para o <a
+href="https://git.zx2c4.com/cgit/">cgit</a> pode ser encontrado no meu
+repositório: <a href="https://git.calebe.dev.br/cgit/">cgit</a>.</p>
+<h2 id="servidor-git">Servidor git</h2>
+<p>Para eu poder ver meus repositórios renderizados pelo <a
+href="https://git.zx2c4.com/cgit/">cgit</a> eu preciso ter o meu próprio
+servidor <code>git</code>, não é mesmo?</p>
+<p>Consegui configurar o meu próprio servidor <code>git</code> com
+facilidade seguindo o guia de <a
+href="https://git-scm.com/book/en/v2/Git-on-the-Server-Git-Daemon">referência
+do git</a>.</p>
+<p>Foi algo bem simples não tive problemas algum ao seguir os
+passos.</p>
+<p>Após a configuração do servidor git eu apenas informei ao <a
+href="https://git.zx2c4.com/cgit/">cgit</a> em qual diretório os meus
+repositórios estavam armazenados preenchendo o arquivo de configuração
+localizado em <code>/etc/cgitrepos</code>.</p>
+<h2 id="configurando-mirrors">Configurando <code>mirrors</code></h2>
+<p>Após configurar o servidor git eu precisei espelhar no meu servidor,
+os meus projetos hospedados tanto no <a
+href="https://github.com/">Github</a> tanto no <a
+href="https://gitlab.com/">Gitlab</a>.</p>
+<p>Para isso utilizei um script que encontrei no <a
+href="https://github.com/">Github</a>, chamado <a
+href="https://github.com/janbaudisch/git-mirror">git-mirror</a>.</p>
+<p>O <a href="https://github.com/janbaudisch/git-mirror">git-mirror</a>
+é uma ferramenta simples e escrito em <code>shell script</code>.</p>
+<p>Para espelhar os meus projetos eu criei um diretório no meu
+computador para armazenar os meus repositórios, em seguida eu utilizei o
+seguinte comando para criar o espelho:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">git-mirror</span> setup path/to/directory https://someserver.domain/user/tomirror git@someserver.domain/user/mirror</span></code></pre></div>
+<p>Este script tem que ser chamado com frequência para atualizar os
+remotos a cada alteração, para isso o próprio desenvolvedor criou um
+<code>target</code> do <code>systemd</code> para realizar a ação de
+<code>update</code> a cada 5 minutos.</p>
+<p>Infelizmente os meus espelhos estão configurados apenas no meu
+computador pessoal no momento, logo, se eu realizar alguma alteração em
+algum dos meus projetos, e o meu computador estiver desligado, esta
+alteração não poderá ser vista no meu servidor git em <a
+href="https://git.calebe.dev.br">git.calebe.dev.br</a>.</p>
+<p>E infelizmente também os espelhos são feitos em apenas uma direção,
+ou seja, somente as alterações enviadas para os remotos do <a
+href="https://gitlab.com/">Gitlab</a> e <a
+href="https://github.com/">Github</a> podem ser vistas no meu servidor
+git.</p>
+<p>Exemplo:</p>
+<pre><code>    Gitlab              Meu Servidor
+    HEAD      ----&gt;          Git
+      |                       |
+   Commit                   Commit
+   cb35f94                  cb35f94</code></pre>
+<p>Futuramente eu quero descobrir um jeito de criar espelhos
+bidirecionais, ou seja, as alterações poderão ser feitas em ambos os
+remotos.</p>
+<p>Exemplo:</p>
+<pre><code>    Gitlab              Meu Servidor
+    HEAD      &lt;&gt;----&gt;        Git
+      |                       |
+   Commit                   Commit
+   cb35f94                  cb35f94</code></pre>
+<h1 id="conclusão">Conclusão</h1>
+<p>Configurar o <a href="https://git.zx2c4.com/cgit/">cgit</a> é uma
+tarefa relativamente fácil se você já tem um conhecimento de como
+aplicações [CGI] funcionam, de como configurar o <code>nginx</code>, de
+como funciona o <code>ssh</code> e conhecimentos intermediários do uso
+de comandos de linha de comando.</p>
+<p>Lendo as documentações do <code>git</code> e do <a
+href="https://git.zx2c4.com/cgit/">cgit</a> eu consegui hospedar um
+servidor git simples e leve, e pode ser acessado em <a
+href="https://git.calebe.dev.br">git.calebe.dev.br</a>.</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Organização de projeto em C</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/organizacao-de-um-projeto-em-c.html" />
+            <id>https://blog.calebe.dev.br/posts/organizacao-de-um-projeto-em-c.html</id>
+            <updated>2023-02-23T20:50:26-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1 id="organização-de-projeto-em-c">Organização de projeto em C</h1>
+<p>Organizar seus arquivos de código fonte em uma estrutura de arquivos
+lógica e consistente é importante para a manutenibilidade, legibilidade
+e escalabilidade do código.</p>
+<p>Aqui estão algumas das melhores práticas para organizar arquivos de
+origem em pastas de estrutura de arquivos:</p>
+<h2 id="separe-os-arquivos-de-origem-com-base-em-sua-finalidade">1.
+Separe os arquivos de origem com base em sua finalidade</h2>
+<p>Agrupe os arquivos de origem relacionados em pastas lógicas com base
+em sua finalidade, como <code>core</code>, <code>utilities</code>,
+<code>input-output</code>, <code>data structures</code>, etc.</p>
+<h2 id="use-uma-convenção-de-nomenclatura-consistente">2. Use uma
+convenção de nomenclatura consistente</h2>
+<p>Use uma convenção de nomenclatura consistente para pastas e arquivos.
+Por exemplo, use letras minúsculas e hifens para separar palavras em
+nomes de pastas.</p>
+<h2 id="evite-aninhamento-profundodeep-nesting">3. Evite aninhamento
+profundo(deep nesting)</h2>
+<p>Evite aninhamento profundo de pastas, pois pode dificultar a
+localização e organização de arquivos. Uma boa regra geral é manter o
+aninhamento de pastas a um máximo de três níveis. Exemplo:
+<code>projeto/src/core/file.c</code></p>
+<h2 id="use-controle-de-versão">4. Use controle de versão</h2>
+<p>Use um sistema de controle de versão, como o Git, para acompanhar as
+alterações e colaborar com outros desenvolvedores.</p>
+<h2 id="crie-um-diretório-de-compilação">5. Crie um diretório de
+compilação</h2>
+<p>Crie um diretório separado para armazenar os artefatos de compilação,
+arquivos de objeto e os executáveis do projeto.</p>
+<h2 id="mantenha-arquivos-principais-no-nível-raiz">6. Mantenha arquivos
+principais no nível raiz</h2>
+<p>Mantenha arquivos principais, como <code>main.c</code>, no nível raiz
+do projeto e crie pastas separadas para módulos e bibliotecas
+relacionados.</p>
+<h2 id="use-comentários-e-documentação">7. Use comentários e
+documentação</h2>
+<p>Use comentários e documentação para descrever a finalidade e a
+funcionalidade dos arquivos de origem, funções e variáveis.</p>
+<h2 id="faça-um-readmemake-a-readme">8. Faça um <code>README</code>(<a
+href="https://www.makeareadme.com/">Make a Readme</a>)</h2>
+<p>Faça um arquivo <code>README</code> em <code>Markdown</code>,
+<code>Org-mode</code>, <code>HTML</code> ou em <code>Plain Text</code>
+mesmo. Um arquivo <code>README</code> pode te salvar quando você volta
+ao seu projeto depois de um tempo de afastamento e pode servir como <a
+href="https://tom.preston-werner.com/2010/08/23/readme-driven-development.html">documentação
+do seu projeto</a></p>
+<h1 id="estrutra-de-arquivos">Estrutra de arquivos</h1>
+<p>Aqui está um exemplo de uma possível estrutura de arquivos para um
+projeto em C:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">projeto/</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> src/</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── core/</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file1.c</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file2.c</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── utilities/</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file3.c</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── data_structures/</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file4.c</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file5.c</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── input_output/</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file6.c</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file7.c</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> include/</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── core/</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file1.h</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file2.h</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── utilities/</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file3.h</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── data_structures/</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file4.h</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file5.h</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── input_output/</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file6.h</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── file7.h</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build/</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> main.c</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> Makefile</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> README.md</span></code></pre></div>
+<p>Neste exemplo, o diretório raiz do projeto contém o arquivo
+<code>main.c</code>, um diretório <code>build/</code> para artefatos de
+compilação, um <code>Makefile</code> para compilar o projeto e um
+arquivo <code>README.md</code> para documentação. O diretório
+<code>src/</code> contém subdiretórios para módulos relacionados, e o
+diretório <code>include</code> contém arquivos de cabeçalho para os
+módulos. Ao organizar os arquivos dessa maneira, é mais fácil manter e
+escalar a base de código.</p>
+<h1 id="links-úteis">Links úteis</h1>
+<ul>
+<li><a
+href="https://mitcommlab.mit.edu/broad/commkit/file-structure/">File
+Structure : Broad Institute of MIT and Harvard</a>;</li>
+<li><a href="https://www.makeareadme.com/">Make a README</a>;</li>
+<li><a
+href="https://tom.preston-werner.com/2010/08/23/readme-driven-development.html">Readme
+Driven Development</a>.</li>
+</ul>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Servidor de email (self-hosted)</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/servidor-de-email-privado.html" />
+            <id>https://blog.calebe.dev.br/posts/servidor-de-email-privado.html</id>
+            <updated>2022-03-01T22:21:33-03:00</updated>
+            <content type="html"><![CDATA[
+                <p>–&gt;</p>
+<h1 id="servidor-de-email-self-hosted">Servidor de email
+(self-hosted)</h1>
+<h3 id="a-saga-da-frustração"><code>A saga da frustração</code></h3>
+<p>Como citei em um <a href="./em-busca-de-uma-interface-git.html">post
+anterior</a> eu possuo uma instância do <a
+href="yunohost.org">Yunohost</a> em minha VPS. O <a
+href="yunohost.org">Yunohost</a> facilita muito a tarefa de instalar as
+suas aplicações “web” em seu servidor e possui algumas ferramentas para
+gerenciar o seu servidor. Uma delas é o servidor de email, para te
+notificar se algum erro ocorreu ao realizar o diagnóstico do servidor. É
+possível também realizar o redirecionamento de emails. Podendo o usuário
+cadastrar alguns emails na plataforma e quando receber algum email, o
+<code>postfix</code> se encarrega de entregar este email em uma conta
+pessoal do usuário.</p>
+<p>O meu plano era utilizar este recurso para cadastrar alguns emails
+como:</p>
+<ul>
+<li><code>contato@calebe.dev.br</code>: e-mail de contato;</li>
+<li><code>spam@calebe.dev.br</code>: e-mail para eu realizar cadastros
+em lugares aleatórios;</li>
+</ul>
+<p>Logo fiz os testes e percebi que não funcionava. Em um dos
+diagnósticos eu percebi que a porta <code>25</code> era bloqueada pela
+<a href="https://www.digitalocean.com/">Digital Ocean</a>.</p>
+<figure>
+<img
+src="https://media.calebe.dev.br/images/blog/diagnostico_yunohost.png"
+alt="Diagnóstico do Yunohost" />
+<figcaption aria-hidden="true">Diagnóstico do Yunohost</figcaption>
+</figure>
+<p>O diagnóstico diz ser possível receber e-mails, porém, não é possível
+receber e-mails.</p>
+<p>Fiz um teste enviando um email para o meu <a
+href="yunohost.org">Yunohost</a> com um email da Google, e deu tudo
+certo. Recebi o e-mail com exito.</p>
+<p>Bom, mas se a porta de saída está bloqueada, é só desbloquear, certo?
+Errado!</p>
+<h2 id="tentando-desbloquear-a-porta-25">Tentando desbloquear a porta
+<code>25</code></h2>
+<p>Após verificar o diagnóstico, corri atrás de desbloquear a porta
+<code>25</code>.</p>
+<p>Fui à plataforma da <a href="https://www.digitalocean.com/">Digital
+Ocean</a> procurar como desbloquear e não encontrei.</p>
+<p>Tentei desbloquear pelo <code>Firewall</code> do <a
+href="yunohost.org">Yunohost</a> e aparentemente já estava desbloqueada.
+Testei o envio de emails e nada.</p>
+<p>Abri um protocolo no suporte da <a
+href="https://www.digitalocean.com/">Digital Ocean</a> e a resposta
+foi:</p>
+<pre><code>Hi there,
+
+
+Thank you for contacting DigitalOcean Support!
+
+Stopping spam is a constant fight and due to this, your account has restrictions specifically on port 25.
+
+However, you are able to use mail services using ports 587, 993, 995 and 465. You will need to open these ports in your firewall. Here is our guide to common iptables commands:</code></pre>
+<p>Ou seja… O servidor de emails do <a href="yunohost.org">Yunohost</a>
+não vai funcionar.</p>
+<h2 id="smtp-relay">SMTP Relay</h2>
+<p>Porém, o <a href="yunohost.org">Yunohost</a> sugere algumas
+alternativas. Uma delas é um <code>SMTP Relay</code>, onde eu preciso
+assinar um serviço externo(third-party) para poder utilizar o servidor
+de emails.</p>
+<p>Com algumas pesquisas na internet eu encontrei o <a
+href="https://sendgrid.com">SendGrid</a>, um serviço da <a
+href="https://www.twillio.com">Twillio</a>. Eu conheci a <a
+href="https://www.twillio.com">Twillio</a> a uns anos atrás quando
+precisei de um serviço de envio de SMS para um projeto que trabalhei.
+Como gostei da plataforma resolvi tentar o <a
+href="https://sendgrid.com">SendGrid</a>.</p>
+<p>As instruções da documentação são bem claras e direto ao ponto. Foi
+simples configurar tudo.</p>
+<p>Ao terminar tudo, pude constatar estar tudo funcionando, pois, o
+próprio <a href="https://sendgrid.com">SendGrid</a> já oferece o
+diagnóstico na própria plataforma.</p>
+<p>Fiz alguns testes enviando emails por um email da Google e constatei
+que eu continuava recebendo emails porem o redirecionamento continuava
+sem funcionar. Após horas de depuração sem encontrar o problema e de <a
+href="https://io.bikegremlin.com/11964/sendgrid-setup/">refazer todo o
+processo de configuração</a> eu resolvi deixar este problema para
+lá.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Ao procurar em fórums na internet, a maioria dos usuários desencoraja
+o uso de servidores de email privados por serem MUITO difíceis de
+lidarem.</p>
+<p>Muitos apontam ser muito mais barato assinar um serviço que gerencie
+o servidor e que possibilite a criação de vários emails.</p>
+<p>Logo, é isso que eu estarei pesquisando nas próximas semanas e
+documentarei o processo em um novo post.</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title></title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/teclado-momo.html" />
+            <id>https://blog.calebe.dev.br/posts/teclado-momo.html</id>
+            <updated>2023-06-06T00:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <figure>
+<img
+src="https://cdn.shopify.com/s/files/1/1851/5125/products/IMG_8280_860x.JPG?v=1593577482"
+alt="https://keeb.io/products/pro-micro-5v-16mhz-arduino-compatible-atmega32u4" />
+<figcaption
+aria-hidden="true">https://keeb.io/products/pro-micro-5v-16mhz-arduino-compatible-atmega32u4</figcaption>
+</figure>
+<p>Portanto, devo escolher entre:</p>
+<ul>
+<li>Utilizar footprint de teclas soldáveis( remover o hotswap );</li>
+<li>Remover os leds de Backlight;</li>
+</ul>
+<p>Uma outra solução seria adicionar mais espaço na PCB, dessa forma a
+case também ficaria um pouco maior.</p>
+<p>Exemplo:</p>
+<ul>
+<li>Projeto <a
+href="https://github.com/coseyfannitutti/romeo">Romeo</a></li>
+</ul>
+<figure>
+<img
+src="https://github.com/coseyfannitutti/romeo/raw/master/doc/images/romeo.jpg"
+alt="https://github.com/coseyfannitutti/romeo" />
+<figcaption
+aria-hidden="true">https://github.com/coseyfannitutti/romeo</figcaption>
+</figure>
+<ul>
+<li>Projeto <a href="https://github.com/hsgw/plaid">plaid</a></li>
+</ul>
+<figure>
+<img src="https://github.com/hsgw/plaid/raw/master/doc/img/plaid.jpg"
+alt="https://github.com/hsgw/plaid" />
+<figcaption
+aria-hidden="true">https://github.com/hsgw/plaid</figcaption>
+</figure>
+<figure>
+<img
+src="https://preview.redd.it/b90lwq8a0h241.jpg?width=960&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=d0952572b16cee21f78314b1d438e8fe4ed174ae"
+alt="https://www.reddit.com/r/MechanicalKeyboards/comments/e5m9jd/plaid_gold_in_qlaviers_acrylic_case_album_in/" />
+<figcaption
+aria-hidden="true">https://www.reddit.com/r/MechanicalKeyboards/comments/e5m9jd/plaid_gold_in_qlaviers_acrylic_case_album_in/</figcaption>
+</figure>
+<p>Também é possível adicionar um espaço entre no meio do teclado do
+largura de 1 tecla, separando assim as teclas “G” e “H” do teclado.</p>
+<p>Exemplo:</p>
+<ul>
+<li>Projeto <a
+href="https://github.com/skarrmann/horizon/">horizon</a></li>
+</ul>
+<figure>
+<img
+src="https://github.com/skarrmann/horizon/raw/main/images/horizon-choc-mx-top.jpg"
+alt="https://github.com/skarrmann/horizon/" />
+<figcaption
+aria-hidden="true">https://github.com/skarrmann/horizon/</figcaption>
+</figure>
+<h1 id="componentes">Componentes</h1>
+<ul>
+<li>USB C: “USB_C_Receptacle_G-Switch_GT-USB-7010ASV”
+https://pt.aliexpress.com/item/1005001998218101.html
+https://pt.aliexpress.com/item/1005002795893679.html
+https://pt.aliexpress.com/item/1005005244121781.html
+https://pt.aliexpress.com/item/1005005244013785.html</li>
+</ul>
+<h1 id="libraries">Libraries</h1>
+<p>https://github.com/perigoso/keyswitch-kicad-library
+https://github.com/ai03-2725/MX_V2 *
+https://wiki.ai03.com/books/pcb-design/page/list-of-kicad-keyboard-parts-libraries
+* https://github.com/ebastler/marbastlib - LED SMD para backlight</p>
+<h1 id="backlight">Backlight</h1>
+<p>https://qmk.github.io/qmk_mkdocs/master/en/feature_backlight/
+https://www.flexfireleds.com/comparison-between-3528-leds-and-5050-leds/</p>
+<h2 id="mosfet">MOSFET</h2>
+<p>100 and 100k resistor</p>
+<ul>
+<li>A04406A</li>
+<li>AO3416</li>
+<li>FDS6630A</li>
+<li>DMN3018SSS-13 SOIC FET</li>
+</ul>
+<h1 id="keyboards">Keyboards</h1>
+<p>https://github.com/ai03-2725/Contra</p>
+<h1 id="links">Links</h1>
+<ul>
+<li>https://keeb.io/collections/frontpage/products/dsp40-40-staggered-or-ortholinear-keyboard</li>
+<li>https://www.qlavier.com/</li>
+</ul>
+<h1 id="alps-to-mx">Alps to MX</h1>
+<ul>
+<li>https://www.thingiverse.com/thing:5625421</li>
+<li>https://www.thingiverse.com/thing:2073899 - Pedi a fabricação de 48
+peças na fabrica3d.co no dia 16/03/23</li>
+<li>https://github.com/dotdash32/Cases/tree/master/Keycap%20Designs/Key%20Switches
+- Pedi a fabricação de 12 peças na fabrica3d.co no dia 16/03/23</li>
+</ul>
+<h2 id="links-úteis">Links úteis</h2>
+<ul>
+<li><a href="https://keebfolio.netlify.app/en/ortholinear/">Ortholinear
+Keyboards - Keebfolio</a></li>
+<li><a
+href="https://www.reddit.com/r/MechanicalKeyboards/comments/5ct3yu/alps_to_mx_stem_concept/">Reddit
+- ALPS to MX Stem Concept</a></li>
+<li><a
+href="https://www.reddit.com/r/MechanicalKeyboards/comments/6jkyid/review_irocks_k76m_alps_clone_with_mx_stem_first">Reddit
+- [review] iRocks K76M Alps clone with MX stem first
+impressions</a></li>
+<li><a href="https://www.thingiverse.com/thing:1720449">ALPS to Cherry
+MX keyboard stem adapter by option8 - Thingiverse</a></li>
+<li><a
+href="https://www.tech-critter.com/review-i-rocks-k76m-fun/">Review -
+i-Rocks K76M Fun Illuminated Mechanical Keyboard</a></li>
+<li><a href="https://imgur.com/a/H2eiJ">ALPS to MX adapter is working! -
+Album on Imgur</a></li>
+<li><a
+href="https://github.com/dotdash32/Cases/tree/master/Keycap%20Designs/Key%20Switches">Cases/Keycap
+Designs/Key Switches at master · dotdash32/Cases · GitHub</a></li>
+<li><a href="https://geekhack.org/index.php?topic=107270.0">Funny
+Adapters! Alps to Cherry MX adapters 10/04/2020 Update</a></li>
+<li><a href="https://geekhack.org/index.php?topic=69031.0">MX to Alps
+adaptor</a></li>
+<li><a
+href="https://deskthority.net/viewtopic.php?f=7&amp;t=4934&amp;sid=85452e0fe020bded3d9d33c3224e8a0c&amp;start=150">Cherry
+to Alps adapters - Page 6 - deskthority</a></li>
+<li><a
+href="http://primrosebank.net/computers/mtx/projects/djkeyboard/djkeyboard.htm">Memotech
+MTX 512 - Projects : Replacement Keyboard</a></li>
+<li><a href="https://geekhack.org/index.php?topic=49639.0">Ultratec -
+Minicom IV</a></li>
+<li><a
+href="https://github.com/datatravelandexperiments/hw-keyswitch-breakout">GitHub
+- datatravelandexperiments/hw-keyswitch-breakout: Adapters for Cherry MX
+and ALPS SKC keyswitches to 0.1 inch breadboards.</a></li>
+</ul>
+<h3 id="keyboards-open-hardware">Keyboards Open Hardware</h3>
+<ul>
+<li><a href="https://acheronproject.com/">Acheron Docs - Shark
+Keyboard</a></li>
+<li><a href="https://github.com/ChrisChrisLoLo/keezyboost40">GitHub -
+ChrisChrisLoLo/keezyboost40: 4x10 ortholinear with an LCD in the middle.
+Uses the Raspberry Pi Pico, as well as Rust firmware</a></li>
+<li><a href="https://github.com/coarse/st40">GitHub - coarse/st40: Open
+source 40% ortholinear keyboard PCB powered by STM32F072</a></li>
+<li><a href="https://github.com/ChrisChrisLoLo/banime40">GitHub -
+ChrisChrisLoLo/banime40: A 4x10 hotswap ortholinear keyboard that
+supports multiple configurations.</a></li>
+<li><a href="https://github.com/niftypsycho/ortho-40percent">GitHub -
+niftypsycho/ortho-40percent: 40% ortholinear mechanical
+keyboard</a></li>
+<li><a href="https://github.com/ai03-2725/Contra">GitHub -
+ai03-2725/Contra: Contra - Lowest cost ortholinear keyboard kit
+possible</a></li>
+<li><a href="https://github.com/eswai/QOL56">GitHub - eswai/QOL56:
+56-key mechanical keyboard for Oyayubi-shift Japanese input</a></li>
+<li><a href="https://github.com/peej/lumberjack-keyboard">GitHub -
+peej/lumberjack-keyboard: 5x12 ortholinear through-hole component
+keyboard PCB for standard 60% cases</a></li>
+</ul>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Migrando repositórios do Gitlab para o Github</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/migrando-do-gitlab-para-o-github.html" />
+            <id>https://blog.calebe.dev.br/posts/migrando-do-gitlab-para-o-github.html</id>
+            <updated>2022-05-30T16:48:12-03:00</updated>
+            <content type="html"><![CDATA[
+                <p>–&gt;</p>
+<h1 id="migrando-do-gitlab-para-o-github-1">Migrando repositórios do
+Gitlab para o Github</h1>
+<p>Na <a href="http://t2igroup.com/">T2I Group</a> temos uma
+instância(<em>self-hosted</em>) do <em>Gitlab</em> em uma <a
+href="https://pt.wikipedia.org/wiki/Servidor_virtual_privado">VPS</a>
+para hospedarmos os nossos repositórios.</p>
+<p>Utilizamos esta instância por pelo menos 2 anos, até começar a ter
+problemas para atualizar o <strong>Gitlab</strong>. Também começamos a
+perceber que a interface do <strong>Gitlab</strong> era muito poluída e
+lenta.</p>
+<p>Então decidimos a migrar todos os nossos repositórios para o
+<em>Github</em>, visto vez que a maioria dos desenvolvedores já conhece
+a plataforma.</p>
+<h2 id="processo-de-migração">Processo de migração</h2>
+<p>Para migrar os repositórios eu criei uma conta para a <em>T2I
+Group</em> no <strong>Github</strong> e em seguida criei algumas
+<strong>Organizações</strong> para a <em>FatorBLE</em>, <em>Projeto
+MIP</em> e para novo Projeto MIP, que chamamos <em>MIPv2</em>.</p>
+<p>Em seguida fiz a importação dos repositórios de forma manual,
+clicando no botão <strong>"+"</strong> na página inicial do
+<strong>Github</strong>.</p>
+<p><img
+src="https://media.calebe.dev.br/images/2022-05-30_16-14.png" /></p>
+<p>Na sequência escolhia a Organização para importar o repositório.</p>
+<p><img
+src="https://media.calebe.dev.br/images/2022-05-30_16-15.png" /></p>
+<p>Porém, esse processo tem um problema. Ele não importa as
+<em>issues</em> e <em>Merge Requests</em>.</p>
+<h3 id="importando-issues-e-merge-requests">Importando issues e merge
+requests</h3>
+<p>Para realizar esse processo eu utilizei um projeto chamado <a
+href="https://github.com/piceaTech/node-gitlab-2-github">node-gitlab-2-github</a>.</p>
+<p>Esse projeto é bem simples de utilizar, basta copiar o arquivo
+<code>sample_settings.ts</code> para <code>settings.ts</code> e editar o
+arquivo com as chaves de acesso do <strong>Gitlab</strong> e do
+<strong>Github</strong> e rodar o projeto.</p>
+<p>Na primeira execução, o <code>node-gitlab-2-github</code> lista todos
+os repositórios que a chave de acesso do <strong>Gitlab</strong> tem
+acesso. Com isso em mãos é só editar o arquivo com o código, nome e
+grupo do repositório no <strong>Gitlab</strong> e nome do repositório no
+<strong>Github</strong> e rodar o projeto.</p>
+<p>Pronto, o <code>node-gitlab-2-github</code> vai importar todas as
+<em>issues</em> abertas e fechadas para o Github, e os <em>Merge
+Requests</em>. Se o <code>node-gitlab-2-github</code> detectar a
+presença da <em>branch</em> aberta para o <em>Merge Request</em>, ele
+cria um <em>Pull Request</em>. Caso ele não detectar, ele cria uma
+<em>issue</em> com o conteúdo do <em>Merge Request</em>.</p>
+<h1 id="conclusão">Conclusão</h1>
+<p>Em algumas horas eu consegui importar dezenas de repositórios da
+nossa instância privada do <strong>Gitlab</strong> para o
+<strong>Github</strong>, sem perder absolutamente nada de informação no
+processo.</p>
+<p>Todos os projetos que possuíam <em>issues</em> e <em>Merge
+Requests</em> foram importados com sucesso no
+<strong>Github</strong>.</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Premissas básicas de desenvolvimento - Suckless</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/premissas_basicas.html" />
+            <id>https://blog.calebe.dev.br/posts/premissas_basicas.html</id>
+            <updated>2021-04-17T18:04:26-03:00</updated>
+            <content type="html"><![CDATA[
+                <main>
+<center>
+<h1 id="premissas-fundamentais">Premissas Fundamentais</h1>
+<p><img
+src="http://lh3.ggpht.com/_6p3hNkUNWrQ/SjpEiMoM3TI/AAAAAAAABdE/9lkeDQLzXUY/s800/bg2009061801.gif" /></p>
+<h2 id="tldr-não-quero-ler-tudo-mas-quero-entender-o-básico"><a
+href="https://www.lifewire.com/what-is-tldr-2483633">TL:DR</a> (Não
+quero ler tudo, mas quero entender o básico)</h2>
+</center>
+<ul>
+<li>Programas devem fazer apenas uma coisa, e devem fazê-la bem.</li>
+<li>Programas devem funcionar bem com outros programas.</li>
+<li>Programas devem ser estupidamente simples.</li>
+<li>Um único programa deve ter pouquíssimas features.</li>
+<li>Escreva programas que manuseiem fluxo de texto(text streams), porque
+esta é a interface universal.</li>
+</ul>
+<center>
+<!-- [![](https://miro.medium.com/max/1100/1*2nUxLPrQTJ6FMe3-Ca4M_Q.png)](https://medium.com/web-dev-note/kafka-a-message-broker-778b410908e6) -->
+<h2 id="filosofia-unix"><a
+href="http://www.linfo.org/unix_philosophy.html">Filosofia Unix</a></h2>
+</center>
+<p>Não existe uma afirmação padrão que defina a filosofia unix. Mas se
+for para escolher uma palavra, ela deveria ser <a
+href="http://www.linfo.org/module.html">modularidade</a>, que se refere
+a um sistema composto por vários componentes (modulos), que trabalham
+juntos, e podem também ser substituídos por outros módulos mais simples
+ou mais complexos dependendo da necessidade.</p>
+<p>A modularidade é comum por natureza, e sua aplicação a produtos
+feitos pelo homem (bens e serviços) é um fator-chave no desenvolvimento
+e avanço das sociedades industriais. No entanto, era relativamente pouco
+usado para software de computador antes do desenvolvimento do UNIX, e
+ainda hoje seus grandes benefícios não são totalmente explorados por
+outros sistemas operacionais, principalmente os sistemas (Microsoft)
+Windows.</p>
+<p>Uma declaração um pouco mais longa e mais convencional da filosofia
+Unix, mas que diz essencialmente a mesma coisa, seria: projetar
+programas para fazer apenas uma coisa, mas fazê-la bem, e para trabalhar
+bem em conjunto com outros programas.</p>
+<center>
+<h2 id="filosofia-suckless"><a
+href="https://suckless.org/philosophy/">Filosofia Suckless</a></h2>
+</center>
+<p>Muitos programadores se sentem orgulhosos quando seus códigos chegam
+a muitas linhas de código, porque eles acreditam que quanto mais linhas
+de código eles escrevem, mais progresso eles fizeram. Logo, quanto maior
+o progresso, mais habilidosos eles ficam.</p>
+<center>
+<img src="https://media.calebe.dev.br/images/achou-errado.gif" />
+</center>
+<p>Muitos programadores não se importam com qualidade de código.
+Portanto, se eles conseguem fazer algo funcionar e pareça resolver o
+problema, eles ficam com essa solução.</p>
+<p>Se esta linha de pensamento for utilizada em um mesmo projeto em todo
+o seu ciclo de desenvolvimento, nós ficaremos com uma quantidade enorme
+de código, um código ferrado, e um sistema completamente vulnerável.</p>
+<p>Isto se dá pela total falta de clareza conceitual e consistência no
+durante o processo de desenvolvimento.</p>
+<center>
+<strong>Complexidade de código é a mãe do software bagunçado, difícil de
+usar e inconsitente.</strong>
+</center>
+<p>Simplicidade é o coração da filosofia UNIX. Quanto menos linhas de
+código seu código tem, mais habilidoso você se tornou, e menos o seu
+código é <del>uma merda</del> ruim.</p>
+<center>
+<figure>
+<img src="https://media.calebe.dev.br/images/meme-2-opa.gif"
+alt="Rogerinho do Ingá defende o software livre, a cultura e o ambiental." />
+<figcaption aria-hidden="true">Rogerinho do Ingá defende o software
+livre, a cultura e o ambiental.</figcaption>
+</figure>
+</center>
+</main>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Que tal criar um jogo?</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/Que-tal-criar-um-jogo.html" />
+            <id>https://blog.calebe.dev.br/posts/Que-tal-criar-um-jogo.html</id>
+            <updated>2022-05-09T16:30:33-03:00</updated>
+            <content type="html"><![CDATA[
+                <p>–&gt;</p>
+<h1 id="que-tal-criar-um-jogo">Que tal criar um jogo?</h1>
+<p>Recentemente um amigo meu começou a fazer um curso de <a
+href="https://unity.com/">Unity</a> e durante uma conversa nós ficamos
+muito empolgados em criar um jogo.</p>
+<p>Eu fiquei muito empolgado em criar um jogo em <strong>C</strong>, ele
+(Rafael) quer desenvolver o jogo em Unity, eu não o julgo muito por
+isso, mas eu não sou muito familiar com <code>C#</code>, portanto não eu
+gostaria de seguir com o <code>Unity</code>.</p>
+<h2 id="plano">Plano</h2>
+<p>O meu plano é aprender como um jogo funciona, todos os passos da
+criação, enfim, TUDO.</p>
+<p>Não só isso, mas gostaria de criar um jogo 100%
+<code>FOSS (Free and Open Source Software)</code>.</p>
+<h3 id="engines">Engines</h3>
+<p>Após algumas pesquisas a respeito de <em>engines</em> eu não obtive
+tanto sucesso quanto eu gostaria.</p>
+<p>Eu encontrei algumas <em>engines</em> Open Source como a <a
+href="https://developer.valvesoftware.com/wiki/Source_Engine_Features">Source</a>,
+utilizada pela Valve para criar Counter Strike, Portal e Half-Life.</p>
+<p>Também encontrei a <em>engine</em> chamada <a
+href="https://godotengine.org/">Godot</a>, escrita em <code>C++</code>,
+mas utilizam uma sintaxe própria para desenvolver os jogos, chamada
+<code>GDNative</code>.</p>
+<p>Portanto, eu decidi seguir por conta própria, irei criar o meu jogo
+do <strong>ZERO</strong> criando em paralelo a engine.</p>
+<h3 id="diy">DIY</h3>
+<p>Há algumas vantagens em criar a sua própria engine, listarei algumas
+abaixo:</p>
+<ul>
+<li>Maior desempenho;</li>
+<li>Código menor;</li>
+<li>controle total do código;</li>
+</ul>
+<p>Enfim, <strong>TOTAL CONTROLE DE TUDO</strong>, até das falhas.</p>
+<p>E eu também estou ciente que este "<strong>Controle total</strong>"
+pode ser uma desvantagem também, pois terei que estudar tudo a respeito
+de jogos como gerenciamento de entidades, colisões, câmera,
+gerenciamento de diálogos e outras coisas.</p>
+<p>Mas como o meu foco é aprender como um jogo funciona, esta
+desvantagem se torna uma dolorosa vantagem.</p>
+<h2 id="sdl2">SDL2</h2>
+<p>Após mais pesquisas, assisti no Youtube a palestra <a
+href="https://www.youtube.com/watch?v=MeMPCSqQ-34">Game Development with
+SDL 2.0 (Steam Dev Days 2014)</a> e descobri ser possível desenvolver
+jogos utilizado a biblioteca <a
+href="https://www.libsdl.org/index.php">SDL2</a>, que eu já havia
+utilizado para simular a biblioteca gráfica para sistemas embarcadas
+chamada <a href="https://lvgl.io/">LVGL</a>.</p>
+<p>Com a <code>SDL2</code> eu criava um display virtual para poder
+demonstrar os elementos gráficos, sem a necessidade de ter que gravar o
+firmware no dispositivo toda vez que eu fizesse uma alteração.</p>
+<p>A primeira coisa que me passou pela cabeça é: porque não criar um
+jogo do zero utilizando a biblioteca <code>SDL2</code>?</p>
+<p>E é daqui que eu partirei.</p>
+<h2 id="que-jogo">Que jogo?</h2>
+<p>Mas aí me veio a pergunta: que jogo? Como eu posso criar um jogo, se
+eu não faço nem ideia do que eu quero construir.</p>
+<p>E conversando com o meus amigos que estabelecemos algumas
+"restrições" para a ideia do jogo. São elas:</p>
+<ul>
+<li>Jogo com gráficos em Pixelarl (8/16 bits);</li>
+<li>Visão em top-dowm;</li>
+<li>Jogo de sobrevivência e exploração com Farm Simulator(Jogo de
+fazendinha);
+<ul>
+<li>jogo de sobrevivência um pouco mais "Cozy", ao estilo de Stardew
+Valley;</li>
+<li>e exploração ao estilo de Minecraft, onde o mundo é gerado
+proceduralmente, e cabe ao player explorar o mundo atrás de
+recursos;</li>
+<li>o player poderá customizar essas ilhas com os itens que serão
+craftados;</li>
+<li>os recursos naturais do jogo são finitos, fazendo com que o player
+tenha que criar fazendas;</li>
+</ul></li>
+</ul>
+<p>Com isso eu ainda tive a ideia de adicionar elementos naturais da
+fauna e flora brasileira. Como as árvores, plantas e animais comuns no
+Brasil (não necessariamente nativos).</p>
+<h2 id="ferramentas-de-desenvolvimento">Ferramentas de
+desenvolvimento</h2>
+<p>Abaixo listarei algumas ferramentas que pretendo utilizar durante o
+desenvolvimento do jogo.</p>
+<h3 id="gráficos">Gráficos</h3>
+<p>Utilizarei a biblioteca <a
+href="https://www.libsdl.org/index.php">SDL2 - Simple DirectMedia
+Layer</a>.</p>
+<h3 id="linguagem-de-programação">Linguagem de programação</h3>
+<p>Será utilizado a linguagem de programação <code>C</code>. Porém,
+usarei <code>Python</code> e <code>Shell Script</code> para escrever
+algumas ferramentas, ou quando for conveniente.</p>
+<h3 id="análise-estática-de-código">Análise estática de código</h3>
+<p>Como programarei o jogo em <code>C</code>, e utilizarei o compilador
+<code>gcc</code>, irei utilizar a flag <code>-fanalyzer</code> para
+realizar a análise estática do código.</p>
+<p>Detalhes de como a funciona a análise estática do <code>gcc</code>
+pode ser vista em: <a
+href="https://developers.redhat.com/blog/2020/03/26/static-analysis-in-gcc-10">Static
+analysis in GCC 10 | Red Hat Developer</a>.</p>
+<p>Descrições completas sobre os códigos de error/warning podem ser
+encontradas no site <a href="https://cwe.mitre.org"
+class="uri">https://cwe.mitre.org</a>.</p>
+<p>Informações a respeito de como utilizar a flag
+<code>-fanalyzer</code> está no site da documentação do <a
+href="https://gcc.gnu.org/onlinedocs/gcc/Static-Analyzer-Options.html">GNU/gcc</a>;</p>
+<h3 id="ui">UI</h3>
+<p>Para gerar a UI do jogo eu irei utilizar a biblioteca <a
+href="https://immediate-mode-ui.github.io/Nuklear/doc/index.html">Nuklear</a>.</p>
+<p>Outros links:</p>
+<ul>
+<li><a
+href="https://www.gnu.org/software/hurd/open_issues/code_analysis.html">GNU
+Hurd - code analysis</a>;</li>
+<li><a href="http://mygcc.free.fr/">mygcc the customizable gcc
+compiler</a>;</li>
+<li><a href="https://semgrep.dev/">Semgrep</a>;</li>
+<li><a href="https://github.com/foospidy/GrepBugs">GitHub -
+foospidy/GrepBugs: A regex based source code scanner</a>.</li>
+</ul>
+<h3 id="cronograma">Cronograma</h3>
+<p>Não existe um cronograma, eu tenho apenas uma vaga ideia do que quero
+fazer. A única coisa que eu tenho certeza é que tenho tempo de mudar de
+ideia.</p>
+<p>Neste blog eu registrarei as minhas aventuras no mundo do
+desenvolvimento de jogos.</p>
+<p>Até logo!!!</p>
+<h3 id="updates">Updates</h3>
+<ul>
+<li><strong>13/05/2022</strong>:
+<ul>
+<li>Descobri que o <a href="https://godotengine.org/">Godot</a> possui
+suporte third-party para Python. O projeto se chama <a
+href="https://github.com/touilleMan/godot-python">godot-python</a>.</li>
+<li>Esqueci de mencionar que estamos mantendo uma nota coletiva com
+ideias de jogos, ferramentas, tutoriais e vídeos que vamos encontrado. A
+nota pode ser acessada através <a
+href="https://pad.calebe.dev.br/p/jogo">desse link</a>.</li>
+</ul></li>
+</ul>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>ESPBoy: Um Gameboy com o ESP32</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/ESPBoy-A-ESP32-Gameboy.html" />
+            <id>https://blog.calebe.dev.br/posts/ESPBoy-A-ESP32-Gameboy.html</id>
+            <updated>2019-01-03T01:00:00-02:00</updated>
+            <content type="html"><![CDATA[
+                <h1 id="especificação">Especificação:</h1>
+<p>Desenvolver um console portátil utilizando o microcontrolador ESP32
+para ser apresentado na <a
+href="https://www.up.edu.br/blogs/mostra-de-profissoes/">Mostra de
+Profissões</a> da Universidade Positivo no dia 1.º de agosto de
+2018.</p>
+<p>O console deverá conseguir emular jogos da (4.º) geração de consoles
+portáteis como o <a
+href="https://pt.wikipedia.org/wiki/Game_Boy">Gameboy</a> e <a
+href="https://pt.wikipedia.org/wiki/Game_Gear">Game Gear</a> e também
+consoles da (3.º) geração como <a
+href="https://pt.wikipedia.org/wiki/Master_System">Master System</a> e
+<a href="https://pt.wikipedia.org/wiki/NES">NES</a>. Sendo que, console
+seja capaz de rodar pelo menos 1(um) jogo de qualquer um dos consoles
+acima durante a apresentação, ou seja, não há a necessidade de
+implementar todos os emuladores e nem a capacidade de inserir diversos
+jogos no mesmo dispositivo.</p>
+<p>Para o desenvolvimento do ESPBoy, iremos utilizar como base o projeto
+da empresa <a
+href="https://www.hardkernel.com/main/main.php"><strong>Hardkernel</strong></a>
+chamado <a
+href="https://www.hardkernel.com/main/products/prdt_info.php?g_code=G152875062626"><strong>ODROID-GO</strong></a>.
+O ODROID-GO é um projeto desenvolvido para a comemoração do 10.º
+aniversario do ODROID que consiste em um dispositivo capaz de emular
+jogos dos consoles portáteis de 4.ª geração e consoles de mesa da 3.ª
+geração e capaz também de reproduzir os sons dos games e ler os jogos
+armazenados em um cartão SD. Além da emulação, o dispositivo pode ser
+programado utilizando a IDE do Arduino.</p>
+<h1 id="software">Software:</h1>
+<h2 id="downloads">Downloads:</h2>
+<p>Para baixar os jogos, ou melhor, os melhores jogos das plataformas
+suportadas pelo <strong>ESPBoy</strong> podemos utilizar os links a
+seguir:</p>
+<ul>
+<li><a href="http://archive.org/download/">Archieve.org</a> - Para
+realizar o download precisa especificar o arquivo na (URL)</li>
+<li><a
+href="https://github.com/zach-morris/plugin.program.iarl/tree/79c9f8842f04bc7e8577eba892593b86cdcc8801/resources/data/dat_files">Zach-Morris
+dat_files</a> - Nesse repositório o Zach-Morris fez um compilado dos
+melhores jogos por plataforma em arquivos <strong>.xml</strong>.</li>
+</ul>
+<h1 id="hardware">Hardware:</h1>
+<h2 id="nomenclatura-dos-componentes">Nomenclatura dos Componentes:</h2>
+<h3 id="chaves-e-switches">Chaves e Switches:</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Prefixo</th>
+<th style="text-align: center;">Nome</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Key 1</td>
+<td style="text-align: center;">UP</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SW 1</td>
+<td style="text-align: center;">UP</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Key 3</td>
+<td style="text-align: center;">DOWN</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SW3</td>
+<td style="text-align: center;">DOWN</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Key 2</td>
+<td style="text-align: center;">RIGHT</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SW 2</td>
+<td style="text-align: center;">RIGHT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Key 4</td>
+<td style="text-align: center;">LEFT</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SW 4</td>
+<td style="text-align: center;">LEFT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">KEY 8</td>
+<td style="text-align: center;">A</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SW 5</td>
+<td style="text-align: center;">A</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Key 7</td>
+<td style="text-align: center;">B</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SW 6</td>
+<td style="text-align: center;">B</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">KEY 9</td>
+<td style="text-align: center;">MENU</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">KEY 5</td>
+<td style="text-align: center;">SELECT</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">KEY 6</td>
+<td style="text-align: center;">START</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">KEY 10</td>
+<td style="text-align: center;">VOL +</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">KEY 11</td>
+<td style="text-align: center;">VOL -</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dimensões">Dimensões:</h2>
+<h2 id="projeto">Projeto:</h2>
+<ul>
+<li><a href="https://easyeda.com/Calebe94/ESPBoy">EasyEDA -
+Calebe94-ESPBoy</a></li>
+</ul>
+<hr />
+<h1 id="espboy-bom">ESPBoy BOM</h1>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Quantity</th>
+<th style="text-align: center;">Component</th>
+<th style="text-align: center;">Image</th>
+<th style="text-align: center;">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>ESP32 DevKit</strong></td>
+<td
+style="text-align: center;"><img src="https://user-images.githubusercontent.com/9260214/28747595-19a41090-7471-11e7-826c-42c28ea7ae6e.jpeg" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://produto.mercadolivre.com.br/MLB-984073556-esp32-modulo-wifi-bluetooth-dual-core-_JM">R$
+42</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>Display 2,4” TFT
+320x240</strong></td>
+<td
+style="text-align: center;"><img src="https://cdn.instructables.com/F6K/HE7N/HV9FW89M/F6KHE7NHV9FW89M.MEDIUM.jpg" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://produto.mercadolivre.com.br/MLB-938123113-display-lcd-24-tft-320x240-true-color-com-sdcard-_JM">R$
+55</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>Módulo Amplificador
+PAM8403</strong></td>
+<td
+style="text-align: center;"><img src="http://img.dxcdn.com/productimages/sku_347324_1.jpg" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://produto.mercadolivre.com.br/MLB-1043419825-modulo-amplificador-som-estereo-2ch-3w3w-pam8403-arduino-_JM">R$
+5</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>Módulo Carregador de Bateria de
+Lítio TP4056</strong></td>
+<td
+style="text-align: center;"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA92OUxTKaQUOB_EKJUX6VIEH7u0vOoNI_9zUhEZbgWjft_AOv6A" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://produto.mercadolivre.com.br/MLB-891587521-tp4056-mini-usb-carregador-bateria-litio-1a-5v-lithium-_JM">R$
+5</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>Mini Alto Falante 2W 8
+Ohms</strong></td>
+<td
+style="text-align: center;"><img src="https://http2.mlstatic.com/D_NQ_NP_364815-MLB25313344771_012017-F.jpg" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://produto.mercadolivre.com.br/MLB-833938086-mini-alto-falante-28mm-2-wats-rms-8-ohms-eletrnicaarduino-_JM">R$
+8</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>Bateria de Litio
+&gt;600mAh</strong></td>
+<td
+style="text-align: center;"><img src="https://images-na.ssl-images-amazon.com/images/I/51MwOUWv5jL._SY355_.jpg" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://produto.mercadolivre.com.br/MLB-1005574636-bateria-37v-400mah-litio-polimero-35038-_JM">R$
+35</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">10</td>
+<td style="text-align: center;"><strong>Push Button</strong></td>
+<td
+style="text-align: center;"><img src="https://uploads.filipeflop.com/2017/07/pushbutton3.jpg" alt="drawing" width="50px"/></td>
+<td style="text-align: center;"><a
+href="https://www.filipeflop.com/produto/chave-tactil-push-button-x10-unidades/">R$3</a></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>TOTAL:</strong> R$152</li>
+</ul>
+<hr />
+<h1 id="logs">LOGS:</h1>
+<h2 id="dia-1">DIA 1:</h2>
+<p>Clonei os Seguintes repositórios:</p>
+<ul>
+<li><a
+href="https://github.com/nickfox-taterli/nes-game-with-sound-esp32">ESP32
+Game Playes with NES</a>;</li>
+<li><a
+href="https://github.com/espressif/esp32-nesemu">esp32-nesemu</a></li>
+</ul>
+<p>Fiz o teste do <strong>ESP32 Game Playes with NES</strong>, porém,
+nos primeiros testes o ESP32 informava no log que havia pouca RAM
+disponível, e o ESP32 reiniciava a todo momento. Assistindo ao <a
+href="https://www.youtube.com/watch?v=6oSsaTSyXGw">vídeo</a> e vi ser
+recomendado desativar ao módulo WIFI no <strong>menuconfig</strong>.</p>
+<p>Resolvi testar o porte “oficial” realizado pela empresa
+<strong>espressif</strong> o <strong>esp32-nesemu</strong>. Ao iniciar o
+programa(make flash monitor), o log não informava nenhum erro. Então
+resolvi gravar a ROM na memória Flash do ESP32 utilizando o script que
+veio com o projeto chamado <strong>flashrom.sh</strong> (é… o nome é
+sujestivo). Para tal, eu tive que editar o script para informar a porta
+serial e o arquivo <strong>.nes</strong> para gravar no endereço
+0x100000 da (FLASH). Ao terminar a gravação eu reiniciei o programa,
+dando o comando <strong>make monitor</strong>, e voilá! O ESP32
+<strong>“piscava”</strong> com a imagem de abertura do Super Mário. E o
+LOG informava estar tudo correto. Porém, a imagem não ficava fixa no
+jogo, ele desligava a todo momento como se estivesse reiniciando.</p>
+<p>Depois de muito ler e estudar o projeto eu percebi haver a opção de
+inverter o backlight. E esse foi o grand finalle do 1.º dia de execução
+do projeto. O resultado foi esse:</p>
+<figure>
+<img src="https://i.imgur.com/Mp6zmX2.jpg" alt="ESPBoy" />
+<figcaption aria-hidden="true">ESPBoy</figcaption>
+</figure>
+<p><a href="https://i.imgur.com/GFvoeQj.mp4">ESPBoy-GIF</a></p>
+<h2 id="dia-2">DIA 2:</h2>
+<p>Realizei alguns testes com o emulador, gravei ROM’s diferentes na
+memória e modifiquei o script para permitir a passagem da porta serial
+como argumento.</p>
+<figure>
+<img src="https://i.imgur.com/73btcPw.jpg" alt="ESPBoy-Teste2" />
+<figcaption aria-hidden="true">ESPBoy-Teste2</figcaption>
+</figure>
+<p>Em seguida montei o circuito em uma protoboard para realizar alguns
+testes com o circuito. Montei o <strong>Joypad</strong> também, e para
+fazer funcionar eu tive que modificar as funções
+<strong>psxcontrollerInit()</strong> e <strong>psxReadInput()</strong>
+no arquivo <strong>psxcontroller.c</strong>. Precisei fazer a função
+<strong>psxcontrollerInit()</strong> retornar um inteiro com os bits com
+os status dos botões da seguinte forma:</p>
+<ul>
+<li>BIT 0: SELECT;</li>
+<li>BIT 1: 1;</li>
+<li>BIT 2: 1;</li>
+<li>BIT 3: START;</li>
+<li>BIT 4: UP;</li>
+<li>BIT 5: RIGHT;</li>
+<li>BIT 6: DOWN;</li>
+<li>BIT 7: LEFT;</li>
+<li>BIT 8: 1;</li>
+<li>BIT 9: 1;</li>
+<li>BIT 10: 1;</li>
+<li>BIT 11: 1;</li>
+<li>BIT 12: SOFT_RESET;</li>
+<li>BIT 13: A;</li>
+<li>BIT 14: B;</li>
+<li>BIT 15: HARD_RESET;</li>
+</ul>
+<p>Eu não encontrei referências para o uso dos bits 1, 2, 8, 9, 10, 11,
+12 e 15. Mas a emulação funcionou muito bem apenas com os demais
+bits.</p>
+<h2 id="dia-3">DIA 3:</h2>
+<p>Fiz uma pequena modificação no joypad para fins de liberar algumas
+GPIOs para inserir botões de volume(aumentar e diminuir) e um botão de
+menu/reset. A modificação foi simples, ao invés de eu utilizar 1 GPIO
+para cada botão direcional, eu usei 2 linhas analógicas. Cada linha
+analógica é responsável por ler dois botões através de um divisor de
+tensão. O conceito pode ser visualizado na imagem abaixo:</p>
+<figure>
+<img src="https://i.stack.imgur.com/Cq9kc.jpg"
+alt="Reading Keys by Analog lines" />
+<figcaption aria-hidden="true">Reading Keys by Analog lines</figcaption>
+</figure>
+<p>Na sequência inseri um buzzer no terminal D26 do ESP32 para
+experimentar a saída de áudio. A qualidade de som não é das melhores e
+falta um amplificador de áudio para a saída do som, e também o buzzer
+não foi feito para reproduzir tons polifônicos. O resultado pode ser
+observado no vídeo abaixo.</p>
+<p><a href="https://youtu.be/8dRg0GTs4dQ">ESPBoy - Teste 2</a></p>
+<h2 id="dia-4">DIA 4:</h2>
+<p>Teste com o VOLUME… sem sucesso.</p>
+<h2 id="dia-5">DIA 5:</h2>
+<p>Teste com o Volume, um pouco de sucesso, agora consigo pelo menos
+alterar de leve o volume, nada considerável. A qualidade do som ainda é
+um problema. Mas só de conseguir alterar o volume já está ótimo.</p>
+<h2 id="dia-6">DIA 6:</h2>
+<p>Alterar os terminais e criar o diagrama esquemático para ser
+confeccionado a placa de circuito impresso.</p>
+<p>Tentatei inserir um circuito para a detecção automática do fone de
+ouvido e assim desligar o alto-falante.</p>
+<h3 id="terminais-utilizados-no-projeto.">Terminais Utilizados no
+projeto.</h3>
+<ul>
+<li>Display</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">TFT</th>
+<th style="text-align: center;">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">DC</td>
+<td style="text-align: center;">21</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">CS</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">BKL</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">MOSI</td>
+<td style="text-align: center;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">MISO</td>
+<td style="text-align: center;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">SCLK</td>
+<td style="text-align: center;">18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">RST</td>
+<td style="text-align: center;">EN</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>SD Card</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">SD</th>
+<th style="text-align: center;">ESP32</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">MISO</td>
+<td style="text-align: center;">19</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">MOSI</td>
+<td style="text-align: center;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">CLK</td>
+<td style="text-align: center;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">CS</td>
+<td style="text-align: center;">22</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dia-6-1">Dia 6:</h2>
+<p>Nesse dia foi iniciado o desenho do diagrama esquemático e da placa
+de circuito impresso. Para isso, foi utilizado a plataforma de
+desenvolvimento online do <a href="www.easyeda.com">EasyEDA</a>.</p>
+<h2 id="dia-7">Dia 7:</h2>
+<p>Para o desenvolvimento da placa de circuito impresso irei considerar
+as dimensões do GameBoy/GameBoy Color e GameBoy Advance. Como será
+confeccionado o modelo 3D do gabinete eu pretendo utilizar como base o
+layout dos GameBoys, e a placa deverá ter as dimensões e o layout do
+Gameboy. Os layouts e dimensões podem ser encontrados abaixo:</p>
+<h3 id="gameboygameboy-color">GameBoy/GameBoy Color</h3>
+<p><img
+src="https://www.the-blueprints.com/modules/vectordrawings/preview-wm/nintendo_gameboy_classic.jpg" /></p>
+<h3 id="gameboy-advance">GameBoy Advance</h3>
+<p><img
+src="https://vignette.wikia.nocookie.net/mario/images/7/78/Game_Boy_Advance_-_Transparent_Purple_Model.png/revision/latest?cb=20120513192900" /></p>
+<h2 id="dia-8">Dia 8:</h2>
+<p>Foi utilizado o software de desenvolvimento de circuitos e placas de
+circuito impresso online <a href="https://easyeda.com">EasyEDA</a> para
+o desenvolvimento do diagrama esquemático e da placa de circuito
+impresso do <a href="https://easyeda.com/Calebe94/ESPBoy">ESPBoy</a>. E
+para a confecção da mesma foi utilizada uma máquina CNC.</p>
+<figure>
+<img src="https://i.imgur.com/iY13WMf.jpg" alt="cnc" />
+<figcaption aria-hidden="true">cnc</figcaption>
+</figure>
+<p>O resultado pode ser verificado na imagem abaixo:</p>
+<figure>
+<img src="https://i.imgur.com/mkLqXRc.jpg" alt="ESPBoy-PCB" />
+<figcaption aria-hidden="true">ESPBoy-PCB</figcaption>
+</figure>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Resolvendo historico corrompido do ZSH</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/fix_zsh_corrupt_history.html" />
+            <id>https://blog.calebe.dev.br/posts/fix_zsh_corrupt_history.html</id>
+            <updated>2021-04-17T18:04:26-03:00</updated>
+            <content type="html"><![CDATA[
+                <h2 id="como-resolver-o-problema-de-historico-corrompido-do-zsh">Como
+resolver o problema de historico corrompido do zsh</h2>
+<p>Execute os comandos a seguir par resolver o erro e recuperar o seu
+histórico:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> .zsh_history .zsh_history_old</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strings</span> .zsh_history_old <span class="op">&gt;</span> .zsh_history</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="bu">fc</span> <span class="at">-R</span> .zsh_history</span></code></pre></div>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Construindo seu próprio teclado mecânico do zero</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/construindo-um-teclado-mecanico.html" />
+            <id>https://blog.calebe.dev.br/posts/construindo-um-teclado-mecanico.html</id>
+            <updated>2023-02-23T21:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1 id="construindo-seu-próprio-teclado-mecânico-do-zero">Construindo
+seu próprio teclado mecânico do zero</h1>
+<p>Se você deseja criar seu próprio teclado, há algumas coisas que você
+precisa fazer. Primeiro, você precisa decidir que categoria de teclado
+deseja criar.</p>
+<p>Você quer um teclado tradicional ou algo mais customizado?</p>
+<p>Você quer um teclado grande ou pequeno. Eu preciso de um teclado com
+muitas teclas? Ou poucas?</p>
+<p>A imagem abaixo te dará uma noção dos tamanhos dos teclados:</p>
+<p><img src="https://thegamingsetup.com/wp-content/uploads/Keyboard-Size-Guide-The-Gaming-Setup-scaled.jpg" width="500px"></p>
+<p>Após decidir a categoria de teclado que deseja, você precisa reunir
+os materiais necessários.</p>
+<p>Normalmente se adquire um kit de teclado mecânico em sites como <a
+href="https://kprepublic.com/">kprepublic</a> ou <a
+href="https://kbdfans.com/">kbdfans</a>.</p>
+<p>Para um teclado mais customizado, você poderá realizar a montagem de
+forma manual, soldando as teclas manualmente com fios. Esses teclados
+são chamados “handwired”. Um exemplo desse teclado pode ser visto na
+imagem abaixo:</p>
+<p><img src="https://i.imgur.com/ZpV4gEQ.jpg" width="500px"></p>
+<p>Ou ainda, se você for um conhecedor de eletrônica e confecção de
+placas de circuito impresso, você pode desenvolver a sua própria placa
+utilizando ferramentas como <a href="https://www.kicad.org/">KiCAD</a> e
+<a href="https://easyeda.com/">EasyEDA</a>, e encomendar as placas em
+sites como <a href="https://jlcpcb.com/">JLCPCB</a> e <a
+href="https://www.pcbway.com/">PCBWay</a>. Um exemplo de placa de
+circuito impresso customizado pode ser visualizado na figura abaixo:</p>
+<p><img src="https://4.bp.blogspot.com/-O_30ecfkOMQ/WqXaydLmR0I/AAAAAAACP34/au2W5c0qi90Asmj_2LTt1vWhuY_oPtOGwCLcBGAs/s640/e.jpg" width="500px"></p>
+<h2 id="por-que-construir-seu-próprio-teclado">Por que construir seu
+próprio teclado</h2>
+<p>Existem muitas razões para construir seu próprio teclado. Por um
+lado, pode ser uma experiência divertida e gratificante. Também é uma
+ótima maneira de obter exatamente o teclado que você deseja, sem ter que
+se contentar com algo produzido em massa. E se você gosta de eletrônicos
+DIY, é uma ótima maneira de aprender como os teclados funcionam. Além
+disso, você pode economizar muito dinheiro construindo seu próprio
+teclado em vez de comprar um.</p>
+<h2 id="lista-de-materiais-necessários">Lista de materiais
+necessários</h2>
+<ul>
+<li>Microcontrolador (Arduino, por exemplo);</li>
+<li>Matriz de teclas - também chamado “plate”;</li>
+<li>Case (<a
+href="https://kbdfans.com/collections/case/products/kbd75-v3-1-aluminum-case">KBD75</a>,
+por exemplo)</li>
+<li>Switches (Alps ou Cherry MX)</li>
+<li>Keycaps (<a
+href="https://kbdfans.com/products/kbdfans-dsa-1-25u-1-5u-2u-dsa?_pos=11&amp;_sid=e1ce20755&amp;_ss=r">DSA</a>,
+por exemplo)</li>
+<li>Didodos (1n4148, 1n4007 ou qualquer outro diodo de uso geral);</li>
+<li>Cabo USB.</li>
+</ul>
+<p>Você também precisará de alguns equipamentos e conhecimentos básicos
+de soldagem. Após ter todas as peças, você precisará soldar a matriz e
+os diodos ao microcontrolador e, em seguida, soldar os switches na
+matriz. Depois disso, você pode montar o teclado no gabinete e atualizar
+o firmware.</p>
+<h2 id="as-ferramentas-que-você-precisa-para-construir-seu-teclado">As
+ferramentas que você precisa para construir seu teclado</h2>
+<p>Para soldar os componentes na PCB (Placa de Circuito Impresso) você
+precisará de um ferro de soldas e estanho.</p>
+<p>Alguns itens opcionais, mas que tornam o trabalho mais fácil são:</p>
+<ul>
+<li>Fluxo de solda;</li>
+<li>Suporte de PCB de bancada;</li>
+<li>E um multímetro para testar as conexões da PCB e os switches.</li>
+</ul>
+<h1 id="construção-do-meu-teclado">Construção do meu teclado</h1>
+<p>No próximo post, eu irei descrever como foi o processo de
+desenvolvimento e montagem do meu teclado mecânico.</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Como tocar guitarra como johnny Ramone</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/how_to_play_like_johnny_ramone.html" />
+            <id>https://blog.calebe.dev.br/posts/how_to_play_like_johnny_ramone.html</id>
+            <updated>2021-04-17T18:04:26-03:00</updated>
+            <content type="html"><![CDATA[
+                <h2 id="como-tocar-guitarra-como-johnny-ramone">Como tocar guitarra como
+Johnny Ramone</h2>
+<p>Este é um post para compilar informações de como tocar guitarra como
+o Johnny Ramone.</p>
+<p>Eu comecei a aprender guitarra em novembro de 2020, e decidi isso por
+ser muito fã de Ramones.</p>
+<p>Bom… vamos direto ao ponto.</p>
+<p>No YouTube se encontra muitas vídeo-aulas de como tocar Ramones, mas
+muitas delas utilizam <a
+href="https://blog.guitarpedia.com.br/o-que-sao-power-chords-e-como-usa-los-na-guitarra/">Power
+Chords</a>. Oque facilita muito para quem é iniciante. Porém, neste
+artigo irei compilar informações de como Johnny Ramone tocava as músicas
+dos Ramones.</p>
+<h3 id="vídeo-aulas">Vídeo-Aulas</h3>
+<p>Também no YouTube é possível encontrar vídeos de pessoas fazendo
+cover de guitarra, como o caso do <a
+href="https://www.youtube.com/user/woodyamsterdam">woodyamsterdam</a>.
+Neste canal Woody Amsterdam faz covers de diversas bandas, mas
+majoritariamente de Ramones.</p>
+<p>Em um de seus vídeos ele explica <a
+href="https://www.youtube.com/watch?v=Y6X2yytsknk">como tocar Ramones do
+jeito certo</a>. Nesse vídeo ele aborta o tema dos <a
+href="https://en.wikipedia.org/wiki/Barre_chord">Barre Chords</a>, os
+acordes que Johnny utilizava em praticamente todas as músicas. Johnny
+usava barre chords maiores em sua maioria, em algumas múscas ele
+utilizava acordes abertos, e em raras ocasiões acordes menores.</p>
+<p>Outro canal interessante é o do <a
+href="https://www.youtube.com/channel/UCsWVChNTclj9EqWEiDlWlLA">Hardly
+Ramone</a>. Ele faz cover dos Ramones álbum por álbum, oque é bem
+interessante. E em alguns vídeos ele explica a tecnica de Johnny Ramone
+como <a href="https://www.youtube.com/watch?v=ayzJvImTtqI">nesse
+vídeo</a>. Inclusive, na descrição deste vídeo contém um Q&amp;A com as
+dúvidas mais comúns dos iniciantes.</p>
+<h3 id="dicas">Dicas</h3>
+<ul>
+<li>Sempre palhetadas para baixo.</li>
+<li>Sempre Barre Chords.</li>
+<li>Tentar sempre adicionar “vibração” nas palhetadas.
+<ul>
+<li><a href="https://www.youtube.com/watch?v=up-zaaIqWYI">Dica do Cacá
+Saffiotti</a></li>
+</ul></li>
+<li>Abaixe a cinta da guitarra, para permitir que somente o seu punho se
+mexa na hora da palhetada.
+<ul>
+<li><a href="https://youtu.be/MStmrPtlnR0?t=99">Dica do mestre CJ
+Ramone</a></li>
+</ul></li>
+</ul>
+<h3 id="referências">Referências</h3>
+<ul>
+<li>YouTube
+<ul>
+<li><a
+href="https://www.youtube.com/user/woodyamsterdam">woodyamsterdam</a></li>
+<li><a
+href="https://www.youtube.com/channel/UCsWVChNTclj9EqWEiDlWlLA">Hardly
+Ramone</a></li>
+<li><a href="https://www.youtube.com/watch?v=up-zaaIqWYI">Ramones na
+guitarra - Como tocar | Música e Ideias | Cacá Saffiotti</a></li>
+<li><a href="https://youtu.be/MStmrPtlnR0">CJ Ramone | Playing Bass in
+the Ramones | Fender</a></li>
+<li><a href="https://www.youtube.com/watch?v=vC6-AvpIJ5I">Bass Habits -
+Ep 9 - How to sound like Dee Dee Ramone</a></li>
+</ul></li>
+<li>Imgur
+<ul>
+<li><a href="https://i.imgur.com/JfjIc9G.jpg">Johnny Ramone - Power
+Chords</a></li>
+</ul></li>
+</ul>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Teclado APPA</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/teclado-appa.html" />
+            <id>https://blog.calebe.dev.br/posts/teclado-appa.html</id>
+            <updated>2023-02-23T16:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1 id="teclado-appa">Teclado APPA</h1>
+<p>No penúltimo post do blog eu abordei o assunto de <a
+href="https://blog.calebe.dev.br/posts/construindo-um-teclado-mecanico.html">Como
+construir seu próprio teclado mecânico</a>.</p>
+<p>Neste post eu irei descrever os processos de construção do meu
+teclado mecânico, que eu chamei de <a
+href="https://github.com/Calebe94/appa-firmware">Appa</a>.</p>
+<center>
+<img src="https://github.com/Calebe94/appa-firmware/raw/main/res/appa.jpeg" width="50%">
+</center>
+<h2>
+Índice
+</h2>
+<div>
+<ul>
+<li>
+<a href="#teclado-appa">Teclado Mecânico DIY</a>
+<ul>
+<li>
+<a href="#motivação">Motivação</a>
+</li>
+<li>
+<a href="#escolha-do-nome-do-projeto">Escolha do nome do projeto</a>
+</li>
+<li>
+<a href="#desenho-da-case">Desenho da Case</a>
+</li>
+<li>
+<a href="#desenvolvimento-da-pcb">Desenvolvimento da PCB</a>
+</li>
+<li>
+<a href="#remoção-das-teclas">Remoção das teclas</a>
+</li>
+<li>
+<a href="#lubrificando-as-teclas">Lubrificando as teclas</a>
+</li>
+<li>
+<a href="#montagem-da-pcb">Montagem da PCB</a>
+</li>
+<li>
+<a href="#bootloader-e-firmware">Bootloader e Firmware</a>
+</li>
+<li>
+<a href="#rgb">RGB</a>
+</li>
+<li>
+<a href="#firmware">Firmware</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#considerações-finais">Considerações finais</a>
+</li>
+</ul>
+<h2 id="motivação">Motivação</h2>
+<p>Eu estava precisando de um teclado e meus amigos me recomendaram
+comprar um teclado mecânico.</p>
+<p>No meio da conversa, me disseram que existem teclados que era
+possível modificar o firmware, o que foi o suficiente para me convencer
+a comprar um teclado desses.</p>
+<p>Após algumas pesquisas na internet (mais especificamente no Reddit)
+encontrei alguns projetos de teclados <a
+href="https://opensource.com/resources/what-open-source">open source</a>
+e <a href="https://opensource.com/resources/what-open-hardware">open
+hardware</a>. Um deles foi o <a
+href="https://github.com/hsgw/plaid">Plaid</a>. Verificando o projeto eu
+vi que não era nada complicado para reproduzir, e não só isso, eu já
+possuía praticamente todos os componentes, como os diodos e o
+microcontrolador <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>.
+Me faltavam os personagens principais para a construção de um teclado
+mecânico, as teclas.</p>
+<p>Durante um trabalho que estava fazendo em uma pista de pedágio para a
+empresa que trabalho, pude notar que os teclados das centrais de
+arrecadação eram teclados mecânicos. Porém, as teclas não eram parecidas
+com as famosas <a
+href="https://switchandclick.com/cherry-mx-guide/">Cherry MX</a>, eram
+um pouco diferentes.</p>
+<p>Depois de bastante pesquisar, encontrei a imagem abaixo, e através
+dela descobri que a tecla desses teclados de arrecadação se chamam <a
+href="https://keyboardsexpert.com/what-are-alps-switches/">ALPS</a>.</p>
+<center>
+<p><img src="https://external-preview.redd.it/kMI-ptGu-RVFy45uLXK4ev-0Zp5aciLTTI9MKS2Zz7U.gif?format=png8&s=e8f312e3ad0098ccc7e3e99828b782e756eafb41" width="50%"></p>
+<a
+href="https://static.wikia.nocookie.net/installgentoo/images/7/7b/Mech_keyboard_switches.gif">Link
+para a GIF</a>
+</center>
+<p>Pude perceber que se tratava de ótimas teclas, porém, muito difíceis
+de conseguir hoje em dia, então procurei no <a
+href="https://www.mercadolivre.com.br/">Mercado Livre</a> por teclados
+da <a href="https://www.gertec.com.br/">Gertec</a> (nome da marca dos
+teclados de arrecadação) e encontrei um teclado de 66 teclas por apenas
+R$66. Resolvi comprar e desenvolver uma placa para utilizar essas
+teclas.</p>
+<center>
+<img src="https://www.astemar.com.br/imgsite/produtos/amp-TECLADO_Tec66new__04854_zoom.jpg" width="50%">
+</center>
+<h2 id="escolha-do-nome-do-projeto">Escolha do nome do projeto</h2>
+<p>Eu escolhi esse nome em homenagem ao <a
+href="https://avatar.fandom.com/wiki/Appa">Appa</a>, personagem do
+desenho animado <a
+href="https://en.wikipedia.org/wiki/Avatar:_The_Last_Airbender">Avatar:
+The Last Airbender</a> (ou <a
+href="https://pt.wikipedia.org/wiki/Avatar:_The_Last_Airbender">Avatar:
+A Lenda de Aang</a> em português). O Appa e o Momo (outro personagem da
+série) são os meus animais favoritos de toda a série.</p>
+<center>
+<img src="https://cdn11.bigcommerce.com/s-5242sis1by/images/stencil/2560w/products/282/1043/Appa__86978.1595902634.png" width="50%">
+</center>
+<p>Como eu já havia definido que eu utilizaria as teclas <a
+href="https://keyboardsexpert.com/what-are-alps-switches/">ALPS</a> no
+projeto, eu decidi usar o nome <strong>Appa</strong>, por começar com a
+letra “<strong>A</strong>” E nomearei um próximo projeto de teclado com
+teclas <a href="https://switchandclick.com/cherry-mx-guide/">Cherry
+MX</a> de <strong>Momo</strong>.</p>
+<h2 id="desenho-da-case">Desenho da Case</h2>
+<p>Antes de desenvolver a Placa de Circuito Impresso (PCB), eu comecei a
+pesquisar <code>cases</code> baratas para o teclado, porém as cases que
+eu encontrava, não suportavam as teclas <strong>ALPS</strong>. Após
+muita pesquisa na internet eu encontrei o site <a
+href="40percent.club/">40percent.club</a>. Nesse site eu encontrei uma
+versão do teclado <a
+href="https://www.40percent.club/2017/02/gherkin-wood.html">Gherkin com
+uma case feito de madeira.</a>.</p>
+<center>
+<img src="https://3.bp.blogspot.com/-mht2Hz181Rs/WKytasCdePI/AAAAAAACBMY/1LQnn2r3iI4nh5dVFtI7mnGHBuMjcAEZQCEw/s640/a2.JPG" width="50%">
+</center>
+<p>Esse teclado me deu a ideia de fazer a minha case de acrílico, com as
+peças cortadas a laser. Estas peças seriam sobrepostas, formando um
+“sanduíche” de peças de acrílico, e seriam atravessados por parafusos
+que ficariam a mostra. Eu só precisava desenhar estas peças para poder
+encomendar os recortes, após algumas pesquisas na internet descobri a
+ferramenta <a href="http://builder.swillkb.com/">swillkb</a>, que seu
+propósito é justamente facilitar a criação de cases para teclados.</p>
+<p>Para usar a ferramenta <a
+href="http://builder.swillkb.com/">swillkb</a>, eu precisava de um
+layout para teclado. Então usei a ferramenta <a
+href="https://keyboard-layout-editor.com">keyboard-layout-editor.com</a>
+para criar um layout <strong>QWERTY</strong> de 48 teclas. Exportei esse
+layout para <code>JSON</code> e utilizei no <a
+href="http://builder.swillkb.com/">swillkb</a> com outras informações
+que eu colocarei abaixo:</p>
+<ul>
+<li>Layout</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="fu">{</span><span class="er">a</span><span class="fu">:</span><span class="dv">7</span><span class="fu">}</span><span class="ot">,</span><span class="st">&quot;ESC&quot;</span><span class="ot">,</span><span class="st">&quot;Q&quot;</span><span class="ot">,</span><span class="st">&quot;W&quot;</span><span class="ot">,</span><span class="st">&quot;E&quot;</span><span class="ot">,</span><span class="st">&quot;R&quot;</span><span class="ot">,</span><span class="st">&quot;T&quot;</span><span class="ot">,</span><span class="st">&quot;Y&quot;</span><span class="ot">,</span><span class="st">&quot;U&quot;</span><span class="ot">,</span><span class="st">&quot;I&quot;</span><span class="ot">,</span><span class="st">&quot;O&quot;</span><span class="ot">,</span><span class="st">&quot;P&quot;</span><span class="ot">,</span><span class="st">&quot;BKP&quot;</span><span class="ot">]</span><span class="er">,</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;Tab&quot;</span><span class="ot">,</span><span class="st">&quot;A&quot;</span><span class="ot">,</span><span class="st">&quot;S&quot;</span><span class="ot">,</span><span class="st">&quot;D&quot;</span><span class="ot">,</span><span class="st">&quot;F&quot;</span><span class="ot">,</span><span class="st">&quot;G&quot;</span><span class="ot">,</span><span class="st">&quot;H&quot;</span><span class="ot">,</span><span class="st">&quot;J&quot;</span><span class="ot">,</span><span class="st">&quot;K&quot;</span><span class="ot">,</span><span class="st">&quot;L&quot;</span><span class="ot">,</span><span class="st">&quot;;&quot;</span><span class="ot">,</span><span class="st">&quot;´&quot;</span><span class="ot">]</span><span class="er">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;Shift&quot;</span><span class="ot">,</span><span class="st">&quot;Z&quot;</span><span class="ot">,</span><span class="st">&quot;X&quot;</span><span class="ot">,</span><span class="st">&quot;C&quot;</span><span class="ot">,</span><span class="st">&quot;V&quot;</span><span class="ot">,</span><span class="st">&quot;B&quot;</span><span class="ot">,</span><span class="st">&quot;N&quot;</span><span class="ot">,</span><span class="st">&quot;M&quot;</span><span class="ot">,</span><span class="st">&quot;&lt;&quot;</span><span class="ot">,</span><span class="st">&quot;&gt;&quot;</span><span class="ot">,</span><span class="st">&quot;/&quot;</span><span class="ot">,</span><span class="st">&quot;RET&quot;</span><span class="ot">]</span><span class="er">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;CTRL&quot;</span><span class="ot">,</span><span class="st">&quot;ALT&quot;</span><span class="ot">,</span><span class="st">&quot;MOD&quot;</span><span class="ot">,</span><span class="st">&quot;LAY&quot;</span><span class="ot">,</span><span class="st">&quot;SPC&quot;</span><span class="ot">,</span><span class="st">&quot;MOD&quot;</span><span class="ot">,</span><span class="st">&quot;MOD&quot;</span><span class="ot">,</span><span class="st">&quot;SPC&quot;</span><span class="ot">,</span><span class="st">&quot;LEFT&quot;</span><span class="ot">,</span><span class="st">&quot;DOWN&quot;</span><span class="ot">,</span><span class="st">&quot;UP&quot;</span><span class="ot">,</span><span class="st">&quot;RIGHT&quot;</span><span class="ot">]</span></span></code></pre></div>
+<ul>
+<li>Switch Type: <code>ALPS</code></li>
+<li>Stabilizer Type: <code>Alps (Costar fallback)</code></li>
+<li>Case Type: <code>Sandwich</code></li>
+<li>USB Cutout:
+<ul>
+<li>Location: <code>0</code></li>
+<li>Width: <code>15</code></li>
+</ul></li>
+<li>Mount Holes: <code>10</code>
+<ul>
+<li>Diameter(mm): <code>3.5</code></li>
+<li>Edge Width(mm): <code>10</code></li>
+</ul></li>
+<li>Edge Padding: <code>On</code>
+<ul>
+<li>Top(mm): <code>10</code></li>
+<li>Right(mm): <code>10</code></li>
+<li>Bottom(mm): <code>10</code></li>
+<li>Left(mm): <code>10</code></li>
+</ul></li>
+<li>Plate Corners: <code>5</code></li>
+<li>Kerf: <code>0.15</code></li>
+</ul>
+<p>Após inserir essas informações na plataforma, eu exportei todos os
+arquivos da case, e todos eles podem ser acessados no repositório <a
+href="https://github.com/Calebe94/appa-case">appa-case</a>. Após isso eu
+encomendei os cortes em MDF e acrílico transparente em uma empresa perto
+da minha casa.</p>
+<p>O resultado foi o seguinte:</p>
+<table>
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">MDF</th>
+<th style="text-align: center;">Acrílico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img
+src="https://media.calebe.dev.br/images/case-mdf.jpeg" /></td>
+<td style="text-align: center;"><img
+src="https://media.calebe.dev.br/images/case-acrilico.jpeg" /></td>
+</tr>
+</tbody>
+</table>
+<p>O próximo passo é desenvolver a PCB.</p>
+<h2 id="desenvolvimento-da-pcb">Desenvolvimento da PCB</h2>
+<p>Utilizei o projeto <a href="https://github.com/hsgw/plaid">Plaid</a>
+como base do meu projeto e utilizei o <a
+href="https://www.kicad.org/">KiCAD</a> 6.0 para desenhar o diagrama
+esquemático e a PCB.</p>
+<p>Para o desenho da PCB eu resolvi utilizar somente componentes que eu
+possuía em casa, para diminuir os custos do projeto. Os componentes
+escolhidos foram:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Componente</th>
+<th style="text-align: center;">Quantidade</th>
+<th style="text-align: center;">Imagem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Diodo 1n4148</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Diodo Zenner 3v3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Resistores PTH 1/4 W</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Capacitores PTH tântalo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Capacitores PTH Cerâmico</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+href="https://docs.arduino.cc/retired/boards/arduino-pro-mini">Arduino
+PRO Mini</a>*</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ATMEGA 328*</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Crital PTH 16MHz</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">USB fêmea do Tipo B*</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>O <a
+href="https://docs.arduino.cc/retired/boards/arduino-pro-mini">Arduino
+PRO Mini</a> foi escolhido, pois, eu já possuía vários aqui em casa, e
+esta placa de desenvolvimento possui o <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>
+como microcontrolador.</p>
+<p>Também adicionei na placa o circuito stantadalone do <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>,
+pois também possuo vários desses microcontroladores aqui em casa.</p>
+<p>A escolha da porta USB do tipo B também foi pelo motivo de eu possuir
+vários desses aqui em casa, e me arrependo amargamente por tomar essa
+decisão, mas falarei sobre isso logo mais.</p>
+<p>Por fim, o esquemático é o seguinte:</p>
+<center>
+<img src="https://github.com/Calebe94/appa-pcb/raw/main/res/appa-schematic.jpg" width="50%">
+</center>
+<p>Após terminar de desenhar a placa de circuito impresso, eu exportei
+os arquivos <a
+href="https://github.com/Calebe94/appa-pcb/releases/download/1.0.0/2022-10-27_21-28-gerber.zip">gerber</a>,
+e fiz a encomenda de 5 placas no site <a
+href="https://jlcpcb.com/">JLCPCB</a>, o qual custou apenas R$114.77,
+sendo R$56.05 para a produção das 5 placas e R$58.72 para o envio, sim,
+o frete saiu mais caro que a confecção das placas.</p>
+<h2 id="remoção-das-teclas">Remoção das teclas</h2>
+<p>Para montar as PCBs, eu primeiro precisava remover as teclas do
+teclado de automação da Gertec.</p>
+<center>
+<img src="https://media.calebe.dev.br/images/gertec66-teclas.jpeg" width="50%">
+</center>
+<p>Infelizmente eu não tenho fotos do processo de remoção das teclas do
+<em>plate</em> e da <em>PCB</em> deste teclado em específico(de 66
+teclas), então irei mostrar o processo que fiz logo na sequência com o
+teclado de 44 teclas.</p>
+<p>Mas foi um processo relativamente simples, eu utilizei um ferro de
+solda, estanho e um sugador para remover as soldas das teclas. E após
+isso eu utilizei uma pinça para soltar os prendedores das teclas do
+<em>plate</em> e uma chave de fenda para forçar a saída da tecla.</p>
+<div class="CSS_slideshow" data-show-indicators="true"
+data-indicators-position="in" data-show-buttons="true"
+data-show-wrap-buttons="true" data-animation-style="slide"
+style="-moz-transition-duration: 0.3s; -webkit-transition-duration: 0.3s; transition-duration: 0.3s;">
+<div class="CSS_slideshow_wrapper">
+<p><input type="radio" name="css3slideshow" id="slide1" checked />
+<label for="slide1"><video width="640" height="360" controls><source src="https://media.calebe.dev.br/images/IMG_0433.mp4" type="video/mp4" /></video></label>
+<input type="radio" name="css3slideshow" id="slide2" />
+<label for="slide2">
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/bifq6fFtRcwpCLL?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide3" />
+<label for="slide3"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/aQw73rSbdQ4CXEQ?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide4" />
+<label for="slide4"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/f46ft2BR7Jt6GnD?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide5" />
+<label for="slide5"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/gZeELG9w2qxiReW?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide6" />
+<label for="slide6"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/PqwnmSp78gBwzcP?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide7" />
+<label for="slide7"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/NX3HDNZaxeRAmZJ?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide8" />
+<label for="slide8"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/fPbGBz4mbg6DAFP?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide9" />
+<label for="slide9"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/Xiay6J6wHn8Psg5?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide10" />
+<label for="slide10"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/jfWN7Kd3rzbq7FL?file=/&fileId=80796&x=1366&y=768&a=true" /></label></p>
+</div>
+</div>
+<p>Após esse processo, eu lubrifiquei as teclas.</p>
+<h2 id="lubrificando-as-teclas">Lubrificando as teclas</h2>
+<p>Para lubrificar as teclas eu assisti a alguns vídeos do <a
+href="https://www.youtube.com/@Chyrosran22">Chyrosran22</a> no Youtube,
+mais específicamente o vídeo <a
+href="https://www.youtube.com/watch?v=nvDQKUwBy_8">Alps restoration
+guide part 4: how to lube Alps switches</a>. Então visitei o Mercado
+Livre e comprei um lubrificante para teclados mecânicos chamado “Graxa
+Branca de Silicone”. Também comprei alguns pinceis ultra finos de
+maquiadoras, pois estavam MUITO mais baratos que os pinceis sugeridos
+para hobistas de teclados (e fazem um excelente trabalho diga-se de
+passagem).</p>
+<center>
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/mZQZt7f5BwmKMMx?file=/&fileId=80796&x=1366&y=768&a=true" width="50%">
+</center>
+<p>Então repeti o processo descrito no vídeo em todas as 66 teclas do
+conjunto.</p>
+<h2 id="montagem-da-pcb">Montagem da PCB</h2>
+<p>Após ter recebido as PCBs, dei início ao processo de montagem dos
+teclados.</p>
+<center>
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/afKBgENwHd68jj7?file=/&fileId=80734&x=1366&y=768&a=true" width="50%">
+</center>
+<p>A qualidade de produção de PCB da <a
+href="https://jlcpcb.com/">JLCPCB</a> me impressionou. A placa ficou
+linda na cor preta.</p>
+<center>
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/ipx5wjmWk8qNCHn?file=/&fileId=80849&x=1366&y=768&a=true" width="50%">
+</center>
+<p>Como o processo de montagem possui várias etapas, eu criei o vídeo
+abaixo no meu celular, que sumariza todo o processo de montagem do
+teclado:</p>
+<center>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/fPAnu4k" data-context="false">
+<a href="//imgur.com/a/fPAnu4k">Appa Keyboard</a>
+</blockquote>
+<script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+</center>
+<p>Caso não consiga assistir o vídeo pelo link acima, tente por <a
+href="https://media.calebe.dev.br/videos/appa-keyboard.mp4">esse
+link</a>.</p>
+<h2 id="bootloader-e-firmware">Bootloader e Firmware</h2>
+<p>Como o microcontrolador <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>
+não possui periférico de interface USB integrado, nós temos que utilizar
+o <a
+href="https://obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>,
+um bootloader para microcontroladores <a
+href="https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/8-bit-mcus/avr-mcus">AVR</a>.</p>
+<p>Com o <a
+href="https://obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>,
+nós podemos utilizar o microcontrodor ATMEGA328 como um dispositivo <a
+href="https://en.wikipedia.org/wiki/Human_interface_device">HID</a>, e
+também podemos utilizá-lo para gravar o firmware em si mesmo. Geralmente
+precisamos de um gravador externo para isso, como o <a
+href="https://www.fischl.de/usbasp/">USBAsp</a>. Mas com o <a
+href="https://obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>
+isso não é mais preciso.</p>
+<p>Então eu tentei compilar o projeto <a
+href="https://github.com/hsgw/USBaspLoader/tree/plaid">hsgw/USBaspLoader</a>,
+porém, não obtive sucesso. Após algumas pesquisas eu encontrei um post
+na internet chamado <a
+href="https://www.algorist.co.uk/post/how-to-burn-the-plaid-keyboard-bootloader-using-arduino-nano/">How
+to burn the Plaid keyboard bootloader using Arduino Nano</a>. Onde o
+autor da dicas de como gravar o bootloader, mas também posta o link para
+o <a
+href="https://github.com/hsgw/USBaspLoader/blob/plaid/firmware/main.hex">arquivo
+.hex</a>, que convenientemente está no repositório do
+<strong>hsgw</strong> (<em>arquivo esse que eu deixei passar
+desapercebido</em>).</p>
+<p>Então gravei o <code>bootloader</code> no meu Arduino Pro Mini com um
+<a href="https://www.fischl.de/usbasp/">USBAsp</a> e aparentemente
+estava tudo funcionando (<em>foi o que eu pensei</em>).</p>
+<h3 id="testes">Testes</h3>
+<p>Logo após a gravação do <code>bootloader</code> eu comecei os testes
+para verificar se o teclado estava funcionando. Eu pluguei o teclado no
+meu computador e não funcionou, então rodei o comando
+<code>dmesg -w</code> e o seguinte log me foi apresentado:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.326497] usb 1-3: <span class="er">Product:</span> <span class="ex">Plaid</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.326503] usb 1-3: <span class="er">Manufacturer:</span> <span class="ex">Dm9Records</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.359555] input: Dm9Records <span class="er">Plaid</span> <span class="fu">as</span> /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:16C0:27DB.0006/input/input29</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.418493] hid-generic 0003:16C0:27DB.0006: <span class="er">input,hidraw0:</span> <span class="ex">USB</span> HID v1.01 Keyboard [Dm9Records Plaid] on usb-0000:00:14.0-3/input0</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.421175] usbhid 1-3:1.1: <span class="er">can&#39;t</span> <span class="ex">add</span> hid device: <span class="at">-71</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.421181] usbhid: probe <span class="er">of</span> <span class="ex">1-3:1.1</span> failed with error <span class="at">-71</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   81.738940] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   83.450544] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   85.174040] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   86.893789] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   88.665499] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   90.397112] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span></code></pre></div>
+<p>Pesquisei sobre esse erro na internet, mas não obtive sucesso.
+Visitei o servidor <a href="https://discord.com/invite/Uq7gcHh">QMK no
+Discord</a>, e alguém no servidor mencionou para verificar se o problema
+não poderia estar nos diodos zenner.</p>
+<p>Como eu montei o teclado com os componentes que eu já tinha a minha
+disposição para diminuir os custos eu utilizei um diodo zenner de 3.6V
+de 1W de potência, após a trocar o diodo zenner de 1w por um diodo
+zenner de 0,5w o teclado passou a funcionar perfeitamente.</p>
+<h2 id="rgb">RGB</h2>
+<p>Como a case do teclado é feita de acrílico translúcido, eu resolvi
+instalar uma fita de leds <a
+href="https://www.digikey.com/en/datasheets/parallaxinc/parallax-inc-28085-ws2812b-rgb-led-datasheet">WS2812B</a>
+na parte inferior da PCB, para dar um brilho na camada inferior do
+teclado, o chamado <code>underglow</code>. Então comprei 1 metro de fita
+led <a
+href="https://www.digikey.com/en/datasheets/parallaxinc/parallax-inc-28085-ws2812b-rgb-led-datasheet">WS2812B</a>,
+que tem 30 leds.</p>
+<p>Para ativar os leds, eu utilizei 1 dos 2 terminais I2C do ATMEGA328
+que eu deixei exposto na PCB caso no futuro eu quisesse adicionar um
+display, ou até outro microcontrolador na build.</p>
+<p>Então comecei os trabalhos:</p>
+<div class="CSS_slideshow" data-show-indicators="true"
+data-indicators-position="in" data-show-buttons="true"
+data-show-wrap-buttons="true" data-animation-style="slide"
+style="-moz-transition-duration: 0.3s; -webkit-transition-duration: 0.3s; transition-duration: 0.3s;">
+<div class="CSS_slideshow_wrapper">
+<p><input type="radio" name="css3slideshow1" id="slide11" checked />
+<label for="slide11"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/jzFN9EW9bsTPaqD?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide12" />
+<label for="slide12">
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/5Yj4FDKG2PjLbMx?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide13" />
+<label for="slide13"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/KwgKM2neW2tNnEj?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide14" />
+<label for="slide14"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/9AGYdNgpzZW9a9Q?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide15" />
+<label for="slide15"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/RDpdyPSxQY7PSk4?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide16" />
+<label for="slide16"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/wzZLr5bftKoGcBX?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide17" />
+<label for="slide17"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/tXZzERTB6ganDi2?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide18" />
+<label for="slide18"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/P43ERMKBxqYdNag?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide19" />
+<label for="slide19"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/aZCcywWT5NQMy2z?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide20" />
+<label for="slide20"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/tK7LCNyweLia5Jy?file=/&fileId=80796&x=1366&y=768&a=true" /></label></p>
+</div>
+</div>
+<h2 id="firmware">Firmware</h2>
+<p>O firmware do teclado é desenvolvido utilizando o <a
+href="https://qmk.fm/#/">qmk</a> e o código pode ser encontrado no
+repositório <a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a>.</p>
+<h1 id="considerações-finais">Considerações finais</h1>
+<p>Desenvolver o meu primeiro teclado foi com certeza uma agradável
+aventura. Pude fazer o que eu mais gosto, criar dispositivos
+eletrônicos. Agora eu tenho um teclado que eu posso chamar de meu, pois
+eu que o criei.</p>
+<p>Eu gostaria de agradecer ao <a href="https://github.com/hsgw">Takuya
+Urakawa</a> por criar o projeto <a
+href="https://github.com/hsgw/plaid">plaid</a>, projeto esse que eu
+utilizei como inspiração.</p>
+<p>O <a href="https://github.com/Calebe94/appa-firmware">Appa</a> é um
+projeto em desenvolvimento, que provavelmente sofrerá alterações no
+futuro, a primeira delas será trocar o conector USB B por um USB C, pois
+graças ao USB B o teclado ficou absurdamente alto (cerca de 3cm). E
+também irei substituir as teclas ALPS por Cherry MX, pois infelizmente é
+muito difícil encontrar as teclas ALPS para comprar e praticamente
+impossível encontrar keycaps para estas teclas.</p>
+<p>Vale relembrar que os repositórios do projeto são:</p>
+<ul>
+<li><a href="https://github.com/Calebe94/appa-pcb">appa-pcb</a>;</li>
+<li><a href="https://github.com/Calebe94/appa-case">appa-case</a>;</li>
+<li><a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a>.</li>
+</ul>
+<p>Por fim, deixo aqui um vídeo sumarizando a montagem do <a
+href="https://github.com/Calebe94/appa-firmware">Appa</a>:</p>
+<center>
+<video width="640" height="360" controls>
+<source src="https://cloud.calebe.dev.br/s/nZ35dMQYYjKWWj7/download/Appa%20Keyboard.mp4" type="video/mp4" />
+</video>
+</center>
+            ]]></content>
+        </entry>
+    
+</feed>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/static/css/retro.css">
+<link rel="stylesheet" href="/static/css/carousel.css">
+<link rel="stylesheet" href="/static/css/fontello.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<!-- HTML Meta Tags -->
+<title>Teclado APPA &mdash; Teclado APPA - Calebe94</title>
+<meta name="description" content="Esta é a página pessoal e blog de Calebe94.">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="calebe.dev.br">
+<meta itemprop="description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta itemprop="image" content="https://media.calebe.dev.br/images/calebe94_1200.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://calebe.dev.br/site">
+<meta property="og:type" content="website">
+<meta property="og:title" content="calebe.dev.br">
+<meta property="og:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta property="og:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="calebe.dev.br">
+<meta name="twitter:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta name="twitter:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Meta Content Security Policy -->
+<!-- <meta http-equiv="Content-Security-Policy"
+     content="default-src 'self';
+     script-src 'self' 'report-sample';
+     style-src 'self' 'report-sample';
+     base-uri 'self';
+     object-src 'none';
+     connect-src 'self';
+     font-src 'self';
+     frame-src 'self';
+     form-action 'self';
+     img-src 'self' data: https:;
+     manifest-src 'self';
+     media-src 'self';
+     worker-src 'none';
+     "> -->
+
+<link rel="icon" type="image/x-icon" href="https://blog.calebe.dev.br/static/favicon.ico">
+<style type="text/css" media="screen">
+@import “/static/css/fontello”;
+</style>
+
+<title>Teclado APPA &mdash; Teclado APPA - Calebe94</title>
+</head>
+<body>
+    <button onclick="topFunction()" id="top-button" title="Go to top">Top</button>
+    <header class="site-header">
+
+        <nav class="nav-top">
+            <h3>
+                <div class="whoami-animation">$ whoami</div>
+                <a class="result-animation" href="/">&#8203</a>
+            </h3>
+            <h5><a href="/posts"a>✉️ Posts </a></h5>
+            <h5><a href="/uses.html">⚒️ Uses </a></h5>
+            <h5><a href="/recommends/">☝️ Recomendações </a></h5>
+            <h5><a href="//links.calebe.dev.br">🔗 Links </a></h5>
+            <h5><a href="//git.calebe.dev.br">🚧 Projetos </a></h5>
+        </nav>
+    </header>
+    <main>
+    <hr>
+<nav class="site-header"><h5>$ pwd<br>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/teclado-appa.html">Teclado APPA</a></h5></nav>
+<!--
+title: "Teclado APPA"
+subtitle: "Teclado mecânico com teclas ALPS inspirado no plaid"
+date: "2023-02-23 16:00:00"
+tags: [DIY, PT_BR, Mechanical Keyboards, keyboards, qmk, appa]
+-->
+<h1 id="teclado-appa">Teclado APPA</h1>
+<p>No penúltimo post do blog eu abordei o assunto de <a
+href="https://blog.calebe.dev.br/posts/construindo-um-teclado-mecanico.html">Como
+construir seu próprio teclado mecânico</a>.</p>
+<p>Neste post eu irei descrever os processos de construção do meu
+teclado mecânico, que eu chamei de <a
+href="https://github.com/Calebe94/appa-firmware">Appa</a>.</p>
+<center>
+<img src="https://github.com/Calebe94/appa-firmware/raw/main/res/appa.jpeg" width="50%">
+</center>
+<h2>
+Índice
+</h2>
+<div>
+<ul>
+<li>
+<a href="#teclado-appa">Teclado Mecânico DIY</a>
+<ul>
+<li>
+<a href="#motivação">Motivação</a>
+</li>
+<li>
+<a href="#escolha-do-nome-do-projeto">Escolha do nome do projeto</a>
+</li>
+<li>
+<a href="#desenho-da-case">Desenho da Case</a>
+</li>
+<li>
+<a href="#desenvolvimento-da-pcb">Desenvolvimento da PCB</a>
+</li>
+<li>
+<a href="#remoção-das-teclas">Remoção das teclas</a>
+</li>
+<li>
+<a href="#lubrificando-as-teclas">Lubrificando as teclas</a>
+</li>
+<li>
+<a href="#montagem-da-pcb">Montagem da PCB</a>
+</li>
+<li>
+<a href="#bootloader-e-firmware">Bootloader e Firmware</a>
+</li>
+<li>
+<a href="#rgb">RGB</a>
+</li>
+<li>
+<a href="#firmware">Firmware</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#considerações-finais">Considerações finais</a>
+</li>
+</ul>
+<h2 id="motivação">Motivação</h2>
+<p>Eu estava precisando de um teclado e meus amigos me recomendaram
+comprar um teclado mecânico.</p>
+<p>No meio da conversa, me disseram que existem teclados que era
+possível modificar o firmware, o que foi o suficiente para me convencer
+a comprar um teclado desses.</p>
+<p>Após algumas pesquisas na internet (mais especificamente no Reddit)
+encontrei alguns projetos de teclados <a
+href="https://opensource.com/resources/what-open-source">open source</a>
+e <a href="https://opensource.com/resources/what-open-hardware">open
+hardware</a>. Um deles foi o <a
+href="https://github.com/hsgw/plaid">Plaid</a>. Verificando o projeto eu
+vi que não era nada complicado para reproduzir, e não só isso, eu já
+possuía praticamente todos os componentes, como os diodos e o
+microcontrolador <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>.
+Me faltavam os personagens principais para a construção de um teclado
+mecânico, as teclas.</p>
+<p>Durante um trabalho que estava fazendo em uma pista de pedágio para a
+empresa que trabalho, pude notar que os teclados das centrais de
+arrecadação eram teclados mecânicos. Porém, as teclas não eram parecidas
+com as famosas <a
+href="https://switchandclick.com/cherry-mx-guide/">Cherry MX</a>, eram
+um pouco diferentes.</p>
+<p>Depois de bastante pesquisar, encontrei a imagem abaixo, e através
+dela descobri que a tecla desses teclados de arrecadação se chamam <a
+href="https://keyboardsexpert.com/what-are-alps-switches/">ALPS</a>.</p>
+<center>
+<p><img src="https://external-preview.redd.it/kMI-ptGu-RVFy45uLXK4ev-0Zp5aciLTTI9MKS2Zz7U.gif?format=png8&s=e8f312e3ad0098ccc7e3e99828b782e756eafb41" width="50%"></p>
+<a
+href="https://static.wikia.nocookie.net/installgentoo/images/7/7b/Mech_keyboard_switches.gif">Link
+para a GIF</a>
+</center>
+<p>Pude perceber que se tratava de ótimas teclas, porém, muito difíceis
+de conseguir hoje em dia, então procurei no <a
+href="https://www.mercadolivre.com.br/">Mercado Livre</a> por teclados
+da <a href="https://www.gertec.com.br/">Gertec</a> (nome da marca dos
+teclados de arrecadação) e encontrei um teclado de 66 teclas por apenas
+R$66. Resolvi comprar e desenvolver uma placa para utilizar essas
+teclas.</p>
+<center>
+<img src="https://www.astemar.com.br/imgsite/produtos/amp-TECLADO_Tec66new__04854_zoom.jpg" width="50%">
+</center>
+<h2 id="escolha-do-nome-do-projeto">Escolha do nome do projeto</h2>
+<p>Eu escolhi esse nome em homenagem ao <a
+href="https://avatar.fandom.com/wiki/Appa">Appa</a>, personagem do
+desenho animado <a
+href="https://en.wikipedia.org/wiki/Avatar:_The_Last_Airbender">Avatar:
+The Last Airbender</a> (ou <a
+href="https://pt.wikipedia.org/wiki/Avatar:_The_Last_Airbender">Avatar:
+A Lenda de Aang</a> em português). O Appa e o Momo (outro personagem da
+série) são os meus animais favoritos de toda a série.</p>
+<center>
+<img src="https://cdn11.bigcommerce.com/s-5242sis1by/images/stencil/2560w/products/282/1043/Appa__86978.1595902634.png" width="50%">
+</center>
+<p>Como eu já havia definido que eu utilizaria as teclas <a
+href="https://keyboardsexpert.com/what-are-alps-switches/">ALPS</a> no
+projeto, eu decidi usar o nome <strong>Appa</strong>, por começar com a
+letra “<strong>A</strong>” E nomearei um próximo projeto de teclado com
+teclas <a href="https://switchandclick.com/cherry-mx-guide/">Cherry
+MX</a> de <strong>Momo</strong>.</p>
+<h2 id="desenho-da-case">Desenho da Case</h2>
+<p>Antes de desenvolver a Placa de Circuito Impresso (PCB), eu comecei a
+pesquisar <code>cases</code> baratas para o teclado, porém as cases que
+eu encontrava, não suportavam as teclas <strong>ALPS</strong>. Após
+muita pesquisa na internet eu encontrei o site <a
+href="40percent.club/">40percent.club</a>. Nesse site eu encontrei uma
+versão do teclado <a
+href="https://www.40percent.club/2017/02/gherkin-wood.html">Gherkin com
+uma case feito de madeira.</a>.</p>
+<center>
+<img src="https://3.bp.blogspot.com/-mht2Hz181Rs/WKytasCdePI/AAAAAAACBMY/1LQnn2r3iI4nh5dVFtI7mnGHBuMjcAEZQCEw/s640/a2.JPG" width="50%">
+</center>
+<p>Esse teclado me deu a ideia de fazer a minha case de acrílico, com as
+peças cortadas a laser. Estas peças seriam sobrepostas, formando um
+“sanduíche” de peças de acrílico, e seriam atravessados por parafusos
+que ficariam a mostra. Eu só precisava desenhar estas peças para poder
+encomendar os recortes, após algumas pesquisas na internet descobri a
+ferramenta <a href="http://builder.swillkb.com/">swillkb</a>, que seu
+propósito é justamente facilitar a criação de cases para teclados.</p>
+<p>Para usar a ferramenta <a
+href="http://builder.swillkb.com/">swillkb</a>, eu precisava de um
+layout para teclado. Então usei a ferramenta <a
+href="https://keyboard-layout-editor.com">keyboard-layout-editor.com</a>
+para criar um layout <strong>QWERTY</strong> de 48 teclas. Exportei esse
+layout para <code>JSON</code> e utilizei no <a
+href="http://builder.swillkb.com/">swillkb</a> com outras informações
+que eu colocarei abaixo:</p>
+<ul>
+<li>Layout</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="fu">{</span><span class="er">a</span><span class="fu">:</span><span class="dv">7</span><span class="fu">}</span><span class="ot">,</span><span class="st">&quot;ESC&quot;</span><span class="ot">,</span><span class="st">&quot;Q&quot;</span><span class="ot">,</span><span class="st">&quot;W&quot;</span><span class="ot">,</span><span class="st">&quot;E&quot;</span><span class="ot">,</span><span class="st">&quot;R&quot;</span><span class="ot">,</span><span class="st">&quot;T&quot;</span><span class="ot">,</span><span class="st">&quot;Y&quot;</span><span class="ot">,</span><span class="st">&quot;U&quot;</span><span class="ot">,</span><span class="st">&quot;I&quot;</span><span class="ot">,</span><span class="st">&quot;O&quot;</span><span class="ot">,</span><span class="st">&quot;P&quot;</span><span class="ot">,</span><span class="st">&quot;BKP&quot;</span><span class="ot">]</span><span class="er">,</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;Tab&quot;</span><span class="ot">,</span><span class="st">&quot;A&quot;</span><span class="ot">,</span><span class="st">&quot;S&quot;</span><span class="ot">,</span><span class="st">&quot;D&quot;</span><span class="ot">,</span><span class="st">&quot;F&quot;</span><span class="ot">,</span><span class="st">&quot;G&quot;</span><span class="ot">,</span><span class="st">&quot;H&quot;</span><span class="ot">,</span><span class="st">&quot;J&quot;</span><span class="ot">,</span><span class="st">&quot;K&quot;</span><span class="ot">,</span><span class="st">&quot;L&quot;</span><span class="ot">,</span><span class="st">&quot;;&quot;</span><span class="ot">,</span><span class="st">&quot;´&quot;</span><span class="ot">]</span><span class="er">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;Shift&quot;</span><span class="ot">,</span><span class="st">&quot;Z&quot;</span><span class="ot">,</span><span class="st">&quot;X&quot;</span><span class="ot">,</span><span class="st">&quot;C&quot;</span><span class="ot">,</span><span class="st">&quot;V&quot;</span><span class="ot">,</span><span class="st">&quot;B&quot;</span><span class="ot">,</span><span class="st">&quot;N&quot;</span><span class="ot">,</span><span class="st">&quot;M&quot;</span><span class="ot">,</span><span class="st">&quot;&lt;&quot;</span><span class="ot">,</span><span class="st">&quot;&gt;&quot;</span><span class="ot">,</span><span class="st">&quot;/&quot;</span><span class="ot">,</span><span class="st">&quot;RET&quot;</span><span class="ot">]</span><span class="er">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ot">[</span><span class="st">&quot;CTRL&quot;</span><span class="ot">,</span><span class="st">&quot;ALT&quot;</span><span class="ot">,</span><span class="st">&quot;MOD&quot;</span><span class="ot">,</span><span class="st">&quot;LAY&quot;</span><span class="ot">,</span><span class="st">&quot;SPC&quot;</span><span class="ot">,</span><span class="st">&quot;MOD&quot;</span><span class="ot">,</span><span class="st">&quot;MOD&quot;</span><span class="ot">,</span><span class="st">&quot;SPC&quot;</span><span class="ot">,</span><span class="st">&quot;LEFT&quot;</span><span class="ot">,</span><span class="st">&quot;DOWN&quot;</span><span class="ot">,</span><span class="st">&quot;UP&quot;</span><span class="ot">,</span><span class="st">&quot;RIGHT&quot;</span><span class="ot">]</span></span></code></pre></div>
+<ul>
+<li>Switch Type: <code>ALPS</code></li>
+<li>Stabilizer Type: <code>Alps (Costar fallback)</code></li>
+<li>Case Type: <code>Sandwich</code></li>
+<li>USB Cutout:
+<ul>
+<li>Location: <code>0</code></li>
+<li>Width: <code>15</code></li>
+</ul></li>
+<li>Mount Holes: <code>10</code>
+<ul>
+<li>Diameter(mm): <code>3.5</code></li>
+<li>Edge Width(mm): <code>10</code></li>
+</ul></li>
+<li>Edge Padding: <code>On</code>
+<ul>
+<li>Top(mm): <code>10</code></li>
+<li>Right(mm): <code>10</code></li>
+<li>Bottom(mm): <code>10</code></li>
+<li>Left(mm): <code>10</code></li>
+</ul></li>
+<li>Plate Corners: <code>5</code></li>
+<li>Kerf: <code>0.15</code></li>
+</ul>
+<p>Após inserir essas informações na plataforma, eu exportei todos os
+arquivos da case, e todos eles podem ser acessados no repositório <a
+href="https://github.com/Calebe94/appa-case">appa-case</a>. Após isso eu
+encomendei os cortes em MDF e acrílico transparente em uma empresa perto
+da minha casa.</p>
+<p>O resultado foi o seguinte:</p>
+<table>
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">MDF</th>
+<th style="text-align: center;">Acrílico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img
+src="https://media.calebe.dev.br/images/case-mdf.jpeg" /></td>
+<td style="text-align: center;"><img
+src="https://media.calebe.dev.br/images/case-acrilico.jpeg" /></td>
+</tr>
+</tbody>
+</table>
+<p>O próximo passo é desenvolver a PCB.</p>
+<h2 id="desenvolvimento-da-pcb">Desenvolvimento da PCB</h2>
+<p>Utilizei o projeto <a href="https://github.com/hsgw/plaid">Plaid</a>
+como base do meu projeto e utilizei o <a
+href="https://www.kicad.org/">KiCAD</a> 6.0 para desenhar o diagrama
+esquemático e a PCB.</p>
+<p>Para o desenho da PCB eu resolvi utilizar somente componentes que eu
+possuía em casa, para diminuir os custos do projeto. Os componentes
+escolhidos foram:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Componente</th>
+<th style="text-align: center;">Quantidade</th>
+<th style="text-align: center;">Imagem</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Diodo 1n4148</td>
+<td style="text-align: center;">48</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Diodo Zenner 3v3</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Resistores PTH 1/4 W</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Capacitores PTH tântalo</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Capacitores PTH Cerâmico</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><a
+href="https://docs.arduino.cc/retired/boards/arduino-pro-mini">Arduino
+PRO Mini</a>*</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">ATMEGA 328*</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Crital PTH 16MHz</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">USB fêmea do Tipo B*</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>O <a
+href="https://docs.arduino.cc/retired/boards/arduino-pro-mini">Arduino
+PRO Mini</a> foi escolhido, pois, eu já possuía vários aqui em casa, e
+esta placa de desenvolvimento possui o <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>
+como microcontrolador.</p>
+<p>Também adicionei na placa o circuito stantadalone do <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>,
+pois também possuo vários desses microcontroladores aqui em casa.</p>
+<p>A escolha da porta USB do tipo B também foi pelo motivo de eu possuir
+vários desses aqui em casa, e me arrependo amargamente por tomar essa
+decisão, mas falarei sobre isso logo mais.</p>
+<p>Por fim, o esquemático é o seguinte:</p>
+<center>
+<img src="https://github.com/Calebe94/appa-pcb/raw/main/res/appa-schematic.jpg" width="50%">
+</center>
+<p>Após terminar de desenhar a placa de circuito impresso, eu exportei
+os arquivos <a
+href="https://github.com/Calebe94/appa-pcb/releases/download/1.0.0/2022-10-27_21-28-gerber.zip">gerber</a>,
+e fiz a encomenda de 5 placas no site <a
+href="https://jlcpcb.com/">JLCPCB</a>, o qual custou apenas R$114.77,
+sendo R$56.05 para a produção das 5 placas e R$58.72 para o envio, sim,
+o frete saiu mais caro que a confecção das placas.</p>
+<h2 id="remoção-das-teclas">Remoção das teclas</h2>
+<p>Para montar as PCBs, eu primeiro precisava remover as teclas do
+teclado de automação da Gertec.</p>
+<center>
+<img src="https://media.calebe.dev.br/images/gertec66-teclas.jpeg" width="50%">
+</center>
+<p>Infelizmente eu não tenho fotos do processo de remoção das teclas do
+<em>plate</em> e da <em>PCB</em> deste teclado em específico(de 66
+teclas), então irei mostrar o processo que fiz logo na sequência com o
+teclado de 44 teclas.</p>
+<p>Mas foi um processo relativamente simples, eu utilizei um ferro de
+solda, estanho e um sugador para remover as soldas das teclas. E após
+isso eu utilizei uma pinça para soltar os prendedores das teclas do
+<em>plate</em> e uma chave de fenda para forçar a saída da tecla.</p>
+<div class="CSS_slideshow" data-show-indicators="true"
+data-indicators-position="in" data-show-buttons="true"
+data-show-wrap-buttons="true" data-animation-style="slide"
+style="-moz-transition-duration: 0.3s; -webkit-transition-duration: 0.3s; transition-duration: 0.3s;">
+<div class="CSS_slideshow_wrapper">
+<p><input type="radio" name="css3slideshow" id="slide1" checked />
+<label for="slide1"><video width="640" height="360" controls><source src="https://media.calebe.dev.br/images/IMG_0433.mp4" type="video/mp4" /></video></label>
+<input type="radio" name="css3slideshow" id="slide2" />
+<label for="slide2">
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/bifq6fFtRcwpCLL?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide3" />
+<label for="slide3"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/aQw73rSbdQ4CXEQ?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide4" />
+<label for="slide4"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/f46ft2BR7Jt6GnD?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide5" />
+<label for="slide5"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/gZeELG9w2qxiReW?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide6" />
+<label for="slide6"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/PqwnmSp78gBwzcP?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide7" />
+<label for="slide7"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/NX3HDNZaxeRAmZJ?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide8" />
+<label for="slide8"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/fPbGBz4mbg6DAFP?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide9" />
+<label for="slide9"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/Xiay6J6wHn8Psg5?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow" id="slide10" />
+<label for="slide10"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/jfWN7Kd3rzbq7FL?file=/&fileId=80796&x=1366&y=768&a=true" /></label></p>
+</div>
+</div>
+<p>Após esse processo, eu lubrifiquei as teclas.</p>
+<h2 id="lubrificando-as-teclas">Lubrificando as teclas</h2>
+<p>Para lubrificar as teclas eu assisti a alguns vídeos do <a
+href="https://www.youtube.com/@Chyrosran22">Chyrosran22</a> no Youtube,
+mais específicamente o vídeo <a
+href="https://www.youtube.com/watch?v=nvDQKUwBy_8">Alps restoration
+guide part 4: how to lube Alps switches</a>. Então visitei o Mercado
+Livre e comprei um lubrificante para teclados mecânicos chamado “Graxa
+Branca de Silicone”. Também comprei alguns pinceis ultra finos de
+maquiadoras, pois estavam MUITO mais baratos que os pinceis sugeridos
+para hobistas de teclados (e fazem um excelente trabalho diga-se de
+passagem).</p>
+<center>
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/mZQZt7f5BwmKMMx?file=/&fileId=80796&x=1366&y=768&a=true" width="50%">
+</center>
+<p>Então repeti o processo descrito no vídeo em todas as 66 teclas do
+conjunto.</p>
+<h2 id="montagem-da-pcb">Montagem da PCB</h2>
+<p>Após ter recebido as PCBs, dei início ao processo de montagem dos
+teclados.</p>
+<center>
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/afKBgENwHd68jj7?file=/&fileId=80734&x=1366&y=768&a=true" width="50%">
+</center>
+<p>A qualidade de produção de PCB da <a
+href="https://jlcpcb.com/">JLCPCB</a> me impressionou. A placa ficou
+linda na cor preta.</p>
+<center>
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/ipx5wjmWk8qNCHn?file=/&fileId=80849&x=1366&y=768&a=true" width="50%">
+</center>
+<p>Como o processo de montagem possui várias etapas, eu criei o vídeo
+abaixo no meu celular, que sumariza todo o processo de montagem do
+teclado:</p>
+<center>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/fPAnu4k" data-context="false">
+<a href="//imgur.com/a/fPAnu4k">Appa Keyboard</a>
+</blockquote>
+<script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+</center>
+<p>Caso não consiga assistir o vídeo pelo link acima, tente por <a
+href="https://media.calebe.dev.br/videos/appa-keyboard.mp4">esse
+link</a>.</p>
+<h2 id="bootloader-e-firmware">Bootloader e Firmware</h2>
+<p>Como o microcontrolador <a
+href="https://www.microchip.com/en-us/product/ATmega328">ATMEGA328</a>
+não possui periférico de interface USB integrado, nós temos que utilizar
+o <a
+href="https://obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>,
+um bootloader para microcontroladores <a
+href="https://www.microchip.com/en-us/products/microcontrollers-and-microprocessors/8-bit-mcus/avr-mcus">AVR</a>.</p>
+<p>Com o <a
+href="https://obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>,
+nós podemos utilizar o microcontrodor ATMEGA328 como um dispositivo <a
+href="https://en.wikipedia.org/wiki/Human_interface_device">HID</a>, e
+também podemos utilizá-lo para gravar o firmware em si mesmo. Geralmente
+precisamos de um gravador externo para isso, como o <a
+href="https://www.fischl.de/usbasp/">USBAsp</a>. Mas com o <a
+href="https://obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>
+isso não é mais preciso.</p>
+<p>Então eu tentei compilar o projeto <a
+href="https://github.com/hsgw/USBaspLoader/tree/plaid">hsgw/USBaspLoader</a>,
+porém, não obtive sucesso. Após algumas pesquisas eu encontrei um post
+na internet chamado <a
+href="https://www.algorist.co.uk/post/how-to-burn-the-plaid-keyboard-bootloader-using-arduino-nano/">How
+to burn the Plaid keyboard bootloader using Arduino Nano</a>. Onde o
+autor da dicas de como gravar o bootloader, mas também posta o link para
+o <a
+href="https://github.com/hsgw/USBaspLoader/blob/plaid/firmware/main.hex">arquivo
+.hex</a>, que convenientemente está no repositório do
+<strong>hsgw</strong> (<em>arquivo esse que eu deixei passar
+desapercebido</em>).</p>
+<p>Então gravei o <code>bootloader</code> no meu Arduino Pro Mini com um
+<a href="https://www.fischl.de/usbasp/">USBAsp</a> e aparentemente
+estava tudo funcionando (<em>foi o que eu pensei</em>).</p>
+<h3 id="testes">Testes</h3>
+<p>Logo após a gravação do <code>bootloader</code> eu comecei os testes
+para verificar se o teclado estava funcionando. Eu pluguei o teclado no
+meu computador e não funcionou, então rodei o comando
+<code>dmesg -w</code> e o seguinte log me foi apresentado:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.326497] usb 1-3: <span class="er">Product:</span> <span class="ex">Plaid</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.326503] usb 1-3: <span class="er">Manufacturer:</span> <span class="ex">Dm9Records</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.359555] input: Dm9Records <span class="er">Plaid</span> <span class="fu">as</span> /devices/pci0000:00/0000:00:14.0/usb1/1-3/1-3:1.0/0003:16C0:27DB.0006/input/input29</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.418493] hid-generic 0003:16C0:27DB.0006: <span class="er">input,hidraw0:</span> <span class="ex">USB</span> HID v1.01 Keyboard [Dm9Records Plaid] on usb-0000:00:14.0-3/input0</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.421175] usbhid 1-3:1.1: <span class="er">can&#39;t</span> <span class="ex">add</span> hid device: <span class="at">-71</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   80.421181] usbhid: probe <span class="er">of</span> <span class="ex">1-3:1.1</span> failed with error <span class="at">-71</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   81.738940] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   83.450544] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   85.174040] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   86.893789] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   88.665499] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="bu">[</span>   90.397112] usb 1-3: <span class="er">reset</span> <span class="ex">low-speed</span> USB device number 8 using xhci_hcd</span></code></pre></div>
+<p>Pesquisei sobre esse erro na internet, mas não obtive sucesso.
+Visitei o servidor <a href="https://discord.com/invite/Uq7gcHh">QMK no
+Discord</a>, e alguém no servidor mencionou para verificar se o problema
+não poderia estar nos diodos zenner.</p>
+<p>Como eu montei o teclado com os componentes que eu já tinha a minha
+disposição para diminuir os custos eu utilizei um diodo zenner de 3.6V
+de 1W de potência, após a trocar o diodo zenner de 1w por um diodo
+zenner de 0,5w o teclado passou a funcionar perfeitamente.</p>
+<h2 id="rgb">RGB</h2>
+<p>Como a case do teclado é feita de acrílico translúcido, eu resolvi
+instalar uma fita de leds <a
+href="https://www.digikey.com/en/datasheets/parallaxinc/parallax-inc-28085-ws2812b-rgb-led-datasheet">WS2812B</a>
+na parte inferior da PCB, para dar um brilho na camada inferior do
+teclado, o chamado <code>underglow</code>. Então comprei 1 metro de fita
+led <a
+href="https://www.digikey.com/en/datasheets/parallaxinc/parallax-inc-28085-ws2812b-rgb-led-datasheet">WS2812B</a>,
+que tem 30 leds.</p>
+<p>Para ativar os leds, eu utilizei 1 dos 2 terminais I2C do ATMEGA328
+que eu deixei exposto na PCB caso no futuro eu quisesse adicionar um
+display, ou até outro microcontrolador na build.</p>
+<p>Então comecei os trabalhos:</p>
+<div class="CSS_slideshow" data-show-indicators="true"
+data-indicators-position="in" data-show-buttons="true"
+data-show-wrap-buttons="true" data-animation-style="slide"
+style="-moz-transition-duration: 0.3s; -webkit-transition-duration: 0.3s; transition-duration: 0.3s;">
+<div class="CSS_slideshow_wrapper">
+<p><input type="radio" name="css3slideshow1" id="slide11" checked />
+<label for="slide11"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/jzFN9EW9bsTPaqD?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide12" />
+<label for="slide12">
+<img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/5Yj4FDKG2PjLbMx?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide13" />
+<label for="slide13"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/KwgKM2neW2tNnEj?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide14" />
+<label for="slide14"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/9AGYdNgpzZW9a9Q?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide15" />
+<label for="slide15"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/RDpdyPSxQY7PSk4?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide16" />
+<label for="slide16"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/wzZLr5bftKoGcBX?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide17" />
+<label for="slide17"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/tXZzERTB6ganDi2?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide18" />
+<label for="slide18"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/P43ERMKBxqYdNag?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide19" />
+<label for="slide19"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/aZCcywWT5NQMy2z?file=/&fileId=80796&x=1366&y=768&a=true" /></label>
+<input type="radio" name="css3slideshow1" id="slide20" />
+<label for="slide20"><img src="https://cloud.calebe.dev.br/apps/files_sharing/publicpreview/tK7LCNyweLia5Jy?file=/&fileId=80796&x=1366&y=768&a=true" /></label></p>
+</div>
+</div>
+<h2 id="firmware">Firmware</h2>
+<p>O firmware do teclado é desenvolvido utilizando o <a
+href="https://qmk.fm/#/">qmk</a> e o código pode ser encontrado no
+repositório <a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a>.</p>
+<h1 id="considerações-finais">Considerações finais</h1>
+<p>Desenvolver o meu primeiro teclado foi com certeza uma agradável
+aventura. Pude fazer o que eu mais gosto, criar dispositivos
+eletrônicos. Agora eu tenho um teclado que eu posso chamar de meu, pois
+eu que o criei.</p>
+<p>Eu gostaria de agradecer ao <a href="https://github.com/hsgw">Takuya
+Urakawa</a> por criar o projeto <a
+href="https://github.com/hsgw/plaid">plaid</a>, projeto esse que eu
+utilizei como inspiração.</p>
+<p>O <a href="https://github.com/Calebe94/appa-firmware">Appa</a> é um
+projeto em desenvolvimento, que provavelmente sofrerá alterações no
+futuro, a primeira delas será trocar o conector USB B por um USB C, pois
+graças ao USB B o teclado ficou absurdamente alto (cerca de 3cm). E
+também irei substituir as teclas ALPS por Cherry MX, pois infelizmente é
+muito difícil encontrar as teclas ALPS para comprar e praticamente
+impossível encontrar keycaps para estas teclas.</p>
+<p>Vale relembrar que os repositórios do projeto são:</p>
+<ul>
+<li><a href="https://github.com/Calebe94/appa-pcb">appa-pcb</a>;</li>
+<li><a href="https://github.com/Calebe94/appa-case">appa-case</a>;</li>
+<li><a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a>.</li>
+</ul>
+<p>Por fim, deixo aqui um vídeo sumarizando a montagem do <a
+href="https://github.com/Calebe94/appa-firmware">Appa</a>:</p>
+<center>
+<video width="640" height="360" controls>
+<source src="https://cloud.calebe.dev.br/s/nZ35dMQYYjKWWj7/download/Appa%20Keyboard.mp4" type="video/mp4" />
+</video>
+</center>
+<hr>
+<footer>
+<p>
+<center>
+<h3>Contatos</h3>
+<br />
+<a style="text-decoration: none;" href="https://t.me/calebe94"><i class="icon-telegram"></i>Telegram</a>
+<a style="text-decoration: none;" href="mailto:contato@calebe.dev.br"><i class="icon-mail"></i>Email</a>
+<a style="text-decoration: none;" href="https://github.com/Calebe94"><i class="icon-github-circled"></i>Github</a>
+<a style="text-decoration: none;" href="https://gitlab.com/Calebe94"><i class="icon-gitlab"></i>Gitlab</a>
+<a style="text-decoration: none;" href="https://instagram.com/ocalebe94"><i class="icon-instagram"></i>Instagram</a>
+</center>
+</p>
+</footer>
+</main>
+<script>
+// Get the button
+let mybutton = document.getElementById("top-button");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+</body>
+</html>
