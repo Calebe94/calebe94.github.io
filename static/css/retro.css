@@ -94,7 +94,8 @@ a:active {
   color: #2ecc40;
 }
 
-.retro-no-decoration {
+a
+{
   text-decoration: none;
 }
 
@@ -336,6 +337,38 @@ only screen and (max-width: 760px),
       width: 100%;
       align-items: center;
         /* justify-content: right; */
+    }
+
+    h1,
+    .retro-h1 {
+      font-size: 1.75rem;
+    }
+
+    h2,
+    .retro-h2 {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    h3,
+    .retro-h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+
+    h4,
+    .retro-h4 {
+      font-size: 1rem;
+    }
+
+    h5,
+    .retro-h5 {
+      font-size: .80rem;
+    }
+
+    h6,
+    .retro-h6 {
+      font-size: .70rem;
     }
 }
 
