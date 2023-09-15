@@ -66,8 +66,16 @@ interface git self-hosted &mdash; Em busca de uma interface git self-hosted - Ca
 
         <nav class="nav-top">
             <h3>
-                <div class="whoami-animation">$ whoami</div>
-                <a class="result-animation" href="/">&#8203</a>
+                <div>$
+                    <span class="terminal__prompt--typing">
+                        <div class="cover cover--whoami"></div>whoami
+                    </span>
+                </div>
+                <div class="terminal__prompt--whoami-return">
+                    <span>
+                        <a href="/">Calebe94</a>
+                    </span>
+                </div>
             </h3>
             <h5><a href="/posts"a>✉️ Posts </a></h5>
             <h5><a href="/uses.html">⚒️ Uses </a></h5>
@@ -79,7 +87,22 @@ interface git self-hosted &mdash; Em busca de uma interface git self-hosted - Ca
     </header>
     <main>
     <hr>
-<nav class="site-header"><h5>$ pwd<br>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/em-busca-de-uma-interface-git.html">Em busca de uma interface git self-hosted</a></h5></nav>
+
+    <h5><div class="terminal__prompt--pwd">$<span class="terminal__prompt--typing"><div class="cover cover--pwd"></div> pwd</span></div><div class="terminal__prompt--pwd-return"><span>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/em-busca-de-uma-interface-git.html">Em busca de uma interface git self-hosted</a></span></div></h5>
+<h2>Índice</h2>
+<ul>
+<li><a href="#em-busca-de-uma-interface-git-self-hosted">Em busca de uma
+interface git self-hosted</a>
+<ul>
+<li><a href="#início-das-pesquisas">Início das pesquisas</a></li>
+<li><a href="#configurando-o-cgit">Configurando o
+<code>cgit</code></a></li>
+<li><a href="#servidor-git">Servidor git</a></li>
+<li><a href="#configurando-mirrors">Configurando
+<code>mirrors</code></a></li>
+</ul></li>
+<li><a href="#conclusão">Conclusão</a></li>
+</ul>
 <!--
 title: "Em busca de uma interface git self-hosted"
 subtitle: ""

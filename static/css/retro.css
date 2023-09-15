@@ -94,8 +94,7 @@ a:active {
   color: #2ecc40;
 }
 
-a
-{
+a {
   text-decoration: none;
 }
 
@@ -422,7 +421,7 @@ only screen and (max-width: 760px),
   white-space: nowrap;
   overflow: hidden;
   animation: animated-text 1s steps(6,end) 1s 1 normal both,
-             animated-cursor 600ms steps(15,end) infinite;
+             animated-cursor 600ms steps(15,end) 1 normal both;
 }
 
 /* text animation */
@@ -513,4 +512,135 @@ only screen and (max-width: 760px),
     justify-content: center;
     align-items: center;
     /* padding: 1em; */
+}
+
+.nav-toggle{
+   display : none; // display none for everyone
+}
+
+/* Landscape phone to portrait tablet  show the button */
+@media (max-width: 767px) {
+  .nav-toggle{
+    display : block; // or inline-block or inline : which ever is appropriate for you.
+  }
+}
+
+/****************************************************************
+ * Animations
+ ****************************************************************/
+.terminal__prompt--typing {
+  position: relative;
+}
+
+.terminal__prompt--typing .cover {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  box-sizing: border-box;
+  height: 100%;
+  background: #222;
+  border-left: 1px solid #2ecc40;
+}
+
+/* WHOAMI */
+.terminal__prompt--typing .cover--whoami {
+  animation: typing-whoami 10s steps(6, end) 1 normal both;
+}
+
+/* WHOAMI */
+@keyframes typing-whoami {
+  0% {
+    width: 100%;
+    opacity: 1;
+  }
+  12% {
+    width: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* WHOAMI return */
+.terminal__prompt--whoami-return {
+  animation: show-whoami-return 10s 1 normal both;
+}
+
+/* WHOAMI return */
+@keyframes show-whoami-return {
+  0%,
+  20% {
+    opacity: 0;
+  }
+  25%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* PWD */
+.terminal__prompt--pwd {
+  animation: show-pwd 10s 1 normal both;
+}
+
+@keyframes show-pwd {
+  0%,
+  28% {
+    opacity: 0;
+  }
+  32%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* PWD */
+.terminal__prompt--typing .cover--pwd {
+  animation: typing-pwd 10s steps(3, end) 1 normal both;
+}
+
+/* PWD */
+@keyframes typing-pwd {
+  0%,
+  35% {
+    width: 100%;
+  }
+  47%,
+  100% {
+    width: 0;
+  }
+  48% {
+    opacity: 1;
+  }
+  49% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* PWD result */
+.terminal__prompt--pwd-return {
+  animation: show-pwd-return 10s 1 normal both;
+}
+
+/* PWD result */
+@keyframes show-pwd-return {
+  0%,
+  55% {
+    opacity: 0;
+  }
+  60%,
+  100% {
+    opacity: 1;
+  }
 }

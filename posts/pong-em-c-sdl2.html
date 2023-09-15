@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/static/css/retro.css">
+<link rel="stylesheet" href="/static/css/carousel.css">
+<link rel="stylesheet" href="/static/css/fontello.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<!-- HTML Meta Tags -->
+<title>Desenvolvendo
+o Clássico Pong em C com a Biblioteca SDL2 &mdash; Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2 - Calebe94</title>
+<meta name="description" content="Esta é a página pessoal e blog de Calebe94.">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="calebe.dev.br">
+<meta itemprop="description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta itemprop="image" content="https://media.calebe.dev.br/images/calebe94_1200.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://calebe.dev.br/site">
+<meta property="og:type" content="website">
+<meta property="og:title" content="calebe.dev.br">
+<meta property="og:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta property="og:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="calebe.dev.br">
+<meta name="twitter:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta name="twitter:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Meta Content Security Policy -->
+<!-- <meta http-equiv="Content-Security-Policy"
+     content="default-src 'self';
+     script-src 'self' 'report-sample';
+     style-src 'self' 'report-sample';
+     base-uri 'self';
+     object-src 'none';
+     connect-src 'self';
+     font-src 'self';
+     frame-src 'self';
+     form-action 'self';
+     img-src 'self' data: https:;
+     manifest-src 'self';
+     media-src 'self';
+     worker-src 'none';
+     "> -->
+
+<link rel="icon" type="image/x-icon" href="https://blog.calebe.dev.br/static/favicon.ico">
+<style type="text/css" media="screen">
+@import “/static/css/fontello”;
+</style>
+
+<title>Desenvolvendo
+o Clássico Pong em C com a Biblioteca SDL2 &mdash; Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2 - Calebe94</title>
+</head>
+<body>
+    <button onclick="topFunction()" id="top-button" title="Go to top">Top</button>
+    <header class="site-header">
+
+        <nav class="nav-top">
+            <h3>
+                <div>$
+                    <span class="terminal__prompt--typing">
+                        <div class="cover cover--whoami"></div>whoami
+                    </span>
+                </div>
+                <div class="terminal__prompt--whoami-return">
+                    <span>
+                        <a href="/">Calebe94</a>
+                    </span>
+                </div>
+            </h3>
+            <h5><a href="/posts"a>✉️ Posts </a></h5>
+            <h5><a href="/uses.html">⚒️ Uses </a></h5>
+            <h5><a href="/recommends/">🔖   Favoritos </a></h5>
+            <!-- <h5><a href="/curriculum.html">📋    Currículo </a></h5> -->
+            <h5><a href="//links.calebe.dev.br">🔗 Links </a></h5>
+            <h5><a href="//git.calebe.dev.br">🚧 Projetos </a></h5>
+        </nav>
+    </header>
+    <main>
+    <hr>
+
+    <h5><div class="terminal__prompt--pwd">$<span class="terminal__prompt--typing"><div class="cover cover--pwd"></div> pwd</span></div><div class="terminal__prompt--pwd-return"><span>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/pong-em-c-sdl2.html">Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2</a></span></div></h5>
+<h2>Índice</h2>
+<ul>
+<li><a
+href="#desenvolvendo-o-clássico-pong-em-c-com-a-biblioteca-sdl2">Desenvolvendo
+o Clássico Pong em C com a Biblioteca SDL2</a>
+<ul>
+<li><a href="#construindo-a-base">Construindo a Base</a></li>
+<li><a href="#recursos-da-biblioteca-sdl2">Recursos da Biblioteca
+SDL2</a></li>
+<li><a href="#desafios-e-aprendizado">Desafios e Aprendizado</a></li>
+<li><a href="#personalização-e-expansão">Personalização e
+Expansão</a></li>
+</ul></li>
+<li><a href="#conclusão">Conclusão</a></li>
+</ul>
+<!--
+title: "Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2"
+subtitle: ""
+date: "2023-08-21 21:00:00"
+tags: [DIY, PT_BR]
+-->
+<h1
+id="desenvolvendo-o-clássico-pong-em-c-com-a-biblioteca-sdl2">Desenvolvendo
+o Clássico Pong em C com a Biblioteca SDL2</h1>
+<p>O mundo dos jogos eletrônicos é repleto de clássicos que marcaram
+gerações. Um desses jogos é o lendário Pong, que definiu o gênero de
+jogos de esporte virtual. Se você é um entusiasta da programação e
+deseja mergulhar na criação de jogos, está no lugar certo! Nesta
+postagem, vamos explorar como desenvolver o icônico jogo Pong em C,
+utilizando a poderosa biblioteca SDL2.</p>
+<center>
+<a href="/pong/"><img src="https://github.com/Calebe94/sdl2-pong/raw/main/.screenshots/start1.png" width="500px"></a>
+<p>
+<h4>
+<a href="/pong/">JOGAR!</a>
+</h4>
+</p>
+</center>
+<h2 id="construindo-a-base">Construindo a Base</h2>
+<p>A base de qualquer jogo é a lógica por trás dele. No repositório <a
+href="https://github.com/Calebe94/sdl2-pong">link para o
+repositório</a>, você encontrará um projeto emocionante onde o clássico
+Pong é recriado usando a linguagem C e a biblioteca SDL2. O Pong envolve
+duas raquetes controladas pelo jogador e uma bola que quica entre elas.
+O código fonte fornecido no repositório oferece uma base sólida para
+começar a construir seu próprio jogo Pong.</p>
+<h2 id="recursos-da-biblioteca-sdl2">Recursos da Biblioteca SDL2</h2>
+<p>A biblioteca Simple DirectMedia Layer (SDL2) é uma ferramenta
+poderosa para criar jogos em 2D. Ela lida com várias tarefas, desde a
+criação de janelas e renderização de gráficos até o gerenciamento de
+eventos de entrada. No projeto Pong, a SDL2 é usada para criar a
+interface do jogo, desenhar os elementos na tela e capturar as entradas
+do jogador.</p>
+<h2 id="desafios-e-aprendizado">Desafios e Aprendizado</h2>
+<p>Desenvolver um jogo Pong em C usando a SDL2 é uma excelente
+oportunidade para aprimorar suas habilidades de programação e aprender
+mais sobre desenvolvimento de jogos. O projeto envolve conceitos como
+detecção de colisões, controle de movimento e interação com o jogador. À
+medida que você explora o código fonte disponibilizado, terá a chance de
+compreender melhor como esses elementos se unem para criar a experiência
+de jogo.</p>
+<h2 id="personalização-e-expansão">Personalização e Expansão</h2>
+<p>Uma das partes mais emocionantes de criar seu próprio jogo é a
+capacidade de personalizá-lo e expandi-lo. Depois de dominar a base do
+Pong apresentada no repositório, você pode começar a experimentar com
+novos recursos, como placares, efeitos sonoros, níveis de dificuldade e
+muito mais. A jornada de desenvolvimento permitirá que você solte sua
+criatividade e torne o jogo verdadeiramente único.</p>
+<h1 id="conclusão">Conclusão</h1>
+<p>Criar um jogo Pong em C usando a biblioteca SDL2 é uma maneira
+emocionante de mergulhar no mundo do desenvolvimento de jogos. Com a
+base fornecida no repositório <a
+href="https://github.com/Calebe94/sdl2-pong">link para o
+repositório</a>, você pode começar a explorar a fundo os aspectos
+fundamentais por trás do Pong e, eventualmente, expandir e personalizar
+o jogo de acordo com sua visão criativa. Portanto, mãos à obra e comece
+sua jornada de criação de jogos!</p>
+<hr>
+<footer>
+<p>
+<center>
+<h3>Contatos</h3>
+<br />
+<a style="text-decoration: none;" href="https://t.me/calebe94"><i class="icon-telegram"></i>Telegram</a>
+<a style="text-decoration: none;" href="mailto:contato@calebe.dev.br"><i class="icon-mail"></i>Email</a>
+<a style="text-decoration: none;" href="https://github.com/Calebe94"><i class="icon-github-circled"></i>Github</a>
+<a style="text-decoration: none;" href="https://gitlab.com/Calebe94"><i class="icon-gitlab"></i>Gitlab</a>
+<a style="text-decoration: none;" href="https://instagram.com/ocalebe94"><i class="icon-instagram"></i>Instagram</a>
+</center>
+</p>
+</footer>
+</main>
+<script>
+// Get the button
+let mybutton = document.getElementById("top-button");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+</body>
+</html>

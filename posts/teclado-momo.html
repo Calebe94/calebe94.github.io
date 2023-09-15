@@ -9,7 +9,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
 <!-- HTML Meta Tags -->
-<title>Document Title &mdash; Calebe94</title>
+<title>Construindo
+o Teclado Mecânico “Momo”: Uma Jornada de Personalização &mdash; Teclado MOMO - Calebe94</title>
 <meta name="description" content="Esta é a página pessoal e blog de Calebe94.">
 
 <!-- Google / Search Engine Tags -->
@@ -56,7 +57,8 @@
 @import “/static/css/fontello”;
 </style>
 
-<title>Document Title &mdash; Calebe94</title>
+<title>Construindo
+o Teclado Mecânico “Momo”: Uma Jornada de Personalização &mdash; Teclado MOMO - Calebe94</title>
 </head>
 <body>
     <button onclick="topFunction()" id="top-button" title="Go to top">Top</button>
@@ -64,8 +66,16 @@
 
         <nav class="nav-top">
             <h3>
-                <div class="whoami-animation">$ whoami</div>
-                <a class="result-animation" href="/">&#8203</a>
+                <div>$
+                    <span class="terminal__prompt--typing">
+                        <div class="cover cover--whoami"></div>whoami
+                    </span>
+                </div>
+                <div class="terminal__prompt--whoami-return">
+                    <span>
+                        <a href="/">Calebe94</a>
+                    </span>
+                </div>
             </h3>
             <h5><a href="/posts"a>✉️ Posts </a></h5>
             <h5><a href="/uses.html">⚒️ Uses </a></h5>
@@ -77,169 +87,147 @@
     </header>
     <main>
     <hr>
-<nav class="site-header"><h5>$ pwd<br>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/teclado-momo.html">teclado-momo.html</a></h5></nav>
-<h1 id="document-title">Document Title</h1>
-<h1 id="problema">Problema</h1>
-<p>Utilizando o hotwswap + led de backlight, não sobra espaço para se
-inserir um microcontrolador DIP e nem espaço para se colocar uma placa
-de desenvolvimento Arduino Pro Mini ( e nem Micro ).</p>
+
+    <h5><div class="terminal__prompt--pwd">$<span class="terminal__prompt--typing"><div class="cover cover--pwd"></div> pwd</span></div><div class="terminal__prompt--pwd-return"><span>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/teclado-momo.html">Teclado MOMO</a></span></div></h5>
+<h2>Índice</h2>
+<ul>
+<li><a
+href="#construindo-o-teclado-mecânico-momo-uma-jornada-de-personalização">Construindo
+o Teclado Mecânico “Momo”: Uma Jornada de Personalização</a>
+<ul>
+<li><a href="#a-magia-dos-teclados-mecânicos">A Magia dos Teclados
+Mecânicos</a></li>
+<li><a href="#começando-com-um-plano">Começando com um Plano</a>
+<ul>
+<li><a href="#escolha-dos-componentes">1. Escolha dos
+Componentes</a></li>
+<li><a href="#montagem-e-soldagem">2. Montagem e Soldagem</a></li>
+<li><a href="#programação">3. Programação</a></li>
+</ul></li>
+<li><a href="#o-toque-final-personalização">O Toque Final:
+Personalização</a>
+<ul>
+<li><a href="#layout-e-mapeamento-de-teclas">1. Layout e Mapeamento de
+Teclas</a></li>
+<li><a href="#keycaps-personalizados">2. Keycaps Personalizados</a></li>
+<li><a href="#iluminação-rgb">3. Iluminação RGB</a></li>
+<li><a href="#case-personalizado">4. Case Personalizado</a></li>
+</ul></li>
+<li><a href="#a-jornada-continua">A Jornada Continua</a></li>
+</ul></li>
+</ul>
+<!--
+title: "Teclado MOMO"
+subtitle: "Teclado mecânico com hotswap e RGB"
+date: "2023-02-23 16:00:00"
+tags: [DIY, PT_BR, Mechanical Keyboards, keyboards, qmk, momo]
+-->
+<h1
+id="construindo-o-teclado-mecânico-momo-uma-jornada-de-personalização">Construindo
+o Teclado Mecânico “Momo”: Uma Jornada de Personalização</h1>
 <figure>
 <img
-src="https://cdn.shopify.com/s/files/1/1851/5125/products/IMG_8280_860x.JPG?v=1593577482"
-alt="https://keeb.io/products/pro-micro-5v-16mhz-arduino-compatible-atmega32u4" />
-<figcaption
-aria-hidden="true">https://keeb.io/products/pro-micro-5v-16mhz-arduino-compatible-atmega32u4</figcaption>
+src="https://blog.calebe.dev.br/images/teclado-appa/teclado-momo.jpg"
+alt="Teclado Momo" />
+<figcaption aria-hidden="true">Teclado Momo</figcaption>
 </figure>
-<p>Portanto, devo escolher entre:</p>
+<p>Você já parou para pensar no quão importante é o teclado que você usa
+diariamente? Para muitos de nós, o teclado é uma extensão de nossa
+criatividade e produtividade, e cada toque nas teclas pode ser uma
+experiência única. Se você é um entusiasta de tecnologia e está em busca
+de uma jornada de personalização, a construção de um teclado mecânico é
+uma aventura fascinante. Neste post, vamos explorar a jornada de
+construção do teclado mecânico “Momo”, inspirado pela criatividade e
+paixão pela customização.</p>
+<h2 id="a-magia-dos-teclados-mecânicos">A Magia dos Teclados
+Mecânicos</h2>
+<p>Os teclados mecânicos são apreciados por sua durabilidade, sensação
+tátil e personalização. Ao contrário dos teclados de membrana, os
+teclados mecânicos utilizam interruptores individuais para cada tecla,
+proporcionando uma experiência única de digitação. Eles vêm em uma
+variedade de tipos de switches, cada um com sua própria sensação e som
+característicos, permitindo que você escolha o que mais se adapta ao seu
+estilo de digitação.</p>
+<h2 id="começando-com-um-plano">Começando com um Plano</h2>
+<p>Assim como qualquer projeto, a construção de um teclado mecânico
+personalizado começa com um planejamento cuidadoso. O teclado “Momo” foi
+concebido para oferecer uma experiência de digitação suave e
+confortável, combinada com um visual deslumbrante. Aqui estão alguns
+passos essenciais no planejamento:</p>
+<h3 id="escolha-dos-componentes">1. Escolha dos Componentes</h3>
+<p>O primeiro passo é escolher cuidadosamente os componentes que irão
+compor o seu teclado. Para o teclado “Momo”, optamos por:</p>
 <ul>
-<li>Utilizar footprint de teclas soldáveis( remover o hotswap );</li>
-<li>Remover os leds de Backlight;</li>
+<li><strong>Placa de Circuito Impresso (PCB):</strong> O coração do
+teclado, onde os switches serão soldados.</li>
+<li><strong>Switches:</strong> Escolhemos switches Cherry MX Brown para
+uma sensação tátil leve e silenciosa.</li>
+<li><strong>Keycaps:</strong> Keycaps de perfil SA para um toque retrô e
+visual impressionante.</li>
+<li><strong>Caixa do Teclado:</strong> Uma caixa em alumínio anodizado
+com design minimalista.</li>
 </ul>
-<p>Uma outra solução seria adicionar mais espaço na PCB, dessa forma a
-case também ficaria um pouco maior.</p>
-<p>Exemplo:</p>
-<ul>
-<li>Projeto <a
-href="https://github.com/coseyfannitutti/romeo">Romeo</a></li>
-</ul>
-<figure>
-<img
-src="https://github.com/coseyfannitutti/romeo/raw/master/doc/images/romeo.jpg"
-alt="https://github.com/coseyfannitutti/romeo" />
-<figcaption
-aria-hidden="true">https://github.com/coseyfannitutti/romeo</figcaption>
-</figure>
-<ul>
-<li>Projeto <a href="https://github.com/hsgw/plaid">plaid</a></li>
-</ul>
-<figure>
-<img src="https://github.com/hsgw/plaid/raw/master/doc/img/plaid.jpg"
-alt="https://github.com/hsgw/plaid" />
-<figcaption
-aria-hidden="true">https://github.com/hsgw/plaid</figcaption>
-</figure>
-<figure>
-<img
-src="https://preview.redd.it/b90lwq8a0h241.jpg?width=960&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=d0952572b16cee21f78314b1d438e8fe4ed174ae"
-alt="https://www.reddit.com/r/MechanicalKeyboards/comments/e5m9jd/plaid_gold_in_qlaviers_acrylic_case_album_in/" />
-<figcaption
-aria-hidden="true">https://www.reddit.com/r/MechanicalKeyboards/comments/e5m9jd/plaid_gold_in_qlaviers_acrylic_case_album_in/</figcaption>
-</figure>
-<p>Também é possível adicionar um espaço entre no meio do teclado do
-largura de 1 tecla, separando assim as teclas “G” e “H” do teclado.</p>
-<p>Exemplo:</p>
-<ul>
-<li>Projeto <a
-href="https://github.com/skarrmann/horizon/">horizon</a></li>
-</ul>
-<figure>
-<img
-src="https://github.com/skarrmann/horizon/raw/main/images/horizon-choc-mx-top.jpg"
-alt="https://github.com/skarrmann/horizon/" />
-<figcaption
-aria-hidden="true">https://github.com/skarrmann/horizon/</figcaption>
-</figure>
-<h1 id="componentes">Componentes</h1>
-<ul>
-<li>USB C: “USB_C_Receptacle_G-Switch_GT-USB-7010ASV”
-https://pt.aliexpress.com/item/1005001998218101.html
-https://pt.aliexpress.com/item/1005002795893679.html
-https://pt.aliexpress.com/item/1005005244121781.html
-https://pt.aliexpress.com/item/1005005244013785.html</li>
-</ul>
-<h1 id="libraries">Libraries</h1>
-<p>https://github.com/perigoso/keyswitch-kicad-library
-https://github.com/ai03-2725/MX_V2 *
-https://wiki.ai03.com/books/pcb-design/page/list-of-kicad-keyboard-parts-libraries
-* https://github.com/ebastler/marbastlib - LED SMD para backlight</p>
-<h1 id="backlight">Backlight</h1>
-<p>https://qmk.github.io/qmk_mkdocs/master/en/feature_backlight/
-https://www.flexfireleds.com/comparison-between-3528-leds-and-5050-leds/</p>
-<h2 id="mosfet">MOSFET</h2>
-<p>100 and 100k resistor</p>
-<ul>
-<li>A04406A</li>
-<li>AO3416</li>
-<li>FDS6630A</li>
-<li>DMN3018SSS-13 SOIC FET</li>
-</ul>
-<h1 id="keyboards">Keyboards</h1>
-<p>https://github.com/ai03-2725/Contra</p>
-<h1 id="links">Links</h1>
-<ul>
-<li>https://keeb.io/collections/frontpage/products/dsp40-40-staggered-or-ortholinear-keyboard</li>
-<li>https://www.qlavier.com/</li>
-</ul>
-<h1 id="alps-to-mx">Alps to MX</h1>
-<ul>
-<li>https://www.thingiverse.com/thing:5625421</li>
-<li>https://www.thingiverse.com/thing:2073899 - Pedi a fabricação de 48
-peças na fabrica3d.co no dia 16/03/23</li>
-<li>https://github.com/dotdash32/Cases/tree/master/Keycap%20Designs/Key%20Switches
-- Pedi a fabricação de 12 peças na fabrica3d.co no dia 16/03/23</li>
-</ul>
-<h2 id="links-úteis">Links úteis</h2>
-<ul>
-<li><a href="https://keebfolio.netlify.app/en/ortholinear/">Ortholinear
-Keyboards - Keebfolio</a></li>
-<li><a
-href="https://www.reddit.com/r/MechanicalKeyboards/comments/5ct3yu/alps_to_mx_stem_concept/">Reddit
-- ALPS to MX Stem Concept</a></li>
-<li><a
-href="https://www.reddit.com/r/MechanicalKeyboards/comments/6jkyid/review_irocks_k76m_alps_clone_with_mx_stem_first">Reddit
-- [review] iRocks K76M Alps clone with MX stem first
-impressions</a></li>
-<li><a href="https://www.thingiverse.com/thing:1720449">ALPS to Cherry
-MX keyboard stem adapter by option8 - Thingiverse</a></li>
-<li><a
-href="https://www.tech-critter.com/review-i-rocks-k76m-fun/">Review -
-i-Rocks K76M Fun Illuminated Mechanical Keyboard</a></li>
-<li><a href="https://imgur.com/a/H2eiJ">ALPS to MX adapter is working! -
-Album on Imgur</a></li>
-<li><a
-href="https://github.com/dotdash32/Cases/tree/master/Keycap%20Designs/Key%20Switches">Cases/Keycap
-Designs/Key Switches at master · dotdash32/Cases · GitHub</a></li>
-<li><a href="https://geekhack.org/index.php?topic=107270.0">Funny
-Adapters! Alps to Cherry MX adapters 10/04/2020 Update</a></li>
-<li><a href="https://geekhack.org/index.php?topic=69031.0">MX to Alps
-adaptor</a></li>
-<li><a
-href="https://deskthority.net/viewtopic.php?f=7&amp;t=4934&amp;sid=85452e0fe020bded3d9d33c3224e8a0c&amp;start=150">Cherry
-to Alps adapters - Page 6 - deskthority</a></li>
-<li><a
-href="http://primrosebank.net/computers/mtx/projects/djkeyboard/djkeyboard.htm">Memotech
-MTX 512 - Projects : Replacement Keyboard</a></li>
-<li><a href="https://geekhack.org/index.php?topic=49639.0">Ultratec -
-Minicom IV</a></li>
-<li><a
-href="https://github.com/datatravelandexperiments/hw-keyswitch-breakout">GitHub
-- datatravelandexperiments/hw-keyswitch-breakout: Adapters for Cherry MX
-and ALPS SKC keyswitches to 0.1 inch breadboards.</a></li>
-</ul>
-<h3 id="keyboards-open-hardware">Keyboards Open Hardware</h3>
-<ul>
-<li><a href="https://acheronproject.com/">Acheron Docs - Shark
-Keyboard</a></li>
-<li><a href="https://github.com/ChrisChrisLoLo/keezyboost40">GitHub -
-ChrisChrisLoLo/keezyboost40: 4x10 ortholinear with an LCD in the middle.
-Uses the Raspberry Pi Pico, as well as Rust firmware</a></li>
-<li><a href="https://github.com/coarse/st40">GitHub - coarse/st40: Open
-source 40% ortholinear keyboard PCB powered by STM32F072</a></li>
-<li><a href="https://github.com/ChrisChrisLoLo/banime40">GitHub -
-ChrisChrisLoLo/banime40: A 4x10 hotswap ortholinear keyboard that
-supports multiple configurations.</a></li>
-<li><a href="https://github.com/niftypsycho/ortho-40percent">GitHub -
-niftypsycho/ortho-40percent: 40% ortholinear mechanical
-keyboard</a></li>
-<li><a href="https://github.com/ai03-2725/Contra">GitHub -
-ai03-2725/Contra: Contra - Lowest cost ortholinear keyboard kit
-possible</a></li>
-<li><a href="https://github.com/eswai/QOL56">GitHub - eswai/QOL56:
-56-key mechanical keyboard for Oyayubi-shift Japanese input</a></li>
-<li><a href="https://github.com/peej/lumberjack-keyboard">GitHub -
-peej/lumberjack-keyboard: 5x12 ortholinear through-hole component
-keyboard PCB for standard 60% cases</a></li>
-</ul>
+<p>A escolha dos componentes é crucial para a experiência final do
+teclado, e a variedade disponível no mercado permite uma personalização
+quase ilimitada.</p>
+<h3 id="montagem-e-soldagem">2. Montagem e Soldagem</h3>
+<p>A montagem do teclado requer paciência e habilidades básicas de
+soldagem. Você precisará soldar os switches na PCB e montar o teclado
+cuidadosamente, seguindo as instruções do fabricante. Certifique-se de
+estar em um ambiente limpo e organizado para evitar danos durante a
+montagem.</p>
+<h3 id="programação">3. Programação</h3>
+<p>Depois de montar o teclado, é hora de programá-lo de acordo com suas
+preferências. Você pode definir atalhos, macros e até mesmo personalizar
+a iluminação RGB, se o seu teclado tiver essa funcionalidade. A
+programação é uma parte essencial para tornar o teclado “Momo”
+verdadeiramente único para você.</p>
+<h2 id="o-toque-final-personalização">O Toque Final: Personalização</h2>
+<p>A verdadeira beleza de construir seu próprio teclado está na
+personalização. O teclado “Momo” foi projetado para ser um reflexo da
+personalidade do seu criador. Aqui estão algumas maneiras de
+personalizar ainda mais o seu teclado:</p>
+<h3 id="layout-e-mapeamento-de-teclas">1. Layout e Mapeamento de
+Teclas</h3>
+<p>Você pode personalizar o layout do teclado e o mapeamento das teclas
+de acordo com suas necessidades. Por exemplo, se você é um programador,
+pode configurar teclas de atalho específicas para facilitar o seu
+trabalho. Isso torna a digitação mais eficiente e personalizada para
+suas tarefas diárias.</p>
+<h3 id="keycaps-personalizados">2. Keycaps Personalizados</h3>
+<p>Escolha keycaps com designs exclusivos que reflitam seu estilo
+pessoal. Keycaps personalizados podem adicionar um toque de
+personalidade ao seu teclado, transformando-o em uma obra de arte
+funcional.</p>
+<h3 id="iluminação-rgb">3. Iluminação RGB</h3>
+<p>Se o seu teclado tiver iluminação RGB, você pode criar esquemas de
+cores personalizados para combinar com seu ambiente de trabalho ou
+jogos. A iluminação não apenas torna o teclado mais atraente
+visualmente, mas também pode ajudar na usabilidade em ambientes com
+pouca luz.</p>
+<h3 id="case-personalizado">4. Case Personalizado</h3>
+<p>Alguns entusiastas vão além e personalizam até mesmo a caixa do
+teclado, pintando-a ou gravando designs exclusivos. Isso adiciona um
+toque final exclusivo ao seu projeto.</p>
+<h2 id="a-jornada-continua">A Jornada Continua</h2>
+<p>A construção de um teclado mecânico personalizado como o “Momo” é uma
+jornada recompensadora. Você não só obtém um teclado que atende
+perfeitamente às suas necessidades, mas também cria uma peça única de
+hardware que é verdadeiramente sua. À medida que você mergulha mais
+fundo no mundo da customização de teclados, descobrirá uma comunidade
+vibrante de entusiastas que compartilham sua paixão.</p>
+<p>Então, se você está pronto para uma aventura de personalização, siga
+em frente e comece a planejar seu próprio teclado mecânico. O teclado
+“Momo” é apenas o começo de uma jornada incrível que lhe permitirá
+explorar sua criatividade e paixão pela tecnologia.</p>
+<p>Lembre-se de compartilhar sua jornada com outros entusiastas e
+inspirar novas criações. E quem sabe, talvez você crie o próximo teclado
+incrível que todos desejam ter!</p>
+<p>Se você deseja se aprofundar ainda mais nesse tópico, confira o post
+original <a
+href="https://blog.calebe.dev.br/posts/teclado-appa.html">aqui</a>, que
+oferece insights adicionais sobre a construção de teclados mecânicos
+personalizados.</p>
 <hr>
 <footer>
 <p>

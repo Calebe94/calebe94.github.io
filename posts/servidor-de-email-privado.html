@@ -66,8 +66,16 @@
 
         <nav class="nav-top">
             <h3>
-                <div class="whoami-animation">$ whoami</div>
-                <a class="result-animation" href="/">&#8203</a>
+                <div>$
+                    <span class="terminal__prompt--typing">
+                        <div class="cover cover--whoami"></div>whoami
+                    </span>
+                </div>
+                <div class="terminal__prompt--whoami-return">
+                    <span>
+                        <a href="/">Calebe94</a>
+                    </span>
+                </div>
             </h3>
             <h5><a href="/posts"a>✉️ Posts </a></h5>
             <h5><a href="/uses.html">⚒️ Uses </a></h5>
@@ -79,7 +87,21 @@
     </header>
     <main>
     <hr>
-<nav class="site-header"><h5>$ pwd<br>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/servidor-de-email-privado.html">Servidor de email (self-hosted)</a></h5></nav>
+
+    <h5><div class="terminal__prompt--pwd">$<span class="terminal__prompt--typing"><div class="cover cover--pwd"></div> pwd</span></div><div class="terminal__prompt--pwd-return"><span>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/servidor-de-email-privado.html">Servidor de email (self-hosted)</a></span></div></h5>
+<h2>Índice</h2>
+<ul>
+<li><a href="#servidor-de-email-self-hosted">Servidor de email
+(self-hosted)</a>
+<ul>
+<li><a
+href="#a-saga-da-frustração"><code>A saga da frustração</code></a></li>
+<li><a href="#tentando-desbloquear-a-porta-25">Tentando desbloquear a
+porta <code>25</code></a></li>
+<li><a href="#smtp-relay">SMTP Relay</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+</ul></li>
+</ul>
 <!--
 title: "Servidor de email (self-hosted)"
 subtitle: ""

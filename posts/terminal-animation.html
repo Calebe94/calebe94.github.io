@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/static/css/retro.css">
+<link rel="stylesheet" href="/static/css/carousel.css">
+<link rel="stylesheet" href="/static/css/fontello.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<!-- HTML Meta Tags -->
+<title>Criando uma Animação
+CSS Estilo Terminal &mdash; Criando uma Animação CSS Estilo Terminal - Calebe94</title>
+<meta name="description" content="Esta é a página pessoal e blog de Calebe94.">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="calebe.dev.br">
+<meta itemprop="description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta itemprop="image" content="https://media.calebe.dev.br/images/calebe94_1200.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://calebe.dev.br/site">
+<meta property="og:type" content="website">
+<meta property="og:title" content="calebe.dev.br">
+<meta property="og:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta property="og:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="calebe.dev.br">
+<meta name="twitter:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta name="twitter:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Meta Content Security Policy -->
+<!-- <meta http-equiv="Content-Security-Policy"
+     content="default-src 'self';
+     script-src 'self' 'report-sample';
+     style-src 'self' 'report-sample';
+     base-uri 'self';
+     object-src 'none';
+     connect-src 'self';
+     font-src 'self';
+     frame-src 'self';
+     form-action 'self';
+     img-src 'self' data: https:;
+     manifest-src 'self';
+     media-src 'self';
+     worker-src 'none';
+     "> -->
+
+<link rel="icon" type="image/x-icon" href="https://blog.calebe.dev.br/static/favicon.ico">
+<style type="text/css" media="screen">
+@import “/static/css/fontello”;
+</style>
+
+<title>Criando uma Animação
+CSS Estilo Terminal &mdash; Criando uma Animação CSS Estilo Terminal - Calebe94</title>
+</head>
+<body>
+    <button onclick="topFunction()" id="top-button" title="Go to top">Top</button>
+    <header class="site-header">
+
+        <nav class="nav-top">
+            <h3>
+                <div>$
+                    <span class="terminal__prompt--typing">
+                        <div class="cover cover--whoami"></div>whoami
+                    </span>
+                </div>
+                <div class="terminal__prompt--whoami-return">
+                    <span>
+                        <a href="/">Calebe94</a>
+                    </span>
+                </div>
+            </h3>
+            <h5><a href="/posts"a>✉️ Posts </a></h5>
+            <h5><a href="/uses.html">⚒️ Uses </a></h5>
+            <h5><a href="/recommends/">🔖   Favoritos </a></h5>
+            <!-- <h5><a href="/curriculum.html">📋    Currículo </a></h5> -->
+            <h5><a href="//links.calebe.dev.br">🔗 Links </a></h5>
+            <h5><a href="//git.calebe.dev.br">🚧 Projetos </a></h5>
+        </nav>
+    </header>
+    <main>
+    <hr>
+
+    <h5><div class="terminal__prompt--pwd">$<span class="terminal__prompt--typing"><div class="cover cover--pwd"></div> pwd</span></div><div class="terminal__prompt--pwd-return"><span>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/terminal-animation.html">Criando uma Animação CSS Estilo Terminal</a></span></div></h5>
+<h2>Índice</h2>
+<ul>
+<li><a href="#criando-uma-animação-css-estilo-terminal">Criando uma
+Animação CSS Estilo Terminal</a>
+<ul>
+<li><a href="#planejando-a-animação">Planejando a Animação</a></li>
+<li><a href="#estrutura-html">Estrutura HTML</a></li>
+<li><a href="#css-para-a-animação-de-digitação">CSS para a Animação de
+Digitação</a></li>
+<li><a href="#colocando-tudo-junto">Colocando Tudo Junto</a></li>
+<li><a href="#projetos-semelhantes">Projetos semelhantes</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+</ul></li>
+</ul>
+<!--
+title: "Criando uma Animação CSS Estilo Terminal"
+subtitle: "Um Guia Passo a Passo"
+date: "2023-09-15 16:00:00"
+tags: [PT_BR, CSS, animation, HTML5]
+-->
+<h1 id="criando-uma-animação-css-estilo-terminal">Criando uma Animação
+CSS Estilo Terminal</h1>
+<p>No mundo do desenvolvimento web, a criatividade não tem limites. Às
+vezes, são os pequenos detalhes que fazem um site se destacar. Neste
+post, vamos levá-lo a uma jornada pelo processo de criação de uma
+animação CSS estilo terminal, completa com um efeito de digitação e um
+cursor piscante. Essa animação chamativa pode ser uma adição única ao
+seu site. Vamos lá!</p>
+<h2 id="planejando-a-animação">Planejando a Animação</h2>
+<p>Antes de começarmos a codificar, é essencial planejar nossa animação.
+Queremos simular a execução dos comandos <code>whoami</code> e
+<code>pwd</code> em um terminal. Aqui está o que precisamos fazer:</p>
+<ol type="1">
+<li>Simular a digitação do comando <code>whoami</code> caractere por
+caractere.</li>
+<li>Exibir o resultado do comando <code>whoami</code>.</li>
+<li>Simular a digitação do comando <code>pwd</code> caractere por
+caractere.</li>
+<li>Exibir o resultado do comando <code>pwd</code>.</li>
+</ol>
+<h2 id="estrutura-html">Estrutura HTML</h2>
+<p>Nossa estrutura HTML será simples. Criaremos um elemento
+<code>div</code> para o prompt do terminal e, dentro dele, usaremos
+elementos <code>span</code> para representar o texto digitado. Aqui está
+um trecho do HTML:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;nav</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;nav-top&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Outros itens de navegação --&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--typing&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;cover cover--whoami&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>whoami</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--whoami-return&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;span&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>Calebe94<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/span&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Outro conteúdo --&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;h5&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--pwd&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        $<span class="kw">&lt;span</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--typing&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;cover cover--pwd&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>pwd</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/span&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--pwd-return&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;span&gt;</span>/<span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>home<span class="kw">&lt;/a&gt;</span>/<span class="kw">&lt;/span&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/h5&gt;</span></span></code></pre></div>
+<h2 id="css-para-a-animação-de-digitação">CSS para a Animação de
+Digitação</h2>
+<p>A magia da nossa animação está nos keyframes do CSS. Definimos dois
+keyframes: um para digitar o texto caractere por caractere e outro para
+fazer o cursor piscar. Aqui está o código CSS:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Animação de digitação para whoami */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">@keyframes</span> typing-whoami {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0%</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">12%</span> {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">width</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">15%</span> {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">16%</span> {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100%</span> {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">/* Animação de cursor piscante */</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="im">@keyframes</span> blink {</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0%</span>, <span class="dv">100%</span> {</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="dv">50%</span> {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="colocando-tudo-junto">Colocando Tudo Junto</h2>
+<p>Para aplicar a animação de digitação e o cursor piscante aos nossos
+elementos HTML, usamos animações CSS. Anexamos as animações aos
+elementos apropriados. Aqui está como é feito:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de digitação para whoami */</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--typing</span> <span class="fu">.cover--whoami</span> {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: typing-whoami <span class="dv">10</span><span class="dt">s</span> <span class="fu">steps(</span><span class="dv">6</span><span class="op">,</span> end<span class="fu">)</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de cursor piscante para whoami */</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--whoami-return</span> {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: show-whoami-return <span class="dv">10</span><span class="dt">s</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de digitação para pwd */</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--typing</span> <span class="fu">.cover--pwd</span> {</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: typing-pwd <span class="dv">10</span><span class="dt">s</span> <span class="fu">steps(</span><span class="dv">3</span><span class="op">,</span> end<span class="fu">)</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de exibição do resultado para pwd */</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--pwd-return</span> {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: show-pwd-return <span class="dv">10</span><span class="dt">s</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="projetos-semelhantes">Projetos semelhantes</h2>
+<p>Se você ficou interessado na criação de animações de estilo terminal,
+você também pode explorar esses projetos e recursos relacionados:</p>
+<ol type="1">
+<li><p><strong>Typewriting.js</strong> Um exemplo de animação de
+digitação de texto no estilo terminal usando JavaScript. <a
+href="https://www.cssscript.com/terminal-style-text-typing-animation-typewriting-js/">Ver
+projeto</a></p></li>
+<li><p><strong>Retro Terminal Blog Style</strong> Um blog post que
+explora a criação de um estilo retrô de terminal para seu blog. <a
+href="https://archive.casouri.cc/note/2018/retro-terminal-blog-style/">Ver
+post</a></p></li>
+<li><p><strong>Typing Window</strong> Um tutorial sobre como criar uma
+janela de digitação de texto com efeito de terminal. <a
+href="https://gmarini.com/blog/blog/coding/2020-08-10-typing-window/">Ver
+tutorial</a></p></li>
+<li><p><strong>CSS Tricks - Typewriter Effect</strong> Um snippet que
+demonstra como criar um efeito de máquina de escrever usando apenas CSS.
+<a href="https://css-tricks.com/snippets/css/typewriter-effect/">Ver
+exemplo</a></p></li>
+<li><p><strong>Terminal Animation for Your Website using
+Typed.js</strong> Um guia sobre como adicionar animações de terminal ao
+seu site usando Typed.js. <a
+href="https://dev.to/shahstavan/terminal-animation-for-your-website-using-typed-js-2hcl">Ver
+guia</a></p></li>
+<li><p><strong>Typed.js</strong> Uma biblioteca JavaScript popular para
+criar animações de digitação de texto em seu site. <a
+href="https://github.com/mattboldt/typed.js">Ver projeto</a></p></li>
+<li><p><strong>Terminal Animation (CodePen)</strong> Um exemplo de
+animação de terminal em um ambiente interativo do CodePen. <a
+href="https://codepen.io/glitchedneon/pen/LYpvdqy">Ver
+exemplo</a></p></li>
+<li><p><strong>Termynal</strong> Uma biblioteca JavaScript para criar
+animações de terminal em seu site com facilidade. <a
+href="https://github.com/ines/termynal">Ver projeto</a></p></li>
+</ol>
+<p>Explorar esses recursos adicionais pode fornecer mais insights e
+opções para adicionar animações de terminal ao seu projeto ou inspirar
+novas ideias criativas.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Nesta jornada de criação de uma animação CSS estilo terminal,
+exploramos o poder dos keyframes e das animações CSS. Ao planejar
+meticulosamente e aplicar nossas animações aos elementos certos,
+conseguimos simular com sucesso a execução dos comandos
+<code>whoami</code> e <code>pwd</code> em um terminal.</p>
+<p>Lembre-se de que o desenvolvimento web é tudo sobre criatividade, e
+pequenos detalhes como este podem fazer o seu site se destacar.
+Portanto, vá em frente e experimente as animações CSS para adicionar
+aquele toque extra aos seus projetos web. Feliz codificação!</p>
+<hr />
+<p>Sinta-se à vontade para adaptar este post ao seu site, adicionar mais
+detalhes e incluir quaisquer insights adicionais ou desafios que você
+enfrentou durante a criação da sua animação estilo terminal. Boa
+sorte!</p>
+<hr>
+<footer>
+<p>
+<center>
+<h3>Contatos</h3>
+<br />
+<a style="text-decoration: none;" href="https://t.me/calebe94"><i class="icon-telegram"></i>Telegram</a>
+<a style="text-decoration: none;" href="mailto:contato@calebe.dev.br"><i class="icon-mail"></i>Email</a>
+<a style="text-decoration: none;" href="https://github.com/Calebe94"><i class="icon-github-circled"></i>Github</a>
+<a style="text-decoration: none;" href="https://gitlab.com/Calebe94"><i class="icon-gitlab"></i>Gitlab</a>
+<a style="text-decoration: none;" href="https://instagram.com/ocalebe94"><i class="icon-instagram"></i>Instagram</a>
+</center>
+</p>
+</footer>
+</main>
+<script>
+// Get the button
+let mybutton = document.getElementById("top-button");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+</body>
+</html>

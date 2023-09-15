@@ -1,0 +1,28 @@
+<!--
+title: "Blog"
+date: "2022-02-05 18:04:26"
+tags: []
+-->
+
+# Blog
+
+Eu costumo escrever algumas coisas a respeito de tecnologia mas também escrevo umas coisas aleatórias.
+
+<<<<<<< HEAD
+* [Ferramentas Essenciais para o Desenvolvimento do seu TCC](./tcc-tools.html) - 5 de Setembro de 2023
+* [Desvendando a Eficiência das Técnicas de Compressão de Dados em Dispositivos IoT](./tcc.html) - 5 de Setembro de 2023
+=======
+* [Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2](./tetris-game.html) - 10 de Setembro de 2023
+>>>>>>> 036516f (Added my tetris game)
+* [Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2](./pong-em-c-sdl2.html) - 21 de Agosto de 2023
+* [Appa: Teclado 40% ortholinear inspirado no plaid](./teclado-appa.html) - 26 de Fevereiro de 2023
+* [Organização de projeto em C](./organizacao-de-um-projeto-em-c.html) - 23 de Fevereiro de 2023
+* [Construindo seu próprio teclado mecânico do zero](./construindo-um-teclado-mecanico.html) - 23 de Fevereiro de 2023
+* [Migrando repositórios do Gitlab para o Github](./migrando-do-gitlab-para-o-github.html) - 30 de Maio de 2022
+* [Meu primeiro jogo em C](./pong.html) - 19 de Maio de 2022
+* [Que tal criar um jogo?](./Que-tal-criar-um-jogo.html) - 9 de Maio de 2022
+* [Servidor de email (self-hosted)](./servidor-de-email-privado.html) - 1 de março de 2022
+* [Em busca de uma interface git self-hosted](em-busca-de-uma-interface-git.html) - 28 de fevereiro de 2022
+* [Resolvendo historico corrompido do ZSH](fix_zsh_corrupt_history.html) - 17 de abril de 2021
+* [Premissas básicas de desenvolvimento - Suckless](premissas_basicas.html) - 17 de abril de 2021
+* [ESPBoy: Um Gameboy com o ESP32](ESPBoy-A-ESP32-Gameboy.html) - 3 de março de 2019

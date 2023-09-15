@@ -4,7 +4,7 @@
 	<link href="https://blog.calebe.dev.br" />
 	<link rel="self" href="https://blog.calebe.dev.br/feed.xml" />
 	<icon>static/favicon.ico</icon>
-	<updated>2023-08-20T18:01:16-03:00</updated>
+	<updated>2023-09-15T16:19:08-03:00</updated>
 	<id>https://blog.calebe.dev.br</id>
 	<generator>sbs</generator>
 
@@ -39,6 +39,450 @@ jogo.</p>
 Assembly.</p>
 <p>Bom… por enquanto é isso.</p>
 <p>Até a próxima!</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/tetris-game.html" />
+            <id>https://blog.calebe.dev.br/posts/tetris-game.html</id>
+            <updated>2023-09-10T18:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1 id="desenvolvendo-o-jogo-tetris-em-c-com-sdl2-e-webassembly">🎮
+Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly 🚀</h1>
+<p>No mundo do desenvolvimento de jogos, Tetris é um clássico que
+dispensa apresentações. Sua jogabilidade simples, porém viciante,
+cativou jogadores por décadas. Neste post, levaremos você a uma jornada
+pelo processo de criação de um jogo Tetris em C++ usando a biblioteca
+SDL2 e exploraremos como levar esse jogo para a web usando WebAssembly.
+Vamos abordar os passos e conceitos-chave, desde a configuração do
+ambiente de desenvolvimento até a implementação da mecânica do jogo e
+das interfaces de usuário.</p>
+<center>
+<a href="/tetris/"><img src="https://raw.githubusercontent.com/Calebe94/tetris/main/assets/screenshots/game.png" width="500px"></a>
+<p>
+<h4>
+<a href="/tetris/">🎮 JOGAR! 🎮</a>
+</h4>
+</p>
+</center>
+<h3 id="configurando-o-ambiente-de-desenvolvimento">Configurando o
+Ambiente de Desenvolvimento</h3>
+<p>Antes de mergulhar no desenvolvimento de jogos, você precisa das
+ferramentas e bibliotecas certas. No nosso caso, escolhemos C++ como
+linguagem de programação e SDL2 como biblioteca multimídia para
+gráficos, áudio e entrada.</p>
+<ol type="1">
+<li><p><strong>C++</strong>: Essa linguagem fornece o poder e a
+flexibilidade necessários para o desenvolvimento de jogos. Certifique-se
+de ter um compilador C++ e ferramentas de compilação
+instalados.</p></li>
+<li><p><strong>SDL2</strong>: A Simple DirectMedia Layer é uma escolha
+popular para o desenvolvimento de jogos 2D. Ela abstrai detalhes
+específicos da plataforma, facilitando a criação de jogos
+multiplataforma.</p></li>
+</ol>
+<p>Uma vez que você tenha esses componentes essenciais em mãos, é hora
+de começar a programar.</p>
+<h3 id="o-loop-do-jogo">O Loop do Jogo</h3>
+<p>Todo jogo possui um loop principal responsável por lidar com entrada,
+atualizar o estado do jogo e renderizar gráficos. No nosso jogo Tetris,
+o loop se parece com isso:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>quit<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    handleInput<span class="op">();</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    updateGame<span class="op">();</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    renderGame<span class="op">();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li><p><strong>handleInput()</strong>: Esta função verifica a entrada do
+usuário, como comandos do teclado para mover ou girar
+Tetrominós.</p></li>
+<li><p><strong>updateGame()</strong>: Aqui, atualizamos o estado do
+jogo, incluindo o movimento dos Tetrominós, verificação de colisões e
+eliminação de linhas.</p></li>
+<li><p><strong>renderGame()</strong>: Esta etapa envolve a renderização
+do tabuleiro de jogo, Tetrominós e elementos de interface de usuário na
+tela.</p></li>
+</ul>
+<h3 id="construindo-o-tabuleiro-do-jogo">Construindo o Tabuleiro do
+Jogo</h3>
+<p>No Tetris, o tabuleiro de jogo é uma grade onde Tetrominós caem e
+interagem. Representamos o tabuleiro de jogo como uma matriz 2D de
+células, onde cada célula contém informações sobre o estado daquela
+posição na grade.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>std<span class="op">.::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> gameBoard<span class="op">(</span>rows<span class="op">,</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;(</span>cols<span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span></code></pre></div>
+<p>Usamos números para representar diferentes estados na grade, com
+<code>0</code> indicando uma célula vazia, <code>255</code> para bordas
+e outros valores para diferentes formas de Tetrominós.</p>
+<h3 id="tetrominós-e-detecção-de-colisão">Tetrominós e Detecção de
+Colisão</h3>
+<p>Tetrominós são o coração do jogo. Cada Tetrominó consiste em quatro
+blocos que se movem como uma única unidade. Usamos classes para
+representar Tetrominós, o que nos permite definir suas formas e lidar
+com o movimento.</p>
+<p>A detecção de colisões garante que os Tetrominós não passem pelas
+paredes ou outros blocos. Verificamos se um movimento é válido antes de
+permiti-lo.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>isValidMove<span class="op">(</span>newPosition<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    currentTetromino<span class="op">.</span>move<span class="op">(</span>newPosition<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Lidar com colisões</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="eliminando-linhas">Eliminando Linhas</h3>
+<p>Quando uma linha é preenchida com Tetrominós, ela é eliminada do
+tabuleiro. A eliminação de linhas requer a verificação de cada linha em
+busca de preenchimento e o deslocamento de blocos para baixo, quando
+necessário.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> row <span class="op">=</span> boardHeight <span class="op">-</span> <span class="dv">2</span><span class="op">;</span> row <span class="op">&gt;=</span> <span class="dv">1</span><span class="op">;</span> <span class="op">--</span>row<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> rowIsFull <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> col <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> col <span class="op">&lt;</span> boardWidth <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> <span class="op">++</span>col<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>gameBoard<span class="op">[</span>row<span class="op">][</span>col<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            rowIsFull <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rowIsFull<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        clearRow<span class="op">(</span>row<span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="adicionando-uma-interface-de-usuário">Adicionando uma Interface
+de Usuário</h3>
+<p>Um jogo sem interface de usuário está incompleto. Adicionamos um
+sistema de menu usando a biblioteca Dear ImGui, permitindo que os
+jogadores iniciem um novo jogo, acessem configurações e saiam do jogo.
+ImGui oferece uma maneira conveniente de criar menus interativos e
+elementos de interface de usuário.</p>
+<h3 id="pontuação-e-avanço-de-nível">Pontuação e Avanço de Nível</h3>
+<p>Para manter os jogadores envolvidos, implementamos pontuação e avanço
+de nível. Os jogadores ganham pontos ao eliminar linhas, e o jogo avança
+de nível a cada 1000 pontos. Isso adiciona um senso de progressão e
+desafio ao jogo.</p>
+<pre><code>
+cpp
+void calculatePoints(int rowsCleared) {
+    score += (rowsCleared * rowsCleared * 100);
+    if (score &gt;= level * 1000) {
+        level++;
+        // Aumentar a velocidade do jogo ou adicionar mais desafios para níveis mais altos
+    }
+}</code></pre>
+<h3 id="leve-o-tetris-para-a-web-com-webassembly">🌐 Leve o Tetris para
+a Web com WebAssembly</h3>
+<p>Agora, a parte emocionante: levar nosso jogo Tetris para a web usando
+WebAssembly. Primeiro, configuramos o ambiente Emscripten no nosso
+Makefile e criamos um arquivo HTML de shell para hospedar o jogo na web.
+Usamos o Emscripten para compilar nosso código C++ em WebAssembly.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Emscripten configuration</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">EMCC </span><span class="ch">=</span><span class="st"> emcc</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">EMFLAGS </span><span class="ch">=</span><span class="st"> -std=c++11</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">EMINCLUDE_PATH </span><span class="ch">=</span><span class="st"> -Isrc/ -Ilib/seethe/ -Ilib/imgui/ -Ilib/imgui/backends/</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">EMLIBS </span><span class="ch">=</span><span class="st"> -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_MIXER=2 -s USE_SDL_TTF=2 -s ALLOW_MEMORY_GROWTH --preload-file assets/</span></span></code></pre></div>
+<p>Com essas configurações em vigor, podemos usar o Emscripten para
+compilar nosso jogo para WebAssembly.</p>
+<pre class="shell"><code>make web</code></pre>
+<p>Agora, você pode jogar o Tetris tanto no ambiente desktop quanto na
+web. O código-fonte do jogo está disponível em <a
+href="https://github.com/calebe94/tetris">https://github.com/calebe94/tetris</a>,
+e você pode jogar diretamente em <a
+href="https://blog.calebe.dev.br/tetris/">https://blog.calebe.dev.br/tetris/</a>.</p>
+<h3 id="conclusão">Conclusão</h3>
+<p>Criar um jogo Tetris em C++ e SDL2 é uma jornada gratificante que
+abrange vários aspectos do desenvolvimento de jogos, desde o
+gerenciamento da lógica do jogo até a implementação de interfaces de
+usuário. Este post cobriu os componentes essenciais do nosso jogo
+Tetris, mas sempre há espaço para melhorias e recursos adicionais. O
+desenvolvimento de jogos é um processo contínuo de aprendizado, e é
+empolgante ver o jogo evoluir a cada iteração.</p>
+<p>Fique atento para futuras atualizações, à medida que aprimoramos
+nosso jogo Tetris e exploramos ainda mais conceitos de desenvolvimento
+de jogos. Esperamos que esta jornada tenha inspirado você a embarcar na
+sua própria aventura de desenvolvimento de jogos!</p>
+<p>Lembre-se de que você pode experimentar o jogo Tetris tanto no
+ambiente desktop quanto na web, graças ao poderoso WebAssembly. O
+código-fonte completo do jogo está disponível em <a
+href="https://github.com/calebe94/tetris">https://github.com/calebe94/tetris</a>,
+e você pode jogá-lo em <a
+href="https://blog.calebe.dev.br/tetris/">https://blog.calebe.dev.br/tetris/</a>.
+Divirta-se jogando e explorando o mundo do desenvolvimento de jogos!</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title>Desvendando a Eficiência das Técnicas de Compressão de Dados em Dispositivos IoT</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/tcc.html" />
+            <id>https://blog.calebe.dev.br/posts/tcc.html</id>
+            <updated>2023-09-05T11:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1
+id="desvendando-a-eficiência-das-técnicas-de-compressão-de-dados-em-dispositivos-iot">Desvendando
+a Eficiência das Técnicas de Compressão de Dados em Dispositivos
+IoT</h1>
+<p>A jornada acadêmica rumo à conclusão do Trabalho de Conclusão de
+Curso (TCC) é uma experiência desafiadora e recompensadora. Ao longo
+desse percurso, é fundamental escolher um tema que não apenas desperte
+seu interesse, mas também tenha relevância no contexto atual. No meu
+caso, a escolha recaiu sobre um tema que está no epicentro da revolução
+tecnológica: a “Eficiência das Técnicas de Compressão de Dados em
+Dispositivos IoT com Recursos Limitados”.</p>
+<p>A Internet das Coisas (IoT) é uma realidade que se desdobra diante de
+nós, conectando dispositivos, sensores e sistemas em uma rede global.
+Ela tem o potencial de transformar nossas vidas e nossas cidades,
+tornando-as mais inteligentes e eficientes. No entanto, essa explosão de
+dispositivos IoT traz consigo desafios significativos, especialmente
+quando se trata de gerenciamento de dados.</p>
+<p>Aqui estão algumas razões pelas quais escolhi esse tema para meu
+TCC:</p>
+<h2 id="relevância-da-iot">Relevância da IoT</h2>
+<p>A IoT está presente em todos os lugares, desde casas inteligentes até
+a indústria. Compreender como otimizar o uso de dados nesse contexto é
+fundamental.</p>
+<h2 id="recursos-limitados">Recursos Limitados</h2>
+<p>Muitos dispositivos IoT são caracterizados por recursos limitados,
+como capacidade de armazenamento, poder de processamento e largura de
+banda de transmissão. Lidar com essas restrições é um desafio
+crítico.</p>
+<h2 id="economia-de-energia">Economia de Energia</h2>
+<p>Em dispositivos alimentados por baterias ou energia solar, a
+eficiência energética é crucial. Comprimir dados pode economizar energia
+valiosa.</p>
+<h2 id="aplicabilidade-prática">Aplicabilidade Prática</h2>
+<p>O que aprender com esse estudo pode ser aplicado no mundo real,
+tornando-o altamente prático e valioso.</p>
+<h1 id="próximas-etapas">Próximas Etapas</h1>
+<p>Agora, avançando para as próximas etapas da minha jornada de TCC:</p>
+<h2 id="revisão-bibliográfica-profunda">1. Revisão Bibliográfica
+Profunda</h2>
+<p>Continuarei a explorar a literatura existente, aprofundando-me em
+artigos acadêmicos, livros e fontes confiáveis para entender as técnicas
+de compressão de dados na IoT.</p>
+<h2 id="coleta-de-dados">2. Coleta de Dados</h2>
+<p>Pretendo coletar dados de dispositivos IoT em cenários de teste
+controlados para avaliar a eficácia das técnicas de compressão.</p>
+<h2 id="experimentação-e-análise">3. Experimentação e Análise</h2>
+<p>Realizarei experimentos para comparar as técnicas de compressão sem
+perdas e com perdas, considerando diferentes cenários de recursos e
+aplicações IoT.</p>
+<h2 id="avaliação-de-resultados">4. Avaliação de Resultados</h2>
+<p>Analisarei os dados coletados e os resultados dos experimentos para
+tirar conclusões sólidas sobre a eficiência das técnicas de compressão
+de dados.</p>
+<h2 id="escrita-e-revisão">5. Escrita e Revisão</h2>
+<p>A fase final envolverá a redação do TCC, incluindo introdução,
+fundamentação teórica, metodologia, resultados e conclusões. A revisão
+minuciosa garantirá a qualidade do trabalho.</p>
+<h2 id="apresentação-e-defesa">6. Apresentação e Defesa</h2>
+<p>Finalmente, apresentarei meu TCC e o defenderei perante uma banca
+acadêmica.</p>
+<h1 id="conclusão">Conclusão</h1>
+<p>Este é o caminho que percorri até agora e o que ainda está por vir na
+minha jornada de TCC sobre compressão de dados na IoT. Este é um campo
+empolgante e em constante evolução, e estou ansioso para contribuir com
+novos conhecimentos que possam beneficiar o mundo da tecnologia. Fiquem
+ligados para mais atualizações à medida que avançamos nesta jornada!</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title></title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/linkedin.html" />
+            <id>https://blog.calebe.dev.br/posts/linkedin.html</id>
+            <updated>2023-09-15T00:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <figure>
+<img
+src="https://github.com/Calebe94/appa-firmware/raw/main/res/appa.jpeg"
+alt="Teclado APPA" />
+<figcaption aria-hidden="true">Teclado APPA</figcaption>
+</figure>
+<h3 id="índice-rápido">Índice Rápido:</h3>
+<ul>
+<li><a href="#motivação">Motivação</a></li>
+<li><a href="#escolha-do-nome-do-projeto">Escolha do nome do
+projeto</a></li>
+<li><a href="#desenho-da-case">Desenho da Case</a></li>
+<li><a href="#desenvolvimento-da-pcb">Desenvolvimento da PCB</a></li>
+<li><a href="#remoção-das-teclas">Remoção das teclas</a></li>
+<li><a href="#lubrificando-as-teclas">Lubrificando as teclas</a></li>
+<li><a href="#montagem-da-pcb">Montagem da PCB</a></li>
+<li><a href="#bootloader-e-firmware">Bootloader e Firmware</a></li>
+<li><a href="#rgb">RGB</a></li>
+<li><a href="#firmware">Firmware</a></li>
+<li><a href="#considerações-finais">Considerações finais</a></li>
+</ul>
+<h3 id="motivação">Motivação 💡</h3>
+<p>Tudo começou quando eu estava em busca de um teclado novo e meus
+amigos recomendaram os teclados mecânicos. A ideia de poder modificar o
+firmware me cativou, e comecei a explorar projetos open source e open
+hardware. Foi assim que me deparei com o projeto <a
+href="https://github.com/hsgw/plaid">Plaid</a>, que me inspirou a criar
+o Teclado APPA.</p>
+<h3 id="escolha-do-nome-do-projeto">Escolha do nome do projeto 🦙</h3>
+<p>O nome <strong>Appa</strong> é uma homenagem ao adorável personagem
+do desenho <a
+href="https://en.wikipedia.org/wiki/Avatar:_The_Last_Airbender">Avatar:
+The Last Airbender</a>, meu favorito na série. O nome começando com “A”
+também faz referência às teclas <a
+href="https://deskthority.net/wiki/Alps_SKCL/SKCM_series">ALPS</a> que
+utilizei no projeto.</p>
+<figure>
+<img
+src="https://cdn11.bigcommerce.com/s-5242sis1by/images/stencil/2560w/products/282/1043/Appa__86978.1595902634.png"
+alt="Appa" />
+<figcaption aria-hidden="true">Appa</figcaption>
+</figure>
+<h3 id="desenho-da-case">Desenho da Case 📐</h3>
+<p>Para a case do Teclado APPA, busquei inspiração em projetos
+existentes e encontrei um teclado Gherkin com uma case de madeira.
+Decidi criar minha própria case de acrílico, utilizando cortes a laser e
+sobreposição de peças.</p>
+<figure>
+<img src="https://media.calebe.dev.br/images/case-mdf.jpeg"
+alt="Case de acrílico" />
+<figcaption aria-hidden="true">Case de acrílico</figcaption>
+</figure>
+<h3 id="desenvolvimento-da-pcb">Desenvolvimento da PCB 🛠️</h3>
+<p>A base do projeto foi o <a
+href="https://github.com/hsgw/plaid">Plaid</a>, e utilizei o <a
+href="https://kicad.org/">KiCAD</a> para criar o diagrama esquemático e
+a PCB. Optei por componentes que já possuía em casa para reduzir os
+custos. A qualidade da PCB da <a href="https://jlcpcb.com/">JLCPCB</a>
+me impressionou, e a placa ficou incrível.</p>
+<figure>
+<img src="https://media.calebe.dev.br/images/appa-pcb.jpeg" alt="PCB" />
+<figcaption aria-hidden="true">PCB</figcaption>
+</figure>
+<h3 id="remoção-das-teclas">Remoção das teclas ⌨️</h3>
+<p>Para montar as PCBs, precisei remover as teclas do teclado Gertec de
+66 teclas que adquiri. Usei um ferro de solda e um sugador para remover
+as soldas e uma pinça para soltar os prendedores das teclas.</p>
+<h3 id="lubrificando-as-teclas">Lubrificando as teclas 🔧</h3>
+<p>Seguindo os passos de um tutorial, lubrifiquei todas as 66 teclas do
+conjunto com uma graxa branca de silicone. Essa etapa foi crucial para
+garantir o desempenho suave das teclas.</p>
+<h3 id="montagem-da-pcb">Montagem da PCB 🔌</h3>
+<p>Com as PCBs prontas, iniciei o processo de montagem dos teclados. A
+qualidade da produção da JLCPCB impressionou mais uma vez, e o resultado
+final ficou incrível.</p>
+<h3 id="bootloader-e-firmware">Bootloader e Firmware 🔌</h3>
+<p>Para habilitar o microcontrolador <a
+href="https://www.microchip.com/wwwproducts/en/ATmega328">ATMEGA328</a>
+a funcionar como um dispositivo <a
+href="https://en.wikipedia.org/wiki/Human_interface_device">HID</a> via
+USB, utilizei o <a
+href="https://www.obdev.at/products/vusb/usbasploader.html">USBaspLoader</a>.
+Após algumas tentativas, o teclado estava finalmente funcionando
+perfeitamente.</p>
+<h3 id="rgb">RGB 🌈</h3>
+<p>Para um toque extra de estilo, adicionei fitas de LEDs <a
+href="https://cdn-shop.adafruit.com/datasheets/WS2812B.pdf">WS2812B</a>
+na parte inferior da PCB para criar um efeito de iluminação “underglow”.
+A transparência da case de acrílico destacou o efeito, tornando o
+Teclado APPA ainda mais incrível.</p>
+<h3 id="firmware">Firmware 🧰</h3>
+<p>O firmware do Teclado APPA foi desenvolvido utilizando o <a
+href="https://github.com/qmk/qmk_firmware">qmk</a>, e o código completo
+pode ser encontrado no repositório <a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a>.</p>
+<h3 id="considerações-finais">Considerações finais 🏁</h3>
+<p>A jornada de construir o Teclado APPA foi uma experiência empolgante.
+Pude combinar minha paixão por eletrônica e tecn</p>
+<p>ologia com a criatividade de criar algo tangível. O aprendizado ao
+longo do caminho foi inestimável, e estou ansioso para futuros
+projetos.</p>
+<p>Se você estiver interessado em construir o seu próprio teclado
+mecânico, espero que minha jornada tenha te inspirado e te ajudado a
+entender o processo envolvido. Sinta-se à vontade para me contatar se
+tiver alguma dúvida ou quiser saber mais!</p>
+<p>🚀 <strong>Orgulhosamente apresentando o Teclado Mecânico
+APPA!</strong> 🚀</p>
+<p>No meu último post, compartilhei o vídeo sobre a empolgante jornada
+de <strong>construir meu próprio teclado mecânico</strong>. Hoje, quero
+mergulhar mais fundo e compartilhar com vocês todos os detalhes
+incríveis que envolveram a criação do Teclado APPA!</p>
+<figure>
+<img
+src="https://github.com/Calebe94/appa-firmware/raw/main/res/appa.jpeg"
+alt="Teclado APPA" />
+<figcaption aria-hidden="true">Teclado APPA</figcaption>
+</figure>
+<p>🔧 <strong>Destaques:</strong></p>
+<ul>
+<li>Projeto exclusivo com uma estrutura de acrílico e peças cortadas a
+laser.</li>
+<li>PCB desenvolvida usando o KiCAD, e confeccionado pela JLCPCB.</li>
+<li>LEDs WS2812B iluminação RGB.</li>
+<li>Firmware desenvolvido usando <a
+href="https://qmk.fm/">qmk_firmware</a>.</li>
+</ul>
+<p>Esse projeto acendeu minha paixão por eletrônica e criação tangível.
+Se você tem curiosidade sobre a construção do seu próprio teclado
+mecânico, minha jornada pode te inspirar. Conecte-se comigo para mais
+informações!</p>
+<p>🔗 <strong>Links:</strong></p>
+<ul>
+<li>Link para o post completo: <strong><a
+href="https://blog.calebe.dev.br/posts/teclado-appa.html">Teclado
+APPA</a></strong></li>
+<li>Repositório do firmware: <strong><a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a></strong></li>
+<li>Repositório do pcb: <strong><a
+href="https://github.com/Calebe94/appa-pcb">appa-pcb</a></strong></li>
+<li>Repositório da case: <strong><a
+href="https://github.com/Calebe94/appa-case">appa-case</a></strong></li>
+</ul>
+<p>#MechanicalKeyboard #DIYElectronics #OpenSource</p>
+<hr />
+<p>🚀 <strong>𝗢𝗿𝗴𝘂𝗹𝗵𝗼𝘀𝗮𝗺𝗲𝗻𝘁𝗲 𝗮𝗽𝗿𝗲𝘀𝗲𝗻𝘁𝗮𝗻𝗱𝗼 𝗼 𝗧𝗲𝗰𝗹𝗮𝗱𝗼 𝗠𝗲𝗰â𝗻𝗶𝗰𝗼
+𝗔𝗣𝗣𝗔!</strong> 🚀</p>
+<p>No meu último post, compartilhei o vídeo sobre a empolgante jornada
+de <strong>construir meu próprio teclado mecânico</strong>.</p>
+<p>Hoje, quero mergulhar mais fundo e compartilhar com vocês todos os
+detalhes incríveis que envolveram a criação do Teclado APPA!</p>
+<figure>
+<img
+src="https://github.com/Calebe94/appa-firmware/raw/main/res/appa.jpeg"
+alt="Teclado APPA" />
+<figcaption aria-hidden="true">Teclado APPA</figcaption>
+</figure>
+<p>🔧 <strong>Destaques:</strong></p>
+<ul>
+<li><p>Projeto exclusivo com uma estrutura de acrílico e peças cortadas
+a laser.</p></li>
+<li><p>PCB desenvolvida usando o KiCAD, e confeccionado pela
+JLCPCB.</p></li>
+<li><p>LEDs WS2812B iluminação RGB.</p></li>
+<li><p>Firmware desenvolvido usando <a
+href="https://qmk.fm/">qmk_firmware</a>.</p></li>
+</ul>
+<p>Esse projeto acendeu minha paixão por eletrônica e criação tangível.
+Se você tem curiosidade sobre a construção do seu próprio teclado
+mecânico, minha jornada pode te inspirar. Conecte-se comigo para mais
+informações!</p>
+<p>🔗 <strong>Links:</strong></p>
+<ul>
+<li><p>Link para o post completo: <a
+href="https://blog.calebe.dev.br/posts/teclado-appa.html">Teclado
+APPA</a></p></li>
+<li><p>Repositório do firmware: <a
+href="https://github.com/Calebe94/appa-firmware">appa-firmware</a></p></li>
+<li><p>Repositório do pcb: <a
+href="https://github.com/Calebe94/appa-pcb">appa-pcb</a></p></li>
+<li><p>Repositório da case: <a
+href="https://github.com/Calebe94/appa-case">appa-case</a></p></li>
+</ul>
             ]]></content>
         </entry>
     
@@ -186,6 +630,96 @@ href="https://git.calebe.dev.br">git.calebe.dev.br</a>.</p>
     
 
         <entry>
+            <title>Ferramentas Essenciais para o Desenvolvimento do seu TCC</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/tcc-tools.html" />
+            <id>https://blog.calebe.dev.br/posts/tcc-tools.html</id>
+            <updated>2023-09-05T13:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1
+id="ferramentas-essenciais-para-o-desenvolvimento-do-seu-tcc">Ferramentas
+Essenciais para o Desenvolvimento do seu TCC 🛠️📚</h1>
+<p>A jornada de criar o seu Trabalho de Conclusão de Curso (TCC) pode
+ser desafiadora, mas com as ferramentas certas, você pode tornar esse
+processo mais suave e produtivo. Aqui está uma lista de ferramentas
+essenciais que vão desde a pesquisa até a formatação final, com um toque
+de emojis para animar sua jornada acadêmica! 🚀🎓</p>
+<p><strong>1. <a href="https://www.zotero.org/">Zotero</a> ou <a
+href="https://www.mendeley.com/">Mendeley</a> (Gerenciamento de
+Referências) 📑🧐:</strong> Essas ferramentas ajudam a organizar e
+gerenciar suas referências bibliográficas, facilitando a citação e a
+criação da lista de referências de acordo com as normas da ABNT.</p>
+<p><strong>2. <a href="https://scholar.google.com.br/">Google
+Scholar</a> 📖🔍:</strong> Uma excelente fonte de pesquisa acadêmica que
+permite encontrar artigos, livros e citações relacionados ao seu tópico
+de pesquisa.</p>
+<p><strong>3. <a href="https://www.latex-project.org/">LaTeX</a> (Editor
+de Texto) 📝🔢:</strong> Uma ferramenta poderosa para escrever
+documentos acadêmicos com formatação profissional. Existem modelos
+específicos para as normas da ABNT disponíveis.</p>
+<p><strong>4. <a href="https://www.overleaf.com/">Overleaf</a> (Editor
+Online de LaTeX) 💻📤:</strong> Se você preferir uma solução online para
+escrever em LaTeX, o Overleaf é uma excelente opção. Ele oferece modelos
+de documentos prontos para a ABNT.</p>
+<p><strong>5. <a
+href="https://www.microsoft.com/pt-br/microsoft-365/get-started-with-office-2019">Microsoft
+Word</a> (Processador de Texto) 📄✍️:</strong> O Word tem recursos para
+criar documentos formatados de acordo com as normas da ABNT. Você pode
+usar complementos como o “Citavi Picker” para gerenciar referências.</p>
+<p><strong>6. <a href="https://www.grammarly.com/">Grammarly</a>
+📚✨:</strong> Ajuda a aprimorar a gramática, ortografia e estilo do seu
+texto. Pode ser útil para polir seu TCC.</p>
+<p><strong>7. <a href="https://www.scrivener.com/">Scrivener</a>
+(Organização de Texto) 🗂️📑:</strong> Ajuda na organização e
+estruturação do seu TCC, permitindo que você trabalhe em diferentes
+partes do texto separadamente e, em seguida, as compile em um documento
+final.</p>
+<p><strong>8. <a href="https://evernote.com/intl/pt-br/">Evernote</a>
+(Organização de Notas) 🗒️🧠:</strong> Ideal para coletar e organizar
+notas de pesquisa, referências e ideias enquanto você trabalha em seu
+TCC.</p>
+<p><strong>9. <a href="https://docs.google.com/">Google
+Docs</a>(Colaboração) 📚🤝:</strong> Se você precisa colaborar com
+outros estudantes ou orientadores, o Google Docs permite a edição
+simultânea e o compartilhamento de documentos.</p>
+<p><strong>10. <a href="https://www.plagscan.com/">Plagscan</a> ou <a
+href="https://www.copyscape.com/">Copyscape</a> (Verificação de Plágio)
+🕵️‍♂️🔍:</strong> Use essas ferramentas para verificar seu trabalho em
+busca de plágio antes de submetê-lo. É importante garantir que seu TCC
+seja original.</p>
+<p><strong>11. <a href="http://www.hemingwayapp.com/pt/">Hemingway
+Editor</a> (Melhoria de Estilo) 📝🔤:</strong> Ajuda a melhorar a
+clareza e o estilo da escrita, fornecendo sugestões para simplificar
+frases complexas.</p>
+<p><strong>12. <a href="https://calibre-ebook.com/">Calibre</a>
+(Gerenciamento de E-books) 📚📖:</strong> Se você está usando e-books
+como fonte, o Calibre ajuda a organizar e converter seus e-books em
+diferentes formatos.</p>
+<p><strong>13. <a href="https://endnote.com/">EndNote</a> (Gerenciamento
+de Referências) 📊📎:</strong> Uma ferramenta avançada para
+gerenciamento de referências e citações, especialmente útil para
+pesquisadores.</p>
+<p><strong>14. <a href="https://www.canva.com/pt_br/">Canva</a> (Design
+Gráfico) 📊🎨:</strong> Útil para criar gráficos, infográficos ou
+apresentações visuais para complementar seu TCC.</p>
+<p><strong>15. <a href="https://ganttpro.com/pt/">GanttPRO</a>
+(Gerenciamento de Projetos) 🗓️📆:</strong> Se você deseja criar um
+cronograma para o desenvolvimento do seu TCC, o GanttPRO é uma opção
+fácil de usar.</p>
+<p><strong>16. <a href="https://www.perplexity.ai/">Perplexity.ai</a>
+(Assistência na Escrita) 📝✨:</strong> Para uma assistência avançada na
+escrita do seu TCC, o Perplexity.ai é uma ferramenta poderosa que
+oferece suporte na geração de texto, revisão e criação de conteúdo de
+qualidade.</p>
+<p>Essas ferramentas podem facilitar a sua jornada na elaboração do TCC,
+economizando tempo e garantindo a qualidade do seu trabalho. Escolha
+aquelas que melhor atendam às suas necessidades e preferências. Boa
+sorte em sua pesquisa e na elaboração do seu TCC! 🌟🎓</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
             <title>Organização de projeto em C</title>
             <author><name>Edimar Calebe Castanho</name></author>
             <link href="https://blog.calebe.dev.br/posts/organizacao-de-um-projeto-em-c.html" />
@@ -293,6 +827,73 @@ Driven Development</a>.</li>
     
 
         <entry>
+            <title>Desenvolvendo o Clássico Pong em C com a Biblioteca SDL2</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/pong-em-c-sdl2.html" />
+            <id>https://blog.calebe.dev.br/posts/pong-em-c-sdl2.html</id>
+            <updated>2023-08-21T21:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1
+id="desenvolvendo-o-clássico-pong-em-c-com-a-biblioteca-sdl2">Desenvolvendo
+o Clássico Pong em C com a Biblioteca SDL2</h1>
+<p>O mundo dos jogos eletrônicos é repleto de clássicos que marcaram
+gerações. Um desses jogos é o lendário Pong, que definiu o gênero de
+jogos de esporte virtual. Se você é um entusiasta da programação e
+deseja mergulhar na criação de jogos, está no lugar certo! Nesta
+postagem, vamos explorar como desenvolver o icônico jogo Pong em C,
+utilizando a poderosa biblioteca SDL2.</p>
+<center>
+<a href="/pong/"><img src="https://github.com/Calebe94/sdl2-pong/raw/main/.screenshots/start1.png" width="500px"></a>
+<p>
+<h4>
+<a href="/pong/">JOGAR!</a>
+</h4>
+</p>
+</center>
+<h2 id="construindo-a-base">Construindo a Base</h2>
+<p>A base de qualquer jogo é a lógica por trás dele. No repositório <a
+href="https://github.com/Calebe94/sdl2-pong">link para o
+repositório</a>, você encontrará um projeto emocionante onde o clássico
+Pong é recriado usando a linguagem C e a biblioteca SDL2. O Pong envolve
+duas raquetes controladas pelo jogador e uma bola que quica entre elas.
+O código fonte fornecido no repositório oferece uma base sólida para
+começar a construir seu próprio jogo Pong.</p>
+<h2 id="recursos-da-biblioteca-sdl2">Recursos da Biblioteca SDL2</h2>
+<p>A biblioteca Simple DirectMedia Layer (SDL2) é uma ferramenta
+poderosa para criar jogos em 2D. Ela lida com várias tarefas, desde a
+criação de janelas e renderização de gráficos até o gerenciamento de
+eventos de entrada. No projeto Pong, a SDL2 é usada para criar a
+interface do jogo, desenhar os elementos na tela e capturar as entradas
+do jogador.</p>
+<h2 id="desafios-e-aprendizado">Desafios e Aprendizado</h2>
+<p>Desenvolver um jogo Pong em C usando a SDL2 é uma excelente
+oportunidade para aprimorar suas habilidades de programação e aprender
+mais sobre desenvolvimento de jogos. O projeto envolve conceitos como
+detecção de colisões, controle de movimento e interação com o jogador. À
+medida que você explora o código fonte disponibilizado, terá a chance de
+compreender melhor como esses elementos se unem para criar a experiência
+de jogo.</p>
+<h2 id="personalização-e-expansão">Personalização e Expansão</h2>
+<p>Uma das partes mais emocionantes de criar seu próprio jogo é a
+capacidade de personalizá-lo e expandi-lo. Depois de dominar a base do
+Pong apresentada no repositório, você pode começar a experimentar com
+novos recursos, como placares, efeitos sonoros, níveis de dificuldade e
+muito mais. A jornada de desenvolvimento permitirá que você solte sua
+criatividade e torne o jogo verdadeiramente único.</p>
+<h1 id="conclusão">Conclusão</h1>
+<p>Criar um jogo Pong em C usando a biblioteca SDL2 é uma maneira
+emocionante de mergulhar no mundo do desenvolvimento de jogos. Com a
+base fornecida no repositório <a
+href="https://github.com/Calebe94/sdl2-pong">link para o
+repositório</a>, você pode começar a explorar a fundo os aspectos
+fundamentais por trás do Pong e, eventualmente, expandir e personalizar
+o jogo de acordo com sua visão criativa. Portanto, mãos à obra e comece
+sua jornada de criação de jogos!</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
             <title>Servidor de email (self-hosted)</title>
             <author><name>Edimar Calebe Castanho</name></author>
             <link href="https://blog.calebe.dev.br/posts/servidor-de-email-privado.html" />
@@ -395,169 +996,118 @@ documentarei o processo em um novo post.</p>
     
 
         <entry>
-            <title></title>
+            <title>Teclado MOMO</title>
             <author><name>Edimar Calebe Castanho</name></author>
             <link href="https://blog.calebe.dev.br/posts/teclado-momo.html" />
             <id>https://blog.calebe.dev.br/posts/teclado-momo.html</id>
-            <updated>2023-08-20T00:00:00-03:00</updated>
+            <updated>2023-02-23T16:00:00-03:00</updated>
             <content type="html"><![CDATA[
-                <figure>
-<img
-src="https://cdn.shopify.com/s/files/1/1851/5125/products/IMG_8280_860x.JPG?v=1593577482"
-alt="https://keeb.io/products/pro-micro-5v-16mhz-arduino-compatible-atmega32u4" />
-<figcaption
-aria-hidden="true">https://keeb.io/products/pro-micro-5v-16mhz-arduino-compatible-atmega32u4</figcaption>
-</figure>
-<p>Portanto, devo escolher entre:</p>
-<ul>
-<li>Utilizar footprint de teclas soldáveis( remover o hotswap );</li>
-<li>Remover os leds de Backlight;</li>
-</ul>
-<p>Uma outra solução seria adicionar mais espaço na PCB, dessa forma a
-case também ficaria um pouco maior.</p>
-<p>Exemplo:</p>
-<ul>
-<li>Projeto <a
-href="https://github.com/coseyfannitutti/romeo">Romeo</a></li>
-</ul>
+                <h1
+id="construindo-o-teclado-mecânico-momo-uma-jornada-de-personalização">Construindo
+o Teclado Mecânico “Momo”: Uma Jornada de Personalização</h1>
 <figure>
 <img
-src="https://github.com/coseyfannitutti/romeo/raw/master/doc/images/romeo.jpg"
-alt="https://github.com/coseyfannitutti/romeo" />
-<figcaption
-aria-hidden="true">https://github.com/coseyfannitutti/romeo</figcaption>
+src="https://blog.calebe.dev.br/images/teclado-appa/teclado-momo.jpg"
+alt="Teclado Momo" />
+<figcaption aria-hidden="true">Teclado Momo</figcaption>
 </figure>
+<p>Você já parou para pensar no quão importante é o teclado que você usa
+diariamente? Para muitos de nós, o teclado é uma extensão de nossa
+criatividade e produtividade, e cada toque nas teclas pode ser uma
+experiência única. Se você é um entusiasta de tecnologia e está em busca
+de uma jornada de personalização, a construção de um teclado mecânico é
+uma aventura fascinante. Neste post, vamos explorar a jornada de
+construção do teclado mecânico “Momo”, inspirado pela criatividade e
+paixão pela customização.</p>
+<h2 id="a-magia-dos-teclados-mecânicos">A Magia dos Teclados
+Mecânicos</h2>
+<p>Os teclados mecânicos são apreciados por sua durabilidade, sensação
+tátil e personalização. Ao contrário dos teclados de membrana, os
+teclados mecânicos utilizam interruptores individuais para cada tecla,
+proporcionando uma experiência única de digitação. Eles vêm em uma
+variedade de tipos de switches, cada um com sua própria sensação e som
+característicos, permitindo que você escolha o que mais se adapta ao seu
+estilo de digitação.</p>
+<h2 id="começando-com-um-plano">Começando com um Plano</h2>
+<p>Assim como qualquer projeto, a construção de um teclado mecânico
+personalizado começa com um planejamento cuidadoso. O teclado “Momo” foi
+concebido para oferecer uma experiência de digitação suave e
+confortável, combinada com um visual deslumbrante. Aqui estão alguns
+passos essenciais no planejamento:</p>
+<h3 id="escolha-dos-componentes">1. Escolha dos Componentes</h3>
+<p>O primeiro passo é escolher cuidadosamente os componentes que irão
+compor o seu teclado. Para o teclado “Momo”, optamos por:</p>
 <ul>
-<li>Projeto <a href="https://github.com/hsgw/plaid">plaid</a></li>
+<li><strong>Placa de Circuito Impresso (PCB):</strong> O coração do
+teclado, onde os switches serão soldados.</li>
+<li><strong>Switches:</strong> Escolhemos switches Cherry MX Brown para
+uma sensação tátil leve e silenciosa.</li>
+<li><strong>Keycaps:</strong> Keycaps de perfil SA para um toque retrô e
+visual impressionante.</li>
+<li><strong>Caixa do Teclado:</strong> Uma caixa em alumínio anodizado
+com design minimalista.</li>
 </ul>
-<figure>
-<img src="https://github.com/hsgw/plaid/raw/master/doc/img/plaid.jpg"
-alt="https://github.com/hsgw/plaid" />
-<figcaption
-aria-hidden="true">https://github.com/hsgw/plaid</figcaption>
-</figure>
-<figure>
-<img
-src="https://preview.redd.it/b90lwq8a0h241.jpg?width=960&amp;crop=smart&amp;auto=webp&amp;v=enabled&amp;s=d0952572b16cee21f78314b1d438e8fe4ed174ae"
-alt="https://www.reddit.com/r/MechanicalKeyboards/comments/e5m9jd/plaid_gold_in_qlaviers_acrylic_case_album_in/" />
-<figcaption
-aria-hidden="true">https://www.reddit.com/r/MechanicalKeyboards/comments/e5m9jd/plaid_gold_in_qlaviers_acrylic_case_album_in/</figcaption>
-</figure>
-<p>Também é possível adicionar um espaço entre no meio do teclado do
-largura de 1 tecla, separando assim as teclas “G” e “H” do teclado.</p>
-<p>Exemplo:</p>
-<ul>
-<li>Projeto <a
-href="https://github.com/skarrmann/horizon/">horizon</a></li>
-</ul>
-<figure>
-<img
-src="https://github.com/skarrmann/horizon/raw/main/images/horizon-choc-mx-top.jpg"
-alt="https://github.com/skarrmann/horizon/" />
-<figcaption
-aria-hidden="true">https://github.com/skarrmann/horizon/</figcaption>
-</figure>
-<h1 id="componentes">Componentes</h1>
-<ul>
-<li>USB C: “USB_C_Receptacle_G-Switch_GT-USB-7010ASV”
-https://pt.aliexpress.com/item/1005001998218101.html
-https://pt.aliexpress.com/item/1005002795893679.html
-https://pt.aliexpress.com/item/1005005244121781.html
-https://pt.aliexpress.com/item/1005005244013785.html</li>
-</ul>
-<h1 id="libraries">Libraries</h1>
-<p>https://github.com/perigoso/keyswitch-kicad-library
-https://github.com/ai03-2725/MX_V2 *
-https://wiki.ai03.com/books/pcb-design/page/list-of-kicad-keyboard-parts-libraries
-* https://github.com/ebastler/marbastlib - LED SMD para backlight</p>
-<h1 id="backlight">Backlight</h1>
-<p>https://qmk.github.io/qmk_mkdocs/master/en/feature_backlight/
-https://www.flexfireleds.com/comparison-between-3528-leds-and-5050-leds/</p>
-<h2 id="mosfet">MOSFET</h2>
-<p>100 and 100k resistor</p>
-<ul>
-<li>A04406A</li>
-<li>AO3416</li>
-<li>FDS6630A</li>
-<li>DMN3018SSS-13 SOIC FET</li>
-</ul>
-<h1 id="keyboards">Keyboards</h1>
-<p>https://github.com/ai03-2725/Contra</p>
-<h1 id="links">Links</h1>
-<ul>
-<li>https://keeb.io/collections/frontpage/products/dsp40-40-staggered-or-ortholinear-keyboard</li>
-<li>https://www.qlavier.com/</li>
-</ul>
-<h1 id="alps-to-mx">Alps to MX</h1>
-<ul>
-<li>https://www.thingiverse.com/thing:5625421</li>
-<li>https://www.thingiverse.com/thing:2073899 - Pedi a fabricação de 48
-peças na fabrica3d.co no dia 16/03/23</li>
-<li>https://github.com/dotdash32/Cases/tree/master/Keycap%20Designs/Key%20Switches
-- Pedi a fabricação de 12 peças na fabrica3d.co no dia 16/03/23</li>
-</ul>
-<h2 id="links-úteis">Links úteis</h2>
-<ul>
-<li><a href="https://keebfolio.netlify.app/en/ortholinear/">Ortholinear
-Keyboards - Keebfolio</a></li>
-<li><a
-href="https://www.reddit.com/r/MechanicalKeyboards/comments/5ct3yu/alps_to_mx_stem_concept/">Reddit
-- ALPS to MX Stem Concept</a></li>
-<li><a
-href="https://www.reddit.com/r/MechanicalKeyboards/comments/6jkyid/review_irocks_k76m_alps_clone_with_mx_stem_first">Reddit
-- [review] iRocks K76M Alps clone with MX stem first
-impressions</a></li>
-<li><a href="https://www.thingiverse.com/thing:1720449">ALPS to Cherry
-MX keyboard stem adapter by option8 - Thingiverse</a></li>
-<li><a
-href="https://www.tech-critter.com/review-i-rocks-k76m-fun/">Review -
-i-Rocks K76M Fun Illuminated Mechanical Keyboard</a></li>
-<li><a href="https://imgur.com/a/H2eiJ">ALPS to MX adapter is working! -
-Album on Imgur</a></li>
-<li><a
-href="https://github.com/dotdash32/Cases/tree/master/Keycap%20Designs/Key%20Switches">Cases/Keycap
-Designs/Key Switches at master · dotdash32/Cases · GitHub</a></li>
-<li><a href="https://geekhack.org/index.php?topic=107270.0">Funny
-Adapters! Alps to Cherry MX adapters 10/04/2020 Update</a></li>
-<li><a href="https://geekhack.org/index.php?topic=69031.0">MX to Alps
-adaptor</a></li>
-<li><a
-href="https://deskthority.net/viewtopic.php?f=7&amp;t=4934&amp;sid=85452e0fe020bded3d9d33c3224e8a0c&amp;start=150">Cherry
-to Alps adapters - Page 6 - deskthority</a></li>
-<li><a
-href="http://primrosebank.net/computers/mtx/projects/djkeyboard/djkeyboard.htm">Memotech
-MTX 512 - Projects : Replacement Keyboard</a></li>
-<li><a href="https://geekhack.org/index.php?topic=49639.0">Ultratec -
-Minicom IV</a></li>
-<li><a
-href="https://github.com/datatravelandexperiments/hw-keyswitch-breakout">GitHub
-- datatravelandexperiments/hw-keyswitch-breakout: Adapters for Cherry MX
-and ALPS SKC keyswitches to 0.1 inch breadboards.</a></li>
-</ul>
-<h3 id="keyboards-open-hardware">Keyboards Open Hardware</h3>
-<ul>
-<li><a href="https://acheronproject.com/">Acheron Docs - Shark
-Keyboard</a></li>
-<li><a href="https://github.com/ChrisChrisLoLo/keezyboost40">GitHub -
-ChrisChrisLoLo/keezyboost40: 4x10 ortholinear with an LCD in the middle.
-Uses the Raspberry Pi Pico, as well as Rust firmware</a></li>
-<li><a href="https://github.com/coarse/st40">GitHub - coarse/st40: Open
-source 40% ortholinear keyboard PCB powered by STM32F072</a></li>
-<li><a href="https://github.com/ChrisChrisLoLo/banime40">GitHub -
-ChrisChrisLoLo/banime40: A 4x10 hotswap ortholinear keyboard that
-supports multiple configurations.</a></li>
-<li><a href="https://github.com/niftypsycho/ortho-40percent">GitHub -
-niftypsycho/ortho-40percent: 40% ortholinear mechanical
-keyboard</a></li>
-<li><a href="https://github.com/ai03-2725/Contra">GitHub -
-ai03-2725/Contra: Contra - Lowest cost ortholinear keyboard kit
-possible</a></li>
-<li><a href="https://github.com/eswai/QOL56">GitHub - eswai/QOL56:
-56-key mechanical keyboard for Oyayubi-shift Japanese input</a></li>
-<li><a href="https://github.com/peej/lumberjack-keyboard">GitHub -
-peej/lumberjack-keyboard: 5x12 ortholinear through-hole component
-keyboard PCB for standard 60% cases</a></li>
-</ul>
+<p>A escolha dos componentes é crucial para a experiência final do
+teclado, e a variedade disponível no mercado permite uma personalização
+quase ilimitada.</p>
+<h3 id="montagem-e-soldagem">2. Montagem e Soldagem</h3>
+<p>A montagem do teclado requer paciência e habilidades básicas de
+soldagem. Você precisará soldar os switches na PCB e montar o teclado
+cuidadosamente, seguindo as instruções do fabricante. Certifique-se de
+estar em um ambiente limpo e organizado para evitar danos durante a
+montagem.</p>
+<h3 id="programação">3. Programação</h3>
+<p>Depois de montar o teclado, é hora de programá-lo de acordo com suas
+preferências. Você pode definir atalhos, macros e até mesmo personalizar
+a iluminação RGB, se o seu teclado tiver essa funcionalidade. A
+programação é uma parte essencial para tornar o teclado “Momo”
+verdadeiramente único para você.</p>
+<h2 id="o-toque-final-personalização">O Toque Final: Personalização</h2>
+<p>A verdadeira beleza de construir seu próprio teclado está na
+personalização. O teclado “Momo” foi projetado para ser um reflexo da
+personalidade do seu criador. Aqui estão algumas maneiras de
+personalizar ainda mais o seu teclado:</p>
+<h3 id="layout-e-mapeamento-de-teclas">1. Layout e Mapeamento de
+Teclas</h3>
+<p>Você pode personalizar o layout do teclado e o mapeamento das teclas
+de acordo com suas necessidades. Por exemplo, se você é um programador,
+pode configurar teclas de atalho específicas para facilitar o seu
+trabalho. Isso torna a digitação mais eficiente e personalizada para
+suas tarefas diárias.</p>
+<h3 id="keycaps-personalizados">2. Keycaps Personalizados</h3>
+<p>Escolha keycaps com designs exclusivos que reflitam seu estilo
+pessoal. Keycaps personalizados podem adicionar um toque de
+personalidade ao seu teclado, transformando-o em uma obra de arte
+funcional.</p>
+<h3 id="iluminação-rgb">3. Iluminação RGB</h3>
+<p>Se o seu teclado tiver iluminação RGB, você pode criar esquemas de
+cores personalizados para combinar com seu ambiente de trabalho ou
+jogos. A iluminação não apenas torna o teclado mais atraente
+visualmente, mas também pode ajudar na usabilidade em ambientes com
+pouca luz.</p>
+<h3 id="case-personalizado">4. Case Personalizado</h3>
+<p>Alguns entusiastas vão além e personalizam até mesmo a caixa do
+teclado, pintando-a ou gravando designs exclusivos. Isso adiciona um
+toque final exclusivo ao seu projeto.</p>
+<h2 id="a-jornada-continua">A Jornada Continua</h2>
+<p>A construção de um teclado mecânico personalizado como o “Momo” é uma
+jornada recompensadora. Você não só obtém um teclado que atende
+perfeitamente às suas necessidades, mas também cria uma peça única de
+hardware que é verdadeiramente sua. À medida que você mergulha mais
+fundo no mundo da customização de teclados, descobrirá uma comunidade
+vibrante de entusiastas que compartilham sua paixão.</p>
+<p>Então, se você está pronto para uma aventura de personalização, siga
+em frente e comece a planejar seu próprio teclado mecânico. O teclado
+“Momo” é apenas o começo de uma jornada incrível que lhe permitirá
+explorar sua criatividade e paixão pela tecnologia.</p>
+<p>Lembre-se de compartilhar sua jornada com outros entusiastas e
+inspirar novas criações. E quem sabe, talvez você crie o próximo teclado
+incrível que todos desejam ter!</p>
+<p>Se você deseja se aprofundar ainda mais nesse tópico, confira o post
+original <a
+href="https://blog.calebe.dev.br/posts/teclado-appa.html">aqui</a>, que
+oferece insights adicionais sobre a construção de teclados mecânicos
+personalizados.</p>
             ]]></content>
         </entry>
     
@@ -860,6 +1410,27 @@ ideias de jogos, ferramentas, tutoriais e vídeos que vamos encontrado. A
 nota pode ser acessada através <a
 href="https://pad.calebe.dev.br/p/jogo">desse link</a>.</li>
 </ul></li>
+</ul>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
+            <title></title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/nova-case-para-teclado.html" />
+            <id>https://blog.calebe.dev.br/posts/nova-case-para-teclado.html</id>
+            <updated>2023-09-15T00:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <ul>
+<li><a href="https://www.40percent.club/2016/07/ivory-jd40.html">40%
+Keyboards: Ivory JD40</a></li>
+<li><a href="https://www.40percent.club/2016/10/kwark-pcb.html">40%
+Keyboards: kwark pcb</a></li>
+<li><a href="https://www.40percent.club/2016/02/rgb-planck.html">40%
+Keyboards: RGB Planck</a></li>
+<li><a href="https://www.40percent.club/2018/06/golbat.html">40%
+Keyboards: Golbat</a></li>
 </ul>
             ]]></content>
         </entry>
@@ -1400,6 +1971,181 @@ desenvolvimento e montagem do meu teclado mecânico.</p>
     
 
         <entry>
+            <title>Criando uma Animação CSS Estilo Terminal</title>
+            <author><name>Edimar Calebe Castanho</name></author>
+            <link href="https://blog.calebe.dev.br/posts/terminal-animation.html" />
+            <id>https://blog.calebe.dev.br/posts/terminal-animation.html</id>
+            <updated>2023-09-15T16:00:00-03:00</updated>
+            <content type="html"><![CDATA[
+                <h1 id="criando-uma-animação-css-estilo-terminal">Criando uma Animação
+CSS Estilo Terminal</h1>
+<p>No mundo do desenvolvimento web, a criatividade não tem limites. Às
+vezes, são os pequenos detalhes que fazem um site se destacar. Neste
+post, vamos levá-lo a uma jornada pelo processo de criação de uma
+animação CSS estilo terminal, completa com um efeito de digitação e um
+cursor piscante. Essa animação chamativa pode ser uma adição única ao
+seu site. Vamos lá!</p>
+<h2 id="planejando-a-animação">Planejando a Animação</h2>
+<p>Antes de começarmos a codificar, é essencial planejar nossa animação.
+Queremos simular a execução dos comandos <code>whoami</code> e
+<code>pwd</code> em um terminal. Aqui está o que precisamos fazer:</p>
+<ol type="1">
+<li>Simular a digitação do comando <code>whoami</code> caractere por
+caractere.</li>
+<li>Exibir o resultado do comando <code>whoami</code>.</li>
+<li>Simular a digitação do comando <code>pwd</code> caractere por
+caractere.</li>
+<li>Exibir o resultado do comando <code>pwd</code>.</li>
+</ol>
+<h2 id="estrutura-html">Estrutura HTML</h2>
+<p>Nossa estrutura HTML será simples. Criaremos um elemento
+<code>div</code> para o prompt do terminal e, dentro dele, usaremos
+elementos <code>span</code> para representar o texto digitado. Aqui está
+um trecho do HTML:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode html"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;nav</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;nav-top&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">&lt;!-- Outros itens de navegação --&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/nav&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--typing&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;cover cover--whoami&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>whoami</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--whoami-return&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;span&gt;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>Calebe94<span class="kw">&lt;/a&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/span&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">&lt;!-- Outro conteúdo --&gt;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;h5&gt;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--pwd&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        $<span class="kw">&lt;span</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--typing&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;cover cover--pwd&quot;</span><span class="kw">&gt;&lt;/div&gt;</span>pwd</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;/span&gt;</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;terminal__prompt--pwd-return&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">&lt;span&gt;</span>/<span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">&quot;/&quot;</span><span class="kw">&gt;</span>home<span class="kw">&lt;/a&gt;</span>/<span class="kw">&lt;/span&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;/h5&gt;</span></span></code></pre></div>
+<h2 id="css-para-a-animação-de-digitação">CSS para a Animação de
+Digitação</h2>
+<p>A magia da nossa animação está nos keyframes do CSS. Definimos dois
+keyframes: um para digitar o texto caractere por caractere e outro para
+fazer o cursor piscar. Aqui está o código CSS:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Animação de digitação para whoami */</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">@keyframes</span> typing-whoami {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0%</span> {</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">width</span>: <span class="dv">100</span><span class="dt">%</span><span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">12%</span> {</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">width</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="dv">15%</span> {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="dv">16%</span> {</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="dv">100%</span> {</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">/* Animação de cursor piscante */</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="im">@keyframes</span> blink {</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0%</span>, <span class="dv">100%</span> {</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="dv">50%</span> {</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">opacity</span>: <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="colocando-tudo-junto">Colocando Tudo Junto</h2>
+<p>Para aplicar a animação de digitação e o cursor piscante aos nossos
+elementos HTML, usamos animações CSS. Anexamos as animações aos
+elementos apropriados. Aqui está como é feito:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode css"><code class="sourceCode css"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de digitação para whoami */</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--typing</span> <span class="fu">.cover--whoami</span> {</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: typing-whoami <span class="dv">10</span><span class="dt">s</span> <span class="fu">steps(</span><span class="dv">6</span><span class="op">,</span> end<span class="fu">)</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de cursor piscante para whoami */</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--whoami-return</span> {</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: show-whoami-return <span class="dv">10</span><span class="dt">s</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de digitação para pwd */</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--typing</span> <span class="fu">.cover--pwd</span> {</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: typing-pwd <span class="dv">10</span><span class="dt">s</span> <span class="fu">steps(</span><span class="dv">3</span><span class="op">,</span> end<span class="fu">)</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">/* Aplicando a animação de exibição do resultado para pwd */</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="fu">.terminal__prompt--pwd-return</span> {</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">animation</span>: show-pwd-return <span class="dv">10</span><span class="dt">s</span> <span class="dv">1</span> <span class="dv">normal</span> <span class="dv">both</span><span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="projetos-semelhantes">Projetos semelhantes</h2>
+<p>Se você ficou interessado na criação de animações de estilo terminal,
+você também pode explorar esses projetos e recursos relacionados:</p>
+<ol type="1">
+<li><p><strong>Typewriting.js</strong> Um exemplo de animação de
+digitação de texto no estilo terminal usando JavaScript. <a
+href="https://www.cssscript.com/terminal-style-text-typing-animation-typewriting-js/">Ver
+projeto</a></p></li>
+<li><p><strong>Retro Terminal Blog Style</strong> Um blog post que
+explora a criação de um estilo retrô de terminal para seu blog. <a
+href="https://archive.casouri.cc/note/2018/retro-terminal-blog-style/">Ver
+post</a></p></li>
+<li><p><strong>Typing Window</strong> Um tutorial sobre como criar uma
+janela de digitação de texto com efeito de terminal. <a
+href="https://gmarini.com/blog/blog/coding/2020-08-10-typing-window/">Ver
+tutorial</a></p></li>
+<li><p><strong>CSS Tricks - Typewriter Effect</strong> Um snippet que
+demonstra como criar um efeito de máquina de escrever usando apenas CSS.
+<a href="https://css-tricks.com/snippets/css/typewriter-effect/">Ver
+exemplo</a></p></li>
+<li><p><strong>Terminal Animation for Your Website using
+Typed.js</strong> Um guia sobre como adicionar animações de terminal ao
+seu site usando Typed.js. <a
+href="https://dev.to/shahstavan/terminal-animation-for-your-website-using-typed-js-2hcl">Ver
+guia</a></p></li>
+<li><p><strong>Typed.js</strong> Uma biblioteca JavaScript popular para
+criar animações de digitação de texto em seu site. <a
+href="https://github.com/mattboldt/typed.js">Ver projeto</a></p></li>
+<li><p><strong>Terminal Animation (CodePen)</strong> Um exemplo de
+animação de terminal em um ambiente interativo do CodePen. <a
+href="https://codepen.io/glitchedneon/pen/LYpvdqy">Ver
+exemplo</a></p></li>
+<li><p><strong>Termynal</strong> Uma biblioteca JavaScript para criar
+animações de terminal em seu site com facilidade. <a
+href="https://github.com/ines/termynal">Ver projeto</a></p></li>
+</ol>
+<p>Explorar esses recursos adicionais pode fornecer mais insights e
+opções para adicionar animações de terminal ao seu projeto ou inspirar
+novas ideias criativas.</p>
+<h2 id="conclusão">Conclusão</h2>
+<p>Nesta jornada de criação de uma animação CSS estilo terminal,
+exploramos o poder dos keyframes e das animações CSS. Ao planejar
+meticulosamente e aplicar nossas animações aos elementos certos,
+conseguimos simular com sucesso a execução dos comandos
+<code>whoami</code> e <code>pwd</code> em um terminal.</p>
+<p>Lembre-se de que o desenvolvimento web é tudo sobre criatividade, e
+pequenos detalhes como este podem fazer o seu site se destacar.
+Portanto, vá em frente e experimente as animações CSS para adicionar
+aquele toque extra aos seus projetos web. Feliz codificação!</p>
+<hr />
+<p>Sinta-se à vontade para adaptar este post ao seu site, adicionar mais
+detalhes e incluir quaisquer insights adicionais ou desafios que você
+enfrentou durante a criação da sua animação estilo terminal. Boa
+sorte!</p>
+            ]]></content>
+        </entry>
+    
+
+        <entry>
             <title>Como tocar guitarra como johnny Ramone</title>
             <author><name>Edimar Calebe Castanho</name></author>
             <link href="https://blog.calebe.dev.br/posts/how_to_play_like_johnny_ramone.html" />
@@ -1498,50 +2244,6 @@ href="https://github.com/Calebe94/appa-firmware">Appa</a>.</p>
 <center>
 <img src="https://github.com/Calebe94/appa-firmware/raw/main/res/appa.jpeg" width="50%">
 </center>
-<h2>
-Índice
-</h2>
-<div>
-<ul>
-<li>
-<a href="#teclado-appa">Teclado Mecânico DIY</a>
-<ul>
-<li>
-<a href="#motivação">Motivação</a>
-</li>
-<li>
-<a href="#escolha-do-nome-do-projeto">Escolha do nome do projeto</a>
-</li>
-<li>
-<a href="#desenho-da-case">Desenho da Case</a>
-</li>
-<li>
-<a href="#desenvolvimento-da-pcb">Desenvolvimento da PCB</a>
-</li>
-<li>
-<a href="#remoção-das-teclas">Remoção das teclas</a>
-</li>
-<li>
-<a href="#lubrificando-as-teclas">Lubrificando as teclas</a>
-</li>
-<li>
-<a href="#montagem-da-pcb">Montagem da PCB</a>
-</li>
-<li>
-<a href="#bootloader-e-firmware">Bootloader e Firmware</a>
-</li>
-<li>
-<a href="#rgb">RGB</a>
-</li>
-<li>
-<a href="#firmware">Firmware</a>
-</li>
-</ul>
-</li>
-<li>
-<a href="#considerações-finais">Considerações finais</a>
-</li>
-</ul>
 <h2 id="motivação">Motivação</h2>
 <p>Eu estava precisando de um teclado e meus amigos me recomendaram
 comprar um teclado mecânico.</p>

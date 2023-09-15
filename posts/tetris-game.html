@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/static/css/retro.css">
+<link rel="stylesheet" href="/static/css/carousel.css">
+<link rel="stylesheet" href="/static/css/fontello.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+<!-- HTML Meta Tags -->
+<title>🎮
+Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly 🚀 &mdash; Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly - Calebe94</title>
+<meta name="description" content="Esta é a página pessoal e blog de Calebe94.">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="calebe.dev.br">
+<meta itemprop="description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta itemprop="image" content="https://media.calebe.dev.br/images/calebe94_1200.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://calebe.dev.br/site">
+<meta property="og:type" content="website">
+<meta property="og:title" content="calebe.dev.br">
+<meta property="og:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta property="og:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="calebe.dev.br">
+<meta name="twitter:description" content="Esta é a página pessoal e blog de Calebe94.">
+<meta name="twitter:image" content="https://media.calebe.dev.br/images/calebe94.png">
+
+<!-- Meta Tags Generated via http://heymeta.com -->
+
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Meta Content Security Policy -->
+<!-- <meta http-equiv="Content-Security-Policy"
+     content="default-src 'self';
+     script-src 'self' 'report-sample';
+     style-src 'self' 'report-sample';
+     base-uri 'self';
+     object-src 'none';
+     connect-src 'self';
+     font-src 'self';
+     frame-src 'self';
+     form-action 'self';
+     img-src 'self' data: https:;
+     manifest-src 'self';
+     media-src 'self';
+     worker-src 'none';
+     "> -->
+
+<link rel="icon" type="image/x-icon" href="https://blog.calebe.dev.br/static/favicon.ico">
+<style type="text/css" media="screen">
+@import “/static/css/fontello”;
+</style>
+
+<title>🎮
+Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly 🚀 &mdash; Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly - Calebe94</title>
+</head>
+<body>
+    <button onclick="topFunction()" id="top-button" title="Go to top">Top</button>
+    <header class="site-header">
+
+        <nav class="nav-top">
+            <h3>
+                <div>$
+                    <span class="terminal__prompt--typing">
+                        <div class="cover cover--whoami"></div>whoami
+                    </span>
+                </div>
+                <div class="terminal__prompt--whoami-return">
+                    <span>
+                        <a href="/">Calebe94</a>
+                    </span>
+                </div>
+            </h3>
+            <h5><a href="/posts"a>✉️ Posts </a></h5>
+            <h5><a href="/uses.html">⚒️ Uses </a></h5>
+            <h5><a href="/recommends/">🔖   Favoritos </a></h5>
+            <!-- <h5><a href="/curriculum.html">📋    Currículo </a></h5> -->
+            <h5><a href="//links.calebe.dev.br">🔗 Links </a></h5>
+            <h5><a href="//git.calebe.dev.br">🚧 Projetos </a></h5>
+        </nav>
+    </header>
+    <main>
+    <hr>
+
+    <h5><div class="terminal__prompt--pwd">$<span class="terminal__prompt--typing"><div class="cover cover--pwd"></div> pwd</span></div><div class="terminal__prompt--pwd-return"><span>/<a href="/">home</a>/<a href="/posts">posts</a>/<a href="/posts/tetris-game.html">Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly</a></span></div></h5>
+<h2>Índice</h2>
+<ul>
+<li><a
+href="#desenvolvendo-o-jogo-tetris-em-c-com-sdl2-e-webassembly">🎮
+Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly 🚀</a>
+<ul>
+<li><a href="#configurando-o-ambiente-de-desenvolvimento">Configurando o
+Ambiente de Desenvolvimento</a></li>
+<li><a href="#o-loop-do-jogo">O Loop do Jogo</a></li>
+<li><a href="#construindo-o-tabuleiro-do-jogo">Construindo o Tabuleiro
+do Jogo</a></li>
+<li><a href="#tetrominós-e-detecção-de-colisão">Tetrominós e Detecção de
+Colisão</a></li>
+<li><a href="#eliminando-linhas">Eliminando Linhas</a></li>
+<li><a href="#adicionando-uma-interface-de-usuário">Adicionando uma
+Interface de Usuário</a></li>
+<li><a href="#pontuação-e-avanço-de-nível">Pontuação e Avanço de
+Nível</a></li>
+<li><a href="#leve-o-tetris-para-a-web-com-webassembly">🌐 Leve o Tetris
+para a Web com WebAssembly</a></li>
+<li><a href="#conclusão">Conclusão</a></li>
+</ul></li>
+</ul>
+<!--
+title: "Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly"
+subtitle: ""
+date: "2023-09-10 18:00:00"
+tags: [DIY, PT_BR]
+-->
+<h1 id="desenvolvendo-o-jogo-tetris-em-c-com-sdl2-e-webassembly">🎮
+Desenvolvendo o jogo Tetris em C++ com SDL2 e WebAssembly 🚀</h1>
+<p>No mundo do desenvolvimento de jogos, Tetris é um clássico que
+dispensa apresentações. Sua jogabilidade simples, porém viciante,
+cativou jogadores por décadas. Neste post, levaremos você a uma jornada
+pelo processo de criação de um jogo Tetris em C++ usando a biblioteca
+SDL2 e exploraremos como levar esse jogo para a web usando WebAssembly.
+Vamos abordar os passos e conceitos-chave, desde a configuração do
+ambiente de desenvolvimento até a implementação da mecânica do jogo e
+das interfaces de usuário.</p>
+<center>
+<a href="/tetris/"><img src="https://raw.githubusercontent.com/Calebe94/tetris/main/assets/screenshots/game.png" width="500px"></a>
+<p>
+<h4>
+<a href="/tetris/">🎮 JOGAR! 🎮</a>
+</h4>
+</p>
+</center>
+<h3 id="configurando-o-ambiente-de-desenvolvimento">Configurando o
+Ambiente de Desenvolvimento</h3>
+<p>Antes de mergulhar no desenvolvimento de jogos, você precisa das
+ferramentas e bibliotecas certas. No nosso caso, escolhemos C++ como
+linguagem de programação e SDL2 como biblioteca multimídia para
+gráficos, áudio e entrada.</p>
+<ol type="1">
+<li><p><strong>C++</strong>: Essa linguagem fornece o poder e a
+flexibilidade necessários para o desenvolvimento de jogos. Certifique-se
+de ter um compilador C++ e ferramentas de compilação
+instalados.</p></li>
+<li><p><strong>SDL2</strong>: A Simple DirectMedia Layer é uma escolha
+popular para o desenvolvimento de jogos 2D. Ela abstrai detalhes
+específicos da plataforma, facilitando a criação de jogos
+multiplataforma.</p></li>
+</ol>
+<p>Uma vez que você tenha esses componentes essenciais em mãos, é hora
+de começar a programar.</p>
+<h3 id="o-loop-do-jogo">O Loop do Jogo</h3>
+<p>Todo jogo possui um loop principal responsável por lidar com entrada,
+atualizar o estado do jogo e renderizar gráficos. No nosso jogo Tetris,
+o loop se parece com isso:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(!</span>quit<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    handleInput<span class="op">();</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    updateGame<span class="op">();</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    renderGame<span class="op">();</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<ul>
+<li><p><strong>handleInput()</strong>: Esta função verifica a entrada do
+usuário, como comandos do teclado para mover ou girar
+Tetrominós.</p></li>
+<li><p><strong>updateGame()</strong>: Aqui, atualizamos o estado do
+jogo, incluindo o movimento dos Tetrominós, verificação de colisões e
+eliminação de linhas.</p></li>
+<li><p><strong>renderGame()</strong>: Esta etapa envolve a renderização
+do tabuleiro de jogo, Tetrominós e elementos de interface de usuário na
+tela.</p></li>
+</ul>
+<h3 id="construindo-o-tabuleiro-do-jogo">Construindo o Tabuleiro do
+Jogo</h3>
+<p>No Tetris, o tabuleiro de jogo é uma grade onde Tetrominós caem e
+interagem. Representamos o tabuleiro de jogo como uma matriz 2D de
+células, onde cada célula contém informações sobre o estado daquela
+posição na grade.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>std<span class="op">.::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> gameBoard<span class="op">(</span>rows<span class="op">,</span> <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;(</span>cols<span class="op">,</span> <span class="dv">0</span><span class="op">));</span></span></code></pre></div>
+<p>Usamos números para representar diferentes estados na grade, com
+<code>0</code> indicando uma célula vazia, <code>255</code> para bordas
+e outros valores para diferentes formas de Tetrominós.</p>
+<h3 id="tetrominós-e-detecção-de-colisão">Tetrominós e Detecção de
+Colisão</h3>
+<p>Tetrominós são o coração do jogo. Cada Tetrominó consiste em quatro
+blocos que se movem como uma única unidade. Usamos classes para
+representar Tetrominós, o que nos permite definir suas formas e lidar
+com o movimento.</p>
+<p>A detecção de colisões garante que os Tetrominós não passem pelas
+paredes ou outros blocos. Verificamos se um movimento é válido antes de
+permiti-lo.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>isValidMove<span class="op">(</span>newPosition<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    currentTetromino<span class="op">.</span>move<span class="op">(</span>newPosition<span class="op">);</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Lidar com colisões</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="eliminando-linhas">Eliminando Linhas</h3>
+<p>Quando uma linha é preenchida com Tetrominós, ela é eliminada do
+tabuleiro. A eliminação de linhas requer a verificação de cada linha em
+busca de preenchimento e o deslocamento de blocos para baixo, quando
+necessário.</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> row <span class="op">=</span> boardHeight <span class="op">-</span> <span class="dv">2</span><span class="op">;</span> row <span class="op">&gt;=</span> <span class="dv">1</span><span class="op">;</span> <span class="op">--</span>row<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> rowIsFull <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> col <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> col <span class="op">&lt;</span> boardWidth <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> <span class="op">++</span>col<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>gameBoard<span class="op">[</span>row<span class="op">][</span>col<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>            rowIsFull <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>rowIsFull<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        clearRow<span class="op">(</span>row<span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="adicionando-uma-interface-de-usuário">Adicionando uma Interface
+de Usuário</h3>
+<p>Um jogo sem interface de usuário está incompleto. Adicionamos um
+sistema de menu usando a biblioteca Dear ImGui, permitindo que os
+jogadores iniciem um novo jogo, acessem configurações e saiam do jogo.
+ImGui oferece uma maneira conveniente de criar menus interativos e
+elementos de interface de usuário.</p>
+<h3 id="pontuação-e-avanço-de-nível">Pontuação e Avanço de Nível</h3>
+<p>Para manter os jogadores envolvidos, implementamos pontuação e avanço
+de nível. Os jogadores ganham pontos ao eliminar linhas, e o jogo avança
+de nível a cada 1000 pontos. Isso adiciona um senso de progressão e
+desafio ao jogo.</p>
+<pre><code>
+cpp
+void calculatePoints(int rowsCleared) {
+    score += (rowsCleared * rowsCleared * 100);
+    if (score &gt;= level * 1000) {
+        level++;
+        // Aumentar a velocidade do jogo ou adicionar mais desafios para níveis mais altos
+    }
+}</code></pre>
+<h3 id="leve-o-tetris-para-a-web-com-webassembly">🌐 Leve o Tetris para
+a Web com WebAssembly</h3>
+<p>Agora, a parte emocionante: levar nosso jogo Tetris para a web usando
+WebAssembly. Primeiro, configuramos o ambiente Emscripten no nosso
+Makefile e criamos um arquivo HTML de shell para hospedar o jogo na web.
+Usamos o Emscripten para compilar nosso código C++ em WebAssembly.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode makefile"><code class="sourceCode makefile"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Emscripten configuration</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">EMCC </span><span class="ch">=</span><span class="st"> emcc</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">EMFLAGS </span><span class="ch">=</span><span class="st"> -std=c++11</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="dt">EMINCLUDE_PATH </span><span class="ch">=</span><span class="st"> -Isrc/ -Ilib/seethe/ -Ilib/imgui/ -Ilib/imgui/backends/</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="dt">EMLIBS </span><span class="ch">=</span><span class="st"> -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_MIXER=2 -s USE_SDL_TTF=2 -s ALLOW_MEMORY_GROWTH --preload-file assets/</span></span></code></pre></div>
+<p>Com essas configurações em vigor, podemos usar o Emscripten para
+compilar nosso jogo para WebAssembly.</p>
+<pre class="shell"><code>make web</code></pre>
+<p>Agora, você pode jogar o Tetris tanto no ambiente desktop quanto na
+web. O código-fonte do jogo está disponível em <a
+href="https://github.com/calebe94/tetris">https://github.com/calebe94/tetris</a>,
+e você pode jogar diretamente em <a
+href="https://blog.calebe.dev.br/tetris/">https://blog.calebe.dev.br/tetris/</a>.</p>
+<h3 id="conclusão">Conclusão</h3>
+<p>Criar um jogo Tetris em C++ e SDL2 é uma jornada gratificante que
+abrange vários aspectos do desenvolvimento de jogos, desde o
+gerenciamento da lógica do jogo até a implementação de interfaces de
+usuário. Este post cobriu os componentes essenciais do nosso jogo
+Tetris, mas sempre há espaço para melhorias e recursos adicionais. O
+desenvolvimento de jogos é um processo contínuo de aprendizado, e é
+empolgante ver o jogo evoluir a cada iteração.</p>
+<p>Fique atento para futuras atualizações, à medida que aprimoramos
+nosso jogo Tetris e exploramos ainda mais conceitos de desenvolvimento
+de jogos. Esperamos que esta jornada tenha inspirado você a embarcar na
+sua própria aventura de desenvolvimento de jogos!</p>
+<p>Lembre-se de que você pode experimentar o jogo Tetris tanto no
+ambiente desktop quanto na web, graças ao poderoso WebAssembly. O
+código-fonte completo do jogo está disponível em <a
+href="https://github.com/calebe94/tetris">https://github.com/calebe94/tetris</a>,
+e você pode jogá-lo em <a
+href="https://blog.calebe.dev.br/tetris/">https://blog.calebe.dev.br/tetris/</a>.
+Divirta-se jogando e explorando o mundo do desenvolvimento de jogos!</p>
+<hr>
+<footer>
+<p>
+<center>
+<h3>Contatos</h3>
+<br />
+<a style="text-decoration: none;" href="https://t.me/calebe94"><i class="icon-telegram"></i>Telegram</a>
+<a style="text-decoration: none;" href="mailto:contato@calebe.dev.br"><i class="icon-mail"></i>Email</a>
+<a style="text-decoration: none;" href="https://github.com/Calebe94"><i class="icon-github-circled"></i>Github</a>
+<a style="text-decoration: none;" href="https://gitlab.com/Calebe94"><i class="icon-gitlab"></i>Gitlab</a>
+<a style="text-decoration: none;" href="https://instagram.com/ocalebe94"><i class="icon-instagram"></i>Instagram</a>
+</center>
+</p>
+</footer>
+</main>
+<script>
+// Get the button
+let mybutton = document.getElementById("top-button");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+</body>
+</html>
