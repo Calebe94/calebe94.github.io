@@ -22,40 +22,70 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 
 <PageLayout meta={{ title: "Home" }}>
 	<section>
-		<h1 class="title mb-6">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
-		</p>
-		<SocialList />
+<center>
+<h2 id="olá">👋 Olá</h2>
+<h3 id="bem-vindoa-ao-meu-blog">Bem-vindo(a) ao meu blog!</h3>
+<img src="https://github.com/Calebe94.png" width="200px" height="200px" title="Eu em low poly mode!" alt="Eu em low poly mode!" class="round-image">
+</center>
+<p>Meu nome é <strong>Edimar Calebe Castanho</strong>, sou formado em
+Engenharia da Computação e sou um desenvolvedor de software. Tenho
+experiência em sistemas embarcados e programação de baixo nível. Sou
+apaixonado por explorar novas tecnologias e compartilhar meu
+conhecimento com outras pessoas.</p>
+<center>
+<div class="retro-no-decoration">
+<p>📋 Currículo: <a
+href="https://github.com/Calebe94/resume/releases/latest/download/curriculum.pdf">🇺🇸
+inglês</a> - <a
+href="https://github.com/Calebe94/resume/releases/latest/download/curriculum-pt.pdf">🇧🇷
+português</a></p>
+</div>
+</center>
+<p>Neste blog, você encontrará uma variedade de tópicos relacionados ao
+mundo da tecnologia, programação e desenvolvimento de software. Aqui,
+estou empenhado em fornecer conteúdo útil, tutoriais, dicas e truques,
+além de compartilhar minhas experiências e projetos pessoais.</p>
+<p>Durante minha jornada profissional, trabalhei em projetos de sistemas
+embarcados utilizando linguagens como C e Python, bem como os sistemas
+operacionais Linux e FreeRTOS. Tenho experiência no desenvolvimento de
+aplicativos utilizando Flutter, Flask e tecnologias web como HTML, CSS e
+JavaScript.</p>
+<center>
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=calebe94&theme=dark&hide_progress=true" title="Top Langs" alt="Top Langs">
+</center>
+<br>
+<p>Além disso, sou apaixonado por práticas de DevOps, incluindo
+integração contínua, entrega contínua e automação de processos de
+desenvolvimento de software. Tenho habilidades em ferramentas e
+plataformas como Git, Jira, Github, Gitlab, Docker e SDL2.</p>
+<p>Este blog é meu espaço para compartilhar meu conhecimento, insights e
+opiniões sobre tecnologia e desenvolvimento de software. Meu objetivo é
+ajudar a comunidade de desenvolvedores, estudantes e entusiastas de
+tecnologia a aprender e crescer juntos.</p>
+<p>Fique à vontade para explorar o conteúdo disponível aqui e não hesite
+em entrar em contato comigo caso tenha alguma pergunta, sugestão ou
+apenas queira trocar ideias. Você também pode me encontrar nas redes
+sociais, como <a
+href="https://www.linkedin.com/in/calebe94/">LinkedIn</a> e <a
+href="https://github.com/Calebe94">GitHub</a>, onde compartilho
+atualizações e projetos em que estou trabalhando.</p>
+<p>Obrigado por visitar meu blog e espero que você encontre informações
+valiosas e inspiração aqui!</p>
 	</section>
-	<section aria-label="Blog post list" class="mt-16">
-		<h2 class="title mb-6 text-xl text-accent"><a href="/posts/">Posts</a></h2>
-		<ul class="space-y-4" role="list">
-			{
-				allPostsByDate.map((p) => (
-					<li class="grid gap-2 sm:grid-cols-[auto_1fr]">
-						<PostPreview post={p} />
-					</li>
-				))
-			}
-		</ul>
-	</section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title mb-6 text-xl text-accent">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<ul class="space-y-4" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
+	<!-- { -->
+	<!-- 	latestNotes.length > 0 && ( -->
+	<!-- 		<section class="mt-16"> -->
+	<!-- 			<h2 class="title mb-6 text-xl text-accent"> -->
+	<!-- 				<a href="/notes/">Notes</a> -->
+	<!-- 			</h2> -->
+	<!-- 			<ul class="space-y-4" role="list"> -->
+	<!-- 				{latestNotes.map((note) => ( -->
+	<!-- 					<li> -->
+	<!-- 						<Note note={note} as="h3" isPreview /> -->
+	<!-- 					</li> -->
+	<!-- 				))} -->
+	<!-- 			</ul> -->
+	<!-- 		</section> -->
+	<!-- 	) -->
+	<!-- } -->
 </PageLayout>
