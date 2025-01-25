@@ -34,11 +34,11 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Posts",
 	},
 	{
-		path: "/about/",
+		path: "/uses/",
 		title: "Uses",
 	},
 	{
-		path: "/notes/",
+		path: "//links.calebe.dev.br/@calebe94",
 		title: "Links",
 	},
 ];
