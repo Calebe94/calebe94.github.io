@@ -5,7 +5,6 @@ import { render } from "astro:content";
 
 // Fetch the `uses.md` file from the content collection
 const usesEntry = await getEntry("uses", "uses");
-console.log("usesEntry:", usesEntry); // Add this line to debug
 
 if (!usesEntry) {
   throw new Error("Uses entry not found!");
@@ -14,7 +13,6 @@ if (!usesEntry) {
 const { Content } = await render(usesEntry);
 ---
 
-
 <BlogPost post={usesEntry}>
-	<Content />
+  <Content />
 </BlogPost>
