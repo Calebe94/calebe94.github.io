@@ -47,7 +47,6 @@ export default defineConfig({
 			description: siteConfig.description,
 			lang: siteConfig.lang,
 			icon: "icon.svg", // the source for generating favicon & icons
-      base: "/",
 			icons: [
 				{
 					src: "icons/apple-touch-icon.png", // used in src/components/BaseHead.astro L:26
